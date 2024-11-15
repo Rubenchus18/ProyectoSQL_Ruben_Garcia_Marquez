@@ -1,19 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:background="#E53E50"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="86dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:fontFamily="@font/audiowide"
+            android:gravity="center_horizontal"
+            android:text="Drafter"
+            android:textColor="#F8F6F6"
+            android:textSize="48sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lbusuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/audiowide"
+            android:gravity="center"
+            android:text="Nombre de Usuario"
+            android:textColor="#000000"
+            android:textColorLink="#ED0808"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edittextusuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/lbContraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/audiowide"
+            android:gravity="center"
+            android:text="Contraseña"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editTextTextContraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/buttonInciarSesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#DC0E0E"
+            android:backgroundTint="#E91111"
+            android:backgroundTintMode="add"
+            android:text="Iniciar Sesion"
+            android:textColor="#000000"
+            android:textColorHighlight="#FB1010"
+            android:textColorHint="#FB0000"
+            android:textColorLink="#F40A0A"
+            app:rippleColor="#EF0000"
+            app:strokeColor="#E60505" />
+
+        <Button
+            android:id="@+id/buttonRegistarse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#DC0101"
+            android:text="Registrarse"
+            android:textColor="#000000"
+            android:textColorLink="#000000" />
+
+    </LinearLayout>
+
+</LinearLayout>
