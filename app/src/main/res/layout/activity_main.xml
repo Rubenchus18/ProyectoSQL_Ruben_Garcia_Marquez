@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#953030"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -82,10 +83,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#DC0E0E"
-            android:backgroundTint="#E91111"
+            android:backgroundTint="#E43E50"
             android:backgroundTintMode="add"
+            android:fontFamily="@font/audiowide"
             android:text="Iniciar Sesion"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textColorHighlight="#FB1010"
             android:textColorHint="#FB0000"
             android:textColorLink="#F40A0A"
@@ -96,10 +98,22 @@
             android:id="@+id/buttonRegistarse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
             android:background="#DC0101"
+            android:backgroundTint="#E43E50"
+            android:fontFamily="@font/audiowide"
             android:text="Registrarse"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textColorLink="#000000" />
+
+        <TextView
+            android:id="@+id/textViewError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/audiowide"
+            android:gravity="center_horizontal"
+            android:textColor="#000000"
+            android:textSize="34sp" />
 
     </LinearLayout>
 
