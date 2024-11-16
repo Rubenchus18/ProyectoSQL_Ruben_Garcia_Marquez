@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            android:background="#DC0101"
+            android:background="#E43E50"
             android:backgroundTint="#E43E50"
             android:fontFamily="@font/audiowide"
             android:text="Registrarse"
@@ -107,7 +107,7 @@
             android:textColorLink="#000000" />
 
         <TextView
-            android:id="@+id/textViewError"
+            android:id="@+id/lbError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/audiowide"
