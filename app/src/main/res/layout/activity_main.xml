@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="95dp"
-        android:background="#E53E50"
+        android:background="#E53D50"
         android:foregroundGravity="center"
         android:gravity="center"
         android:orientation="horizontal">
@@ -82,17 +82,17 @@
             android:id="@+id/buttonInciarSesion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#DC0E0E"
-            android:backgroundTint="#E43E50"
+            android:background="#FF3D00"
+            android:backgroundTint="#FFFEFE"
             android:backgroundTintMode="add"
             android:fontFamily="@font/audiowide"
             android:text="Iniciar Sesion"
             android:textColor="#FFFFFF"
-            android:textColorHighlight="#FB1010"
-            android:textColorHint="#FB0000"
-            android:textColorLink="#F40A0A"
-            app:rippleColor="#EF0000"
-            app:strokeColor="#E60505" />
+            android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:textColorLink="#FFFFFF"
+            app:rippleColor="#FFFFFF"
+            app:strokeColor="#FFFFFF" />
 
         <Button
             android:id="@+id/buttonRegistarse"
@@ -105,15 +105,6 @@
             android:text="Registrarse"
             android:textColor="#FFFFFF"
             android:textColorLink="#000000" />
-
-        <TextView
-            android:id="@+id/lbError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/audiowide"
-            android:gravity="center_horizontal"
-            android:textColor="#000000"
-            android:textSize="34sp" />
 
     </LinearLayout>
 
