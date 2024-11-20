@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     tools:context=".SobreNosotros">
 
@@ -32,6 +33,17 @@
             android:textColor="#FAFAFA"
             android:textColorLink="#FFFFFF"
             android:textSize="48sp" />
+
+        <Button
+            android:id="@+id/botonvueltainformarcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:backgroundTint="#E4404E"
+            android:fontFamily="@font/audiowide"
+            android:text="Atras"
+            android:textColor="#EFEFEF" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,6 +67,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/audiowide"
             android:text="En Drafter, nuestra misión es llevar la emoción de las carreras al siguiente nivel. Somos una empresa apasionada por la tecnología y los deportes de motor, especializada en el desarrollo de simuladores de carrera de última generación. Nuestro objetivo es ofrecer una experiencia de conducción realista, inmersiva y accesible tanto para aficionados como para profesionales del automovilismo."
+            android:textColor="#090909"
             android:textSize="26sp" />
     </LinearLayout>
 </LinearLayout>

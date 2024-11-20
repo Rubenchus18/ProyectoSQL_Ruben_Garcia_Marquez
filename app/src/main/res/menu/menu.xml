@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/carrera"
-        android:icon="@drawable/banderacuadros"
+        android:icon="@drawable/banderadecuadros"
         app:showAsAction="always" />
     <item
         android:id="@+id/SobreNosotros"

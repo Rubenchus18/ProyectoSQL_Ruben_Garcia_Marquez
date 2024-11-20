@@ -10,15 +10,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProyectoAndroid_Luis_Ruben"
         tools:targetApi="31">
         <activity
+            android:theme="@style/Theme.Design.Light.NoActionBar"
             android:name=".SobreNosotros"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.ProyectoAndroid_Luis_Ruben"
             android:name=".Informacion"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.Design.Light.NoActionBar"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

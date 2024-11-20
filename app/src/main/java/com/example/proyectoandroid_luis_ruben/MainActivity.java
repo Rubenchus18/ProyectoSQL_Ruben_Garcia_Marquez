@@ -2,6 +2,8 @@ package com.example.proyectoandroid_luis_ruben;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -106,5 +108,4 @@ public class MainActivity extends AppCompatActivity {
         Intent siguienteActividad=new Intent(this, Informacion.class);
         startActivity(siguienteActividad);
     }//siguiente actividad
-
 }//MainActivity
