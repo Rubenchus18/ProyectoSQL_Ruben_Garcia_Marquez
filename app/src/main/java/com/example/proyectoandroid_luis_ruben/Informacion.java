@@ -35,7 +35,9 @@ public class Informacion extends AppCompatActivity {
         }else if(item.getItemId()==R.id.SobreNosotros){
             Intent j=new Intent(this,SobreNosotros.class);
             startActivity(j);
-        }
+        }else if(item.getItemId()==R.id.datosSesion){
+            //DATOS SESION
+        }//else if
         return false;
     }
 

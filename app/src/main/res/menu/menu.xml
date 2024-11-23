@@ -14,4 +14,8 @@
         android:id="@+id/Desconectarse"
         android:title="Desconectarse"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/datosSesion"
+        android:title="Datos de sesión" />
+
 </menu>
