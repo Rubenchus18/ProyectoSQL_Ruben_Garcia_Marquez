@@ -5,17 +5,19 @@
     <item
         android:id="@+id/carrera"
         android:icon="@drawable/banderadecuadros"
+        android:title="TODO"
         app:showAsAction="always" />
     <item
-        android:id="@+id/SobreNosotros"
+        android:id="@+id/SobreNosotros1"
         android:icon="@drawable/i"
+        android:title="TODO"
         app:showAsAction="always" />
     <item
         android:id="@+id/Desconectarse"
         android:title="Desconectarse"
         app:showAsAction="never" />
     <item
-        android:id="@+id/datosSesion"
-        android:title="Datos de sesión" />
+        android:id="@+id/Usuario"
+        android:title="Usuario" />
 
 </menu>

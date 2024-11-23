@@ -107,7 +107,9 @@ public class MainActivity extends AppCompatActivity {
     }//obtener valores
 
     public void siguienteActividad(View view){
-        Intent siguienteActividad=new Intent(this, Informacion.class);
+        Intent siguienteActividad = new Intent(this, Informacion.class);
+        siguienteActividad.putExtra("usuario", nombre);  // Pasar el nombre de usuario
+        siguienteActividad.putExtra("contraseña", contraseña); // Pasar la contraseña
         startActivity(siguienteActividad);
     }//siguiente actividad
 }//MainActivity
