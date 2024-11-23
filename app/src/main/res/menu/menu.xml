@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/carrera"
+        android:icon="@drawable/banderadecuadros"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/SobreNosotros"
+        android:icon="@drawable/i"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/Desconectarse"
+        android:title="Desconectarse"
+        app:showAsAction="never" />
+</menu>
