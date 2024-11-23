@@ -31,7 +31,7 @@ public class SobreNosotros extends AppCompatActivity implements View.OnClickList
         //LLAMADAS
         texto1=findViewById(R.id.textoNosotros);
         texto2=findViewById(R.id.textoNosotros2);
-        //INSERTAR TEXTO
+        //INSERTAR TEXTOO
         insertarTexto();
         imagenRetroceder=findViewById(R.id.retroceder);
         //CLICK LISTENER RETROCESO PAGINA ANTERIOR
