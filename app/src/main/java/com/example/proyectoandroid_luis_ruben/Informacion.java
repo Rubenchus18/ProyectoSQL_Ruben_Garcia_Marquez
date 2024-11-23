@@ -19,8 +19,6 @@ public class Informacion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,7 +34,8 @@ public class Informacion extends AppCompatActivity {
             Intent j=new Intent(this,SobreNosotros.class);
             startActivity(j);
         }else if(item.getItemId()==R.id.datosSesion){
-            //DATOS SESION
+            Intent d=new Intent(this,DatosUsuario.class);
+            startActivity(d);
         }//else if
         return false;
     }
