@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     //VARIABLES
-    EditText nombreUsuario, contraseñaUsuario;
+    EditText nombreUsuario, contrasenaUsuario;
     Button inicioSesion, registro;
     String nombre, contraseña;
     //ARRAYLIST USUARIOS
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         listaUsuarios.add(usuario3);
         //ATRIBUTOS
         nombreUsuario=findViewById(R.id.edittextusuario);
-        contraseñaUsuario=findViewById(R.id.editTextTextContraseña);
+        contrasenaUsuario=findViewById(R.id.editTextTextContraseña);
         inicioSesion=findViewById(R.id.buttonInciarSesion);
         registro=findViewById(R.id.buttonRegistarse);
         //CLICK LISTENERS DE LOS BOTONES
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                obtenerValores();
             }//onClickInicioSesion
         });;;
 
@@ -71,10 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
         if(nombre.isEmpty() || contraseña.isEmpty()){
             if(nombre.isEmpty()){
-                Toast.makeText(getApplicationContext(), "RELLENE EL CAMPO USUARIO", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "CAMPO DE USUARIO OBLIGATORIO", Toast.LENGTH_LONG).show();
             }else if(contraseña.isEmpty()){
-                Toast.makeText(getApplicationContext(), "RELLENE EL CAMPO CONTRASEÑA", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "CAMPO DE CONTRASEÑA OBLIGATORIO", Toast.LENGTH_LONG).show();
             }//else if
+        }else if(nombre.isEmpty() && contraseña.isEmpty()){
+            Toast.makeText(getApplicationContext(), "INTRODUZCA UN INICIO DE SESION", Toast.LENGTH_LONG).show();
         }else{
             registrarUsuario(view);
         }//else
@@ -82,16 +84,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void registrarUsuario(View view){
 
-        for(int i=0; i<listaUsuarios.size(); i++){
-            if(!listaUsuarios.get(i).getNombre().equals(nombre) || !listaUsuarios.get(i).getContraseña().equals(contraseña)){
-                if(listaUsuarios.get(i).getNombre().equals(nombre)){
+        for(int i=0; i<listaUsuarios.size(); i++) {
+            if (!listaUsuarios.get(i).getNombre().equals(nombre) || !listaUsuarios.get(i).getContraseña().equals(contraseña)) {
+                if (listaUsuarios.get(i).getNombre().equals(nombre)) {
                     Toast.makeText(getApplicationContext(), "NOMBRE DE USUARIO INCORRECTO", Toast.LENGTH_LONG).show();
-                }else if(listaUsuarios.get(i).getContraseña().equals(contraseña)) {
+                } else if (listaUsuarios.get(i).getContraseña().equals(contraseña)) {
                     Toast.makeText(getApplicationContext(), "CONTRASEÑA INCORRECTA", Toast.LENGTH_LONG).show();
-                }else if(!listaUsuarios.get(i).getNombre().equals(nombre) && !listaUsuarios.get(i).getContraseña().equals(contraseña)){
-                    Toast.makeText(getApplicationContext(), "INICIO DE SESION INCORRECTA", Toast.LENGTH_LONG).show();
+                } else if (!listaUsuarios.get(i).getNombre().equals(nombre) && !listaUsuarios.get(i).getContraseña().equals(contraseña)) {
+                    Toast.makeText(getApplicationContext(), "INICIO DE SESION INCORRECTO", Toast.LENGTH_LONG).show();
                 }//else if
-            }else{
+            }else {
                 siguienteActividad(view);
             }//else
         }//for
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void obtenerValores(){
         nombre=nombreUsuario.getText().toString().trim();
-        contraseña=contraseñaUsuario.getText().toString().trim();
+        contraseña=contrasenaUsuario.getText().toString().trim();
         //Sin este metodo la app da error, puesto que al intetar recuperar los valores antes de los metodos on click por ende antes de inicializarlos puede provocar nulos
     }//obtener valores
 

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -14,7 +16,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class SobreNosotros extends AppCompatActivity implements View.OnClickListener {
-    Button btnsiguieten;
+    ImageView imagenRetroceder;
+    TextView texto1, texto2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,15 +28,27 @@ public class SobreNosotros extends AppCompatActivity implements View.OnClickList
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        btnsiguieten=findViewById(R.id.botonvueltainformarcion);
-        btnsiguieten.setOnClickListener(this);
+        //LLAMADAS
+        texto1=findViewById(R.id.textoNosotros);
+        texto2=findViewById(R.id.textoNosotros2);
+        //INSERTAR TEXTOO
+        insertarTexto();
+        imagenRetroceder=findViewById(R.id.retroceder);
+        //CLICK LISTENER RETROCESO PAGINA ANTERIOR
+        imagenRetroceder.setOnClickListener(this);
 
 
     }
+
 
     @Override
     public void onClick(View view) {
         Intent i=new Intent(this,Informacion.class);
         startActivity(i);
     }
-}
+    public void insertarTexto(){
+        texto1.setText("En Drafter nuestra misión es llevar la emocion de las carreras al siguiente nivel. Somos una empresa apasaionada por la tecnologia y los deportes de motor, especializada en el desarrollo de simuladores de carreras");
+        texto2.setText("Nuestro objetivo es ofrecer una experiencia de conduccion realiasta y accesible tanto para aficionados como para profesionales del automovilismo");
+    }//insertarTexto
+
+}//SobreNosotros
