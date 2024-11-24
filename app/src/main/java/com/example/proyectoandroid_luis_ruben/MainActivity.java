@@ -1,6 +1,8 @@
 package com.example.proyectoandroid_luis_ruben;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -110,6 +112,14 @@ public class MainActivity extends AppCompatActivity {
         Intent siguienteActividad = new Intent(this, Informacion.class);
         siguienteActividad.putExtra("usuario", nombre);  // Pasar el nombre de usuario
         siguienteActividad.putExtra("contraseña", contraseña); // Pasar la contraseña
+        guardarDatosUsuario(nombre, contraseña);
         startActivity(siguienteActividad);
     }//siguiente actividad
+    public void guardarDatosUsuario(String usuario, String contraseña) {
+        SharedPreferences sharedPreferences = getSharedPreferences("DatosUsuario", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("usuario", usuario);
+        editor.putString("contraseña", contraseña);
+        editor.apply();
+    }
 }//MainActivity
