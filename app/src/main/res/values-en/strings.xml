@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Drafter</string>
+    <string name="Usuario">User </string>
+    <string name="Contraseña">Password</string>
+    <string name="InicioSesion">Login</string>
+    <string name="Registrarse">Register</string>
+    <string name="AceptarPoliticas">Accept the user policies</string>
+    <string name="SobreNosotros">About us </string>
+    <string name="PrimerParrafoSobreNosotros">At Drafter our mission is to take the excitement of racing to the next level. We are a company passionate about technology and motor sports, specialized in the development of racing simulators.</string>
+    <string name="SegundoParrafoSobreNosotros">Our goal is to offer a realistic and accessible driving experience for both motorsports enthusiasts and professionals. </string>
+    <string name="PoliticayAcuerdo" >USER POLICY AND AGREEMENTS </string>
+    <string name="Bienvenido">Welcome </string>
+    <string name="TextoDatosUsuario">In this section you can see your session data whenever you want:</string>
+</resources>

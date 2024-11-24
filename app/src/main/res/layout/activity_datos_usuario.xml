@@ -81,7 +81,7 @@
             android:layout_marginBottom="80dp"
             android:fontFamily="sans-serif"
             android:gravity="center|left"
-            android:text="TextView"
+            android:text="@string/TextoDatosUsuario"
             android:textColor="#1B1A1A"
             android:textSize="20sp"
             android:textStyle="normal" />
@@ -105,7 +105,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="50"
                 android:gravity="center|top"
-                android:text="Usuario"
+                android:text="@string/Usuario"
                 android:textColor="#070707"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -132,7 +132,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="50"
                 android:gravity="center|top"
-                android:text="Contraseña"
+                android:text="@string/Contraseña"
                 android:textColor="#040303"
                 android:textSize="24sp"
                 android:textStyle="bold" />

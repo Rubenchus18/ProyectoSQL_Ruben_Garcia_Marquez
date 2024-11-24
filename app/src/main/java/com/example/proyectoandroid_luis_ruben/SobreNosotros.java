@@ -32,7 +32,7 @@ public class SobreNosotros extends AppCompatActivity implements View.OnClickList
         texto1=findViewById(R.id.textoNosotros);
         texto2=findViewById(R.id.textoNosotros2);
         //INSERTAR TEXTOO
-        insertarTexto();
+
         imagenRetroceder=findViewById(R.id.retroceder);
         //CLICK LISTENER RETROCESO PAGINA ANTERIOR
         imagenRetroceder.setOnClickListener(this);
@@ -46,9 +46,4 @@ public class SobreNosotros extends AppCompatActivity implements View.OnClickList
         Intent i=new Intent(this,Informacion.class);
         startActivity(i);
     }
-    public void insertarTexto(){
-        texto1.setText("En Drafter nuestra misión es llevar la emocion de las carreras al siguiente nivel. Somos una empresa apasaionada por la tecnologia y los deportes de motor, especializada en el desarrollo de simuladores de carreras");
-        texto2.setText("Nuestro objetivo es ofrecer una experiencia de conduccion realiasta y accesible tanto para aficionados como para profesionales del automovilismo");
-    }//insertarTexto
-
 }//SobreNosotros

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Usuario" />
+    <string name="Contraseña" />
+    <string name="Registrarse" />
+    <string name="AceptarPoliticas" />
+    <string name="SobreNosotros" />
+    <string name="SegundoParrafoSobreNosotros" />
+    <string name="Bienvenido" />
+    <string name="TextoDatosUsuario" />
+</resources>

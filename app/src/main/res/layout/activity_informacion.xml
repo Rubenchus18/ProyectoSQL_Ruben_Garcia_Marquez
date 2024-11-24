@@ -28,7 +28,7 @@
             android:layout_weight="2"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:text="Bienvenido"
+            android:text="@string/Bienvenido"
             android:textSize="34sp"
             android:textStyle="bold|italic" />
 

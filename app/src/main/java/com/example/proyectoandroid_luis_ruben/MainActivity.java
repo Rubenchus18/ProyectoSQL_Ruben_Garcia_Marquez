@@ -1,6 +1,8 @@
 package com.example.proyectoandroid_luis_ruben;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 obtenerValores();
+                crearUsuario(view);
             }//onClickInicioSesion
+
         });;;
 
     }//onCreate
@@ -81,7 +85,40 @@ public class MainActivity extends AppCompatActivity {
             registrarUsuario(view);
         }//else
     }//comprobarNulos
+    public void crearUsuario(View view){
+        Usuario usuario=new Usuario();
+        boolean existe=false;
 
+        if(nombre.isEmpty() || contraseña.isEmpty()){
+            if(nombre.isEmpty()){
+                Toast.makeText(getApplicationContext(), "CAMPO DE USUARIO OBLIGATORIO", Toast.LENGTH_LONG).show();
+            }else if(contraseña.isEmpty()){
+                Toast.makeText(getApplicationContext(), "CAMPO DE CONTRASEÑA OBLIGATORIO", Toast.LENGTH_LONG).show();
+            }//else if
+        }
+        for(int i=0; i<listaUsuarios.size(); i++) {
+            if (nombre.equals(listaUsuarios.get(i).getNombre()) && contraseña.equals(listaUsuarios.get(i).getContraseña())) {
+                existe = true;
+
+            }
+        }
+        if(existe){
+                    Toast.makeText(getApplicationContext(), "Este usuario o contraseña ya existe", Toast.LENGTH_LONG).show();
+        }else if(existe==false){
+                    //CREAMOS EL USUARIO SI PASO TODO EL RECONOMIENTO PREVIO
+                    String nombre=String.valueOf(nombreUsuario.getText());
+                    String contraseña=String.valueOf(contrasenaUsuario.getText());
+                    usuario=new Usuario(nombre, contraseña);
+                    listaUsuarios.add(usuario);
+                    nombreUsuario.setText("");
+                    contrasenaUsuario.setText("");
+                    //SE LO DECIMOS AL USUARIO TAMBIEN
+                    Toast.makeText(getApplicationContext(), "USUARIO CREADO CORRECTAMENTE", Toast.LENGTH_LONG).show();
+                }//else
+
+
+
+    }//crearUsuario
     public void registrarUsuario(View view){
 
         for(int i=0; i<listaUsuarios.size(); i++) {
@@ -110,6 +147,14 @@ public class MainActivity extends AppCompatActivity {
         Intent siguienteActividad = new Intent(this, Informacion.class);
         siguienteActividad.putExtra("usuario", nombre);  // Pasar el nombre de usuario
         siguienteActividad.putExtra("contraseña", contraseña); // Pasar la contraseña
+        guardarDatosUsuario(nombre, contraseña);
         startActivity(siguienteActividad);
     }//siguiente actividad
+    public void guardarDatosUsuario(String usuario, String contraseña) {
+        SharedPreferences sharedPreferences = getSharedPreferences("DatosUsuario", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("usuario", usuario);
+        editor.putString("contraseña", contraseña);
+        editor.apply();
+    }
 }//MainActivity
