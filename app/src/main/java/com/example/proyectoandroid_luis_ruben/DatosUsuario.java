@@ -11,34 +11,45 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class DatosUsuario extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView textViewNombreUsuario;
-    private TextView textViewContraseña;
+    //VARIABLES
+    TextView nombreUsuario, contraseñaUsuario, textoDatos;
     ImageView imagenRetroceder;
+    String usuario, contraseña;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_datos_usuario); // Asegúrate de que este sea tu layout
-
-        textViewNombreUsuario = findViewById(R.id.textViewNombreUsuario);
-        textViewContraseña = findViewById(R.id.textViewContraseña);
-
+        setContentView(R.layout.activity_datos_usuario);
+        //CONEXION IDS
+        textoDatos=findViewById(R.id.textoDatos);
+        nombreUsuario = findViewById(R.id.nombreSesion);
+        contraseñaUsuario = findViewById(R.id.contraseñaSesion);
         // Recibir datos del Intent
-        Intent intent = getIntent();
-        String usuario = intent.getStringExtra("usuario");
-        String contraseña = intent.getStringExtra("contraseña");
-
+        Bundle recibirInformarcion=getIntent().getExtras();
+        usuario = recibirInformarcion.getString("usuario");
+        contraseña = recibirInformarcion.getString("contraseña");
         // Mostrar los datos en los TextView
-        textViewNombreUsuario.setText(usuario);
-        textViewContraseña.setText(contraseña);
+        nombreUsuario.setText(usuario);
+        contraseñaUsuario.setText(contraseña);
         imagenRetroceder=findViewById(R.id.retroceder3);
         //CLICK LISTENER RETROCESO PAGINA ANTERIOR
         imagenRetroceder.setOnClickListener(this);
-    }
+
+        //MOSTRAR TEXTOS ADICIONALES
+        mostrarTexto();
+
+    }//onCreate
 
     @Override
     public void onClick(View view) {
         Intent i=new Intent(this,Informacion.class);
         startActivity(i);
-    }
-}
+    }//onClick
+
+    public void mostrarTexto(){
+        textoDatos.setText("En esta seccion podras ver tu datos de sesion cuando lo desees:");
+    }//mostrarTexto
+
+
+}//DatosUsuario

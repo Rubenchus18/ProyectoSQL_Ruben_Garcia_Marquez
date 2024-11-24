@@ -21,14 +21,10 @@ public class Informacion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_informacion); // Asegúrate de que este sea tu layout
-
         // Recibir datos del Intent
         Intent intent = getIntent();
-         usuario = intent.getStringExtra("usuario");
-         contraseña = intent.getStringExtra("contraseña");
-
-
-
+        usuario = intent.getStringExtra("usuario");
+        contraseña = intent.getStringExtra("contraseña");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
