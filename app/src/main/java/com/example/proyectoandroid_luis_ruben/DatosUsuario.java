@@ -39,7 +39,7 @@ public class DatosUsuario extends AppCompatActivity implements View.OnClickListe
         imagenRetroceder.setOnClickListener(this);
 
         //MOSTRAR TEXTOS ADICIONALES
-        mostrarTexto();
+        mostrarTexto();;
 
     }//onCreate
 
