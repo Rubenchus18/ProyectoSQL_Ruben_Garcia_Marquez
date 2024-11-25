@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 }else if(!listaUsuarios.get(i).getNombre().equals(nombre)){
                     texto="USUARIO INCORRECTO";
                 }else if(!listaUsuarios.get(i).getContraseña().equals(contraseña)){
-                    texto="CONTRASEÑA INCORRECTA";
+                    texto="CONTRASEÑA INCORRECTA";;
                 }//else if
             }//else
         }//for
