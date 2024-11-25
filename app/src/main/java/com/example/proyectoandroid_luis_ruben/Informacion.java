@@ -11,15 +11,19 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class Informacion extends AppCompatActivity {
 
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_informacion); // Asegúrate de que este sea tu layout
+        //MENU TOOLBAR INTEGRACION
+        toolbar=(Toolbar)findViewById(R.id.toolbarMenu);
+        setSupportActionBar(toolbar);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

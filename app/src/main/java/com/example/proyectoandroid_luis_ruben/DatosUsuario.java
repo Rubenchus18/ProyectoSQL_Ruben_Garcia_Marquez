@@ -53,5 +53,4 @@ public class DatosUsuario extends AppCompatActivity implements View.OnClickListe
         textoDatos.setText("En esta seccion podras ver tu datos de sesion cuando lo desees:");
     }//mostrarTexto
 
-
 }//DatosUsuario

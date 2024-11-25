@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     EditText nombreUsuario, contrasenaUsuario;
     Button inicioSesion, registro;
     String nombre, contraseña;
+    CheckBox acuerdos;
+    boolean comprobar=false;
     //ARRAYLIST USUARIOS
     ArrayList<Usuario>listaUsuarios=new ArrayList<Usuario>();
     //USUARIOS POR DEFECTO
@@ -50,13 +53,17 @@ public class MainActivity extends AppCompatActivity {
         contrasenaUsuario=findViewById(R.id.editTextTextContraseña);
         inicioSesion=findViewById(R.id.buttonInciarSesion);
         registro=findViewById(R.id.buttonRegistarse);
+        acuerdos=findViewById(R.id.checkBox);
         //CLICK LISTENERS DE LOS BOTONES
         //INICIO DE SESION
         inicioSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 obtenerValores();
-                comprobarNulos(view);
+                comprobar=comprobarNulos(view);
+                if(comprobar){
+                    registrarUsuario(view, nombre, contraseña);
+                }//if
             }//onClickInicioSesion
         });
         //REGISTRO
@@ -64,46 +71,46 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 obtenerValores();
-                crearUsuario(view);
+                comprobar=comprobarNulos(view);
+               if(comprobar){
+                   crearUsuario(view);
+               }//if
             }//onClickInicioSesion.
 
         });;;
 
     }//onCreate
 
-    public void comprobarNulos(View view){
+    public boolean comprobarNulos(View view){
 
-        if(nombre.isEmpty() || contraseña.isEmpty()){
+        boolean entrar=false;
+        if(nombre.isEmpty() && contraseña.isEmpty()){
+            entrar=false;
+            Toast.makeText(getApplicationContext(), "INTRODUZCA UN INICIO DE SESIÓN", Toast.LENGTH_LONG).show();
+        }else if(nombre.isEmpty() || contraseña.isEmpty()){
+            entrar=false;
             if(nombre.isEmpty()){
                 Toast.makeText(getApplicationContext(), "CAMPO DE USUARIO OBLIGATORIO", Toast.LENGTH_LONG).show();
             }else if(contraseña.isEmpty()){
                 Toast.makeText(getApplicationContext(), "CAMPO DE CONTRASEÑA OBLIGATORIO", Toast.LENGTH_LONG).show();
             }//else if
-        }else if(nombre.isEmpty() && contraseña.isEmpty()){
-            Toast.makeText(getApplicationContext(), "INTRODUZCA UN INICIO DE SESION", Toast.LENGTH_LONG).show();
         }else{
-            registrarUsuario(view);
+            entrar=true;
         }//else
+        return entrar;
     }//comprobarNulos
+
     public void crearUsuario(View view){
         Usuario usuario=new Usuario();
         boolean existe=false;
 
-        if(nombre.isEmpty() || contraseña.isEmpty()){
-            if(nombre.isEmpty()){
-                Toast.makeText(getApplicationContext(), "CAMPO DE USUARIO OBLIGATORIO", Toast.LENGTH_LONG).show();
-            }else if(contraseña.isEmpty()){
-                Toast.makeText(getApplicationContext(), "CAMPO DE CONTRASEÑA OBLIGATORIO", Toast.LENGTH_LONG).show();
-            }//else if
-        }
         for(int i=0; i<listaUsuarios.size(); i++) {
             if (nombre.equals(listaUsuarios.get(i).getNombre()) && contraseña.equals(listaUsuarios.get(i).getContraseña())) {
                 existe = true;
-
-            }
-        }
+            }//if
+        }//for
         if(existe){
-                    Toast.makeText(getApplicationContext(), "Este usuario o contraseña ya existe", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "ESTE USUARIO YA EXISTE", Toast.LENGTH_LONG).show();
         }else if(existe==false){
                     //CREAMOS EL USUARIO SI PASO TODO EL RECONOMIENTO PREVIO
                     String nombre=String.valueOf(nombreUsuario.getText());
@@ -116,24 +123,33 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "USUARIO CREADO CORRECTAMENTE", Toast.LENGTH_LONG).show();
                 }//else
 
-
-
     }//crearUsuario
-    public void registrarUsuario(View view){
 
-        for(int i=0; i<listaUsuarios.size(); i++) {
-            if (!listaUsuarios.get(i).getNombre().equals(nombre) || !listaUsuarios.get(i).getContraseña().equals(contraseña)) {
-                if (listaUsuarios.get(i).getNombre().equals(nombre)) {
-                    Toast.makeText(getApplicationContext(), "NOMBRE DE USUARIO INCORRECTO", Toast.LENGTH_LONG).show();
-                } else if (listaUsuarios.get(i).getContraseña().equals(contraseña)) {
-                    Toast.makeText(getApplicationContext(), "CONTRASEÑA INCORRECTA", Toast.LENGTH_LONG).show();
-                } else if (!listaUsuarios.get(i).getNombre().equals(nombre) && !listaUsuarios.get(i).getContraseña().equals(contraseña)) {
-                    Toast.makeText(getApplicationContext(), "INICIO DE SESION INCORRECTO", Toast.LENGTH_LONG).show();
+    public void registrarUsuario(View view, String nombre, String contraseña){
+
+        boolean registro=false;
+        String texto=null;
+        for(int i=0; i<listaUsuarios.size(); i++){
+            if(listaUsuarios.get(i).getNombre().equals(nombre) && listaUsuarios.get(i).getContraseña().equals(contraseña) && acuerdos.isChecked()){
+                registro=true;
+            }else if(listaUsuarios.get(i).getNombre().equals(nombre) && listaUsuarios.get(i).getContraseña().equals(contraseña) && !acuerdos.isChecked()){
+                texto="ACEPTE LOS ACUERODS DE USUARIO";
+            }else{
+                if(!listaUsuarios.get(i).getNombre().equals(nombre) && !listaUsuarios.get(i).getContraseña().equals(contraseña)){
+                   texto="INICIO DE SESION INCORRECTO";
+                }else if(!listaUsuarios.get(i).getNombre().equals(nombre)){
+                    texto="USUARIO INCORRECTO";
+                }else if(!listaUsuarios.get(i).getContraseña().equals(contraseña)){
+                    texto="CONTRASEÑA INCORRECTA";
                 }//else if
-            }else {
-                siguienteActividad(view);
             }//else
         }//for
+        if(registro){
+            siguienteActividad(view);
+            Toast.makeText(getApplicationContext(), "INICIANDO SESIÓN", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_LONG).show();
+        }//else
 
     }//registrarUsuario
 
