@@ -130,10 +130,8 @@ public class MainActivity extends AppCompatActivity {
         boolean registro=false;
         String texto=null;
         for(int i=0; i<listaUsuarios.size(); i++){
-            if(listaUsuarios.get(i).getNombre().equals(nombre) && listaUsuarios.get(i).getContraseña().equals(contraseña) && acuerdos.isChecked()){
+            if(listaUsuarios.get(i).getNombre().equals(nombre) && listaUsuarios.get(i).getContraseña().equals(contraseña)){
                 registro=true;
-            }else if(listaUsuarios.get(i).getNombre().equals(nombre) && listaUsuarios.get(i).getContraseña().equals(contraseña) && !acuerdos.isChecked()){
-                texto="ACEPTE LOS ACUERODS DE USUARIO";
             }else{
                 if(!listaUsuarios.get(i).getNombre().equals(nombre) && !listaUsuarios.get(i).getContraseña().equals(contraseña)){
                    texto="INICIO DE SESION INCORRECTO";
@@ -145,8 +143,12 @@ public class MainActivity extends AppCompatActivity {
             }//else
         }//for
         if(registro){
-            siguienteActividad(view);
-            Toast.makeText(getApplicationContext(), "INICIANDO SESIÓN", Toast.LENGTH_LONG).show();
+            if(!acuerdos.isChecked()) {
+                Toast.makeText(getApplicationContext(), "ACEPTE LOS ACUERDOS DE USUARIO", Toast.LENGTH_LONG).show();
+            }else{
+                siguienteActividad(view);
+                Toast.makeText(getApplicationContext(), "INICIANDO SESIÓN", Toast.LENGTH_LONG).show();
+            }//else
         }else{
             Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_LONG).show();
         }//else
