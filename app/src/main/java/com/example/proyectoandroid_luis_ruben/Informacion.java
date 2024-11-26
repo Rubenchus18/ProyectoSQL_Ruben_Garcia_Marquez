@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 public class Informacion extends AppCompatActivity {
 
     Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
