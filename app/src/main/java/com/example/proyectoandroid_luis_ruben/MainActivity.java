@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     listaUsuarios.add(usuario);
                     nombreUsuario.setText("");
                     contrasenaUsuario.setText("");
-                    //SE LO DECIMOS AL USUARIO TAMBIEN
+                        //SE LO DECIMOS AL USUARIO TAMBIEN
                     Toast.makeText(getApplicationContext(), "USUARIO CREADO CORRECTAMENTE", Toast.LENGTH_LONG).show();
                 }//else
 
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         Intent siguienteActividad = new Intent(this, Informacion.class);
         siguienteActividad.putExtra("usuario", nombre);  // Pasar el nombre de usuario
         siguienteActividad.putExtra("contraseña", contraseña); // Pasar la contraseña
-        guardarDatosUsuario(nombre, contraseña);
+        guardarDatosUsuario(nombre, contraseña); // Guarda en SharedPreferences
         startActivity(siguienteActividad);
     }//siguiente actividad
     public void guardarDatosUsuario(String usuario, String contraseña) {
@@ -175,4 +175,5 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("contraseña", contraseña);
         editor.apply();
     }
+
 }//MainActivity

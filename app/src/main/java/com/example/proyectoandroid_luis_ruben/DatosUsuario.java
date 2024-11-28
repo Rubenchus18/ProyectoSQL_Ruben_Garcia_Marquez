@@ -1,6 +1,8 @@
 package com.example.proyectoandroid_luis_ruben;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,31 +19,37 @@ public class DatosUsuario extends AppCompatActivity implements View.OnClickListe
     TextView textoDatos;
     ImageView imagenRetroceder;
     String usuario, contraseña;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_datos_usuario);
-        //CONEXION IDS
-        textoDatos=findViewById(R.id.textoDatos);
+
+        textoDatos = findViewById(R.id.textoDatos);
         nombreUsuario = findViewById(R.id.nombreSesion);
         contraseñaUsuario = findViewById(R.id.contraseñaSesion);
-        // Recibir datos del Intent
-        Bundle recibirInformarcion=getIntent().getExtras();
-        usuario = recibirInformarcion.getString("usuario");
-        contraseña = recibirInformarcion.getString("contraseña");
-        // Mostrar los datos en los TextView
+        imagenRetroceder = findViewById(R.id.retroceder3);
+
+        // Intent y SharedPreferences
+        Bundle recibirInformacion = getIntent().getExtras();
+        if (recibirInformacion != null) {
+            usuario = recibirInformacion.getString("usuario", "Usuario no definido");
+            contraseña = recibirInformacion.getString("contraseña", "Contraseña no definida");
+        } else {
+            recuperarDatosUsuario();
+        }
+
+        // Mostrar los datos
         nombreUsuario.setText(usuario);
         contraseñaUsuario.setText(contraseña);
-        imagenRetroceder=findViewById(R.id.retroceder3);
-        //CLICK LISTENER RETROCESO PAGINA ANTERIOR
+
+        // Click listener
         imagenRetroceder.setOnClickListener(this);
 
-        //MOSTRAR TEXTOS ADICIONALES
-        mostrarTexto();;
-
-    }//onCreate
+        // Mostrar texto adicional
+        mostrarTexto();
+    }
+//onCreate
 
     @Override
     public void onClick(View view) {
@@ -53,4 +61,9 @@ public class DatosUsuario extends AppCompatActivity implements View.OnClickListe
         textoDatos.setText("En esta seccion podras ver tu datos de sesion cuando lo desees:");
     }//mostrarTexto
 
+    public void recuperarDatosUsuario() {
+        SharedPreferences sharedPreferences = getSharedPreferences("DatosUsuario", Context.MODE_PRIVATE);
+        usuario = sharedPreferences.getString("usuario", "Usuario no definido");
+        contraseña = sharedPreferences.getString("contraseña", "Contraseña no definida");
+    }
 }//DatosUsuario
