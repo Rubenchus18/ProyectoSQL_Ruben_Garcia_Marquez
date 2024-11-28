@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,9 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.ArrayList;
+
 public class Informacion extends AppCompatActivity {
 
     Toolbar toolbar;
+    ArrayAdapter nombrecopa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,20 @@ public class Informacion extends AppCompatActivity {
         //MENU TOOLBAR INTEGRACION
         toolbar=(Toolbar)findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
+
+        ListView listacopas=(ListView) findViewById(R.id.listacopas);
+
+        ArrayList<PonerListView> items = new ArrayList<>();
+        items.add(new PonerListView("Copa Seta", R.drawable.seta, "550m"));
+        items.add(new PonerListView("Copa Murcielago", R.drawable.murcielago2, "1Km"));
+        items.add(new PonerListView("Copa Kuppa", R.drawable.kuppa, "630m"));
+        items.add(new PonerListView("Copa Bomba", R.drawable.bomba, "764m"));
+
+        ImagenAdapter adapter = new ImagenAdapter(this, items);
+        listacopas.setAdapter(adapter);
+
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,6 +64,7 @@ public class Informacion extends AppCompatActivity {
         }//else if
         return false;
     }
+
 
 
 }

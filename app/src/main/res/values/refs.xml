@@ -2,4 +2,5 @@
 <resources>
     <drawable name="baseline_info_24" />
     <drawable name="baseline_play_arrow_24" />
+    <drawable name="default_image" />
 </resources>
