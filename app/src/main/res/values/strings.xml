@@ -11,4 +11,8 @@
     <string name="PoliticayAcuerdo" >POLITICA Y ACUERDOS DE USUARIO </string>
     <string name="Bienvenido">Bienvenido </string>
     <string name="TextoDatosUsuario">En esta sección podrás ver tus datos de sesión cuando lo desees: </string>
+    <string name="Copa">Copas</string>
+    <string name="añadirCopa">Añadir copas</string>
+    <string name="nombreCopa">Añadir copas</string>
+    <string name="agregar">agregar</string>
 </resources>

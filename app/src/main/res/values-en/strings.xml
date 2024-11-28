@@ -12,5 +12,8 @@
     <string name="PoliticayAcuerdo" >USER POLICY AND AGREEMENTS </string>
     <string name="Bienvenido">Welcome</string>
     <string name="TextoDatosUsuario">In this section you can see your session data whenever you want:</string>
-
+    <string name="Copa">Cups</string>
+    <string name="añadirCopa">Enter cup</string>
+    <string name="nombreCopa">Cup name</string>
+    <string name="agregar">Add</string>
 </resources>
