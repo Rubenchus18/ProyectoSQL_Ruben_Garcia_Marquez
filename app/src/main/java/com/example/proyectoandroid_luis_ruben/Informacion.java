@@ -33,14 +33,6 @@ public class Informacion extends AppCompatActivity {
 
         ListView listacopas=(ListView) findViewById(R.id.listacopas);
 
-        ArrayList<PonerListView> items = new ArrayList<>();
-        items.add(new PonerListView("Copa Seta", R.drawable.seta, "550m"));
-        items.add(new PonerListView("Copa Murcielago", R.drawable.murcielago2, "1Km"));
-        items.add(new PonerListView("Copa Kuppa", R.drawable.kuppa, "630m"));
-        items.add(new PonerListView("Copa Bomba", R.drawable.bomba, "764m"));
-
-        ImagenAdapter adapter = new ImagenAdapter(this, items);
-        listacopas.setAdapter(adapter);
 
 
 
