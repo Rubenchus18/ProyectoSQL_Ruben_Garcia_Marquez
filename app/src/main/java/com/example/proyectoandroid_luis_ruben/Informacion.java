@@ -31,7 +31,7 @@ public class Informacion extends AppCompatActivity {
         toolbar=(Toolbar)findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
 
-        ListView listacopas=(ListView) findViewById(R.id.listacopas);
+        ListView listacopas=(ListView) findViewById(R.id.listacopas);<
 
 
 
