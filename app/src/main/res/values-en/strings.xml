@@ -15,5 +15,7 @@
     <string name="Copa">Cups</string>
     <string name="añadirCopa">Enter cup</string>
     <string name="nombreCopa">Cup name</string>
+    <string name="eliminarCopa">Delete cup</string>
+    <string name="editarCopa">Edit cup</string>
     <string name="agregar">Add</string>
 </resources>

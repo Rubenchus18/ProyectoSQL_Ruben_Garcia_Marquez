@@ -7,10 +7,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,10 +28,10 @@ public class Informacion extends AppCompatActivity {
     ListView listaCopas;
     ArrayList<Copa> copas = new ArrayList<>();
     ArrayAdapter<Copa> adapartorCopas = null;
-    EditText añadircopa;
-    ImageView añadir;
-    EditText eliminarCopaEditText; // Cambiado el nombre para evitar confusiones
-    ImageView eliminar;
+    EditText añadircopa, eliminarCopaEditText, editarCopa;
+    ImageView añadir, eliminar, editar;
+    TextView edicion;
+    String auxiliar;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -51,14 +53,19 @@ public class Informacion extends AppCompatActivity {
         // EN EL ADAPTADOR INTRODUCIMOS EL LAYOUT Y LA LISTA
         adapartorCopas = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, copas);
 
-        // AHORA LIGAMOS LA LISTA CON EL ADAPTADOR RELLENO
+        //AHORA LIGAMOS LA LISTA CON EL ADAPTADOR RELLENO
         listaCopas.setAdapter(adapartorCopas);
 
-        añadircopa = findViewById(R.id.editText5);
-        añadir = findViewById(R.id.imageView4);
-
-        eliminarCopaEditText = findViewById(R.id.editText2); // Asegúrate de que el ID sea correcto
-        eliminar = findViewById(R.id.imageView11);
+        //LAS OPERACIONES SOBRE LAS COPAS SERAN AÑADIR, ELIMINAR Y EDITAR
+        //AÑADIR
+        añadircopa = findViewById(R.id.nuevaCopa);
+        añadir = findViewById(R.id.newCupFoto);
+        //ELIMINAR
+        eliminarCopaEditText = findViewById(R.id.eliminarCopa);
+        eliminar = findViewById(R.id.deleteCupFoto);
+        //EDITAR
+        editarCopa=findViewById(R.id.editarCopa);
+        editar=findViewById(R.id.EditCupFoto);
 
         // Configuramos el listener para el ImageView de añadir
         añadir.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +82,29 @@ public class Informacion extends AppCompatActivity {
                 eliminarCopa();
             }
         });
-    }
+       //OBTENEMOS LOS DATOS DEL ITEM SELECCIONADO
+        listaCopas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String nombreCopaEditar=(String)parent.getItemAtPosition(position).toString().trim();
+                edicion=findViewById(R.id.textoEditarCopa);
+                auxiliar=edicion.getText().toString().trim();
+                edicion.setText(nombreCopaEditar);
+                if(edicion!=null){
+                    editar.setVisibility(View.VISIBLE);
+                }
+            }//onItemClick
+        });
+        //Configuramos el listener para el ImageView de editar
+        editar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {editarCopa();
+            }//oncClickEditar
+        });//clickListenerEditar
+        //
+
+
+    }//onCreate
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,15 +120,12 @@ public class Informacion extends AppCompatActivity {
         } else if (item.getItemId() == R.id.SobreNosotros1) {
             Intent j = new Intent(this, SobreNosotros.class);
             startActivity(j);
-        } else if (item.getItemId() == R.id.Usuario) {
-            Intent d = new Intent(this, DatosUsuario.class);
-            startActivity(d);
-        }
+        }//else if
         return false;
     }
 
     public void insertarDatosLista(ArrayList<Copa> copas) {
-        copas.add(new Copa("Copa caparazón"));
+        copas.add(new Copa("Copa caparazon"));
         copas.add(new Copa("Copa Estrella"));
         copas.add(new Copa("Copa Bala"));
         copas.add(new Copa("Copa Platano"));
@@ -107,57 +133,89 @@ public class Informacion extends AppCompatActivity {
         // CAMBIAR ID
         for (int i = 1; i < copas.size(); i++) {
             copas.get(i).setId(i);
-        }
-    }
-
+        }//for
+    }//insertarDatosLista
 
     // Método para añadir una nueva copa
     public void añadirCopa() {
+
+        boolean encontrar=false;
         String nombreCopa = añadircopa.getText().toString().trim();
 
         if (!nombreCopa.isEmpty()) {
             for (Copa copa : copas) {
                 if (copa.getNombre().equalsIgnoreCase(nombreCopa)) {
                     Toast.makeText(this, "La copa ya existe: " + nombreCopa, Toast.LENGTH_SHORT).show();
+                    encontrar=true;
+                }//if
+            }//for
 
-                    return;
+            if(!encontrar){
+                Copa nuevaCopa = new Copa(nombreCopa);
+                copas.add(nuevaCopa);
+                for (int i = 1; i < copas.size(); i++) {
+                    copas.get(i).setId(i);
                 }
-            }
-            Copa nuevaCopa = new Copa(nombreCopa);
-            copas.add(nuevaCopa);
-            for (int i = 1; i < copas.size(); i++) {
-                copas.get(i).setId(i);
-            }
-            adapartorCopas.notifyDataSetChanged();
-            añadircopa.setText("");
-            Toast.makeText(this, "Copa añadida: " + nombreCopa, Toast.LENGTH_SHORT).show();
+                adapartorCopas.notifyDataSetChanged();
+                Toast.makeText(this, "Copa añadida: " + nombreCopa, Toast.LENGTH_SHORT).show();
+            }//if
         } else {
             Toast.makeText(this, "Por favor, introduce un nombre para la copa", Toast.LENGTH_SHORT).show();
-        }
-    }
+        }//else
+    }//añadirCopa
 
     // Método para eliminar una copa
     public void eliminarCopa() {
+
         String nombreCopa = eliminarCopaEditText.getText().toString().trim();
+        boolean removed = false;
+
         if (!nombreCopa.isEmpty()) {
-            boolean removed = false;
             for (int i = 0; i < copas.size(); i++) {
-                Copa copa = copas.get(i);
-                if (copa.getNombre().equalsIgnoreCase(nombreCopa)) {
+                if (copas.get(i).getNombre().equalsIgnoreCase(nombreCopa)) {
                     copas.remove(i);
                     removed = true;
-                    break;
-                }
-            }
+                }//if
+            }//for
             if (removed) {
                 adapartorCopas.notifyDataSetChanged();
-                eliminarCopaEditText.setText("");
                 Toast.makeText(this, "Copa eliminada: " + nombreCopa, Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Copa no encontrada", Toast.LENGTH_SHORT).show();
-            }
+            }//else
         } else {
             Toast.makeText(this, "Por favor, introduce un nombre para la copa", Toast.LENGTH_SHORT).show();
-        }
-    }
-}
+        }//else
+    }//eliminarCopa
+
+    public void editarCopa(){
+        String copa=editarCopa.getText().toString().trim();
+        boolean encontrar=false;
+        boolean cambiar=false;
+        //
+        for(int i=0; i<copas.size(); i++){
+            if(copas.get(i).getNombre().equals(copa)){
+                encontrar=true;
+            }//if
+        }//for
+        if(!encontrar){
+            for(int i=0; i<copas.size(); i++){
+                if(copas.get(i).toString().equals(edicion.getText().toString())){
+                    copas.get(i).setNombre(copa);
+                    adapartorCopas.notifyDataSetChanged();
+                    edicion.setText("");
+                    editar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(this, "COPA EDITADA CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                }//if
+            }//for
+        }else{
+            Toast.makeText(this, "EDICION FALLIDA, COPA YA EXISTENTE", Toast.LENGTH_SHORT).show();
+        }//else
+
+    }//editarCopa
+
+}//Informacion
+
+
+
+

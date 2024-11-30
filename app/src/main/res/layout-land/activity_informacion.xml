@@ -22,56 +22,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20"
-        android:orientation="horizontal">
+        android:layout_weight="10"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="15"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:fontFamily="sans-serif"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:text="@string/Bienvenido"
+            android:textColor="#000000"
+            android:textSize="34sp"
+            android:textStyle="bold|italic" />
 
-            <TextView
-                android:id="@+id/Pista"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:foregroundTint="#0D0C0C"
-                android:gravity="center"
-                android:textColor="#100F0F"
-                android:textSize="34sp"
-                android:textStyle="bold"
-                tools:text="@string/Copa" />
+    </LinearLayout>
 
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:orientation="horizontal"
+        android:showDividers="beginning|end">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/Pista"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="15"
-            android:orientation="horizontal">
+            android:layout_weight="50"
+            android:foregroundTint="#0D0C0C"
+            android:gravity="center"
+            android:text="@string/Copa"
+            android:textColor="#100F0F"
+            android:textSize="34sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="@string/Bienvenido"
-                android:textColor="#000000"
-                android:textSize="34sp"
-                android:textStyle="bold|italic" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                app:srcCompat="@drawable/fondocart" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            app:srcCompat="@drawable/fondocart" />
 
     </LinearLayout>
 
@@ -82,70 +74,164 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="10"
+            android:layout_weight="50"
             android:orientation="horizontal">
 
             <ListView
                 android:id="@+id/listacopas"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:divider="@color/menu_background"
+                android:dividerHeight="3dp"
+                android:footerDividersEnabled="true"
+                android:headerDividersEnabled="true" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="10"
+            android:layout_weight="50"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="90"
+                android:layout_weight="33"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView6"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:text="@string/añadirCopa"
-                    android:textColor="#100F0F"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:layout_weight="65"
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/editTextText"
+
+                    <TextView
+                        android:id="@+id/textoNuevaCopa"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50"
+                        android:gravity="center"
+                        android:text="@string/añadirCopa"
+                        android:textColor="#0D0C0C"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/nuevaCopa"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="50"
+                        android:backgroundTint="#1B1A1A"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:inputType="text"
+                        android:text="@string/nombreCopa"
+                        android:textColor="#090909" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/newCupFoto"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="50"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:inputType="text"
-                    android:text="@string/nombreCopa"
-                    android:textColor="#121212"
-                    android:textSize="16sp" />
+                    android:layout_weight="35"
+                    app:srcCompat="@drawable/anidar" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="33"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="65"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textoEliminarCopa"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50"
+                        android:gravity="center"
+                        android:text="@string/eliminarCopa"
+                        android:textColor="#0B0B0B"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/eliminarCopa"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="50"
+                        android:backgroundTint="#090909"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:inputType="text"
+                        android:text="@string/nombreCopa"
+                        android:textColor="#090909" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/deleteCupFoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="35"
+                    app:srcCompat="@drawable/eliminar" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="10"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_weight="33"
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/button4"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:backgroundTint="#E33F4D"
-                    android:text="@string/agregar"
-                    android:textColor="#F2E9E9"
-                    android:textSize="24sp" />
+                    android:layout_height="0dp"
+                    android:layout_weight="65"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textoEditarCopa"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50"
+                        android:gravity="center"
+                        android:text="@string/editarCopa"
+                        android:textColor="#1B1A1A"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/editarCopa"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="50"
+                        android:backgroundTint="#121111"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:inputType="text"
+                        android:text="@string/nombreCopa"
+                        android:textColor="#000000" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/EditCupFoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="35"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/modificar" />
+
             </LinearLayout>
 
         </LinearLayout>

@@ -3,22 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/carrera"
-        android:icon="@drawable/banderadecuadros"
+        android:id="@+id/pilotos"
+        android:icon="@drawable/piloto"
         android:title="TODO"
         app:showAsAction="always" />
     <item
         android:id="@+id/SobreNosotros1"
-        android:icon="@drawable/i"
-        android:title="TODO"
-        app:showAsAction="always" />
+        android:title="Sobre nosotros" />
     <item
         android:id="@+id/Desconectarse"
         android:title="Desconectarse"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/Usuario"
-        android:title="Datos de sesión" />
 
 
 </menu>

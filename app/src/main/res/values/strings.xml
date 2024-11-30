@@ -13,6 +13,8 @@
     <string name="TextoDatosUsuario">En esta sección podrás ver tus datos de sesión cuando lo desees: </string>
     <string name="Copa">Copas</string>
     <string name="añadirCopa">Añadir copas</string>
+    <string name="eliminarCopa">Eliminar copas</string>
+    <string name="editarCopa">Editar copas</string>
     <string name="nombreCopa">nombre copa</string>
     <string name="agregar">agregar</string>
 </resources>

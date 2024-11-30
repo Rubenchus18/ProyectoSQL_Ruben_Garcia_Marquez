@@ -13,7 +13,9 @@
     <string name="Bienvenido">Bienvenido</string>
     <string name="TextoDatosUsuario">En esta sección podrás ver tus datos de sesión cuando lo desees: </string>
     <string name="Copa">Copas</string>
-    <string name="añadirCopa">Añadir copas</string>
+    <string name="añadirCopa">Añadir copa</string>
     <string name="nombreCopa">Nombre copa</string>
+    <string name="eliminarCopa">Eliminar copa</string>
+    <string name="editarCopa">Editar copa</string>
     <string name="agregar">Agregar</string>
 </resources>

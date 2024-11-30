@@ -42,7 +42,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15"
+        android:layout_weight="10"
         android:orientation="horizontal">
 
         <TextView
@@ -52,10 +52,10 @@
             android:layout_weight="50"
             android:foregroundTint="#0D0C0C"
             android:gravity="center"
+            android:text="@string/Copa"
             android:textColor="#100F0F"
             android:textSize="34sp"
-            android:textStyle="bold"
-            tools:text="@string/Copa" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -69,25 +69,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="65"
+        android:layout_weight="70"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="50"
+            android:layout_weight="45"
             android:orientation="horizontal">
 
             <ListView
                 android:id="@+id/listacopas"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:divider="@color/menu_background"
+                android:dividerHeight="3dp"
+                android:footerDividersEnabled="true"
+                android:headerDividersEnabled="true" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="50"
+            android:layout_weight="55"
             android:orientation="vertical">
 
             <LinearLayout
@@ -99,27 +103,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="50"
+                    android:layout_weight="65"
                     android:orientation="horizontal">
 
 
-
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/textoNuevaCopa"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="50"
                         android:gravity="center"
                         android:text="@string/añadirCopa"
-                        android:textColor="#101010"
-                        android:textSize="20sp" />
+                        android:textColor="#0D0C0C"
+                        android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/editText5"
+                        android:id="@+id/nuevaCopa"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_weight="50"
+                        android:backgroundTint="#1B1A1A"
                         android:ems="10"
                         android:gravity="center"
                         android:inputType="text"
@@ -128,7 +132,7 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/newCupFoto"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="35"
@@ -144,25 +148,26 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="50"
+                    android:layout_weight="65"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/textoEliminarCopa"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="50"
                         android:gravity="center"
-                        android:text="@string/añadirCopa"
-                        android:textColor="#101010"
-                        android:textSize="20sp" />
+                        android:text="@string/eliminarCopa"
+                        android:textColor="#0B0B0B"
+                        android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/eliminarCopa"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_weight="50"
+                        android:backgroundTint="#090909"
                         android:ems="10"
                         android:gravity="center"
                         android:inputType="text"
@@ -172,7 +177,7 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageView11"
+                    android:id="@+id/deleteCupFoto"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="35"
@@ -189,39 +194,41 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="50"
+                    android:layout_weight="65"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/textoEditarCopa"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="50"
                         android:gravity="center"
-                        android:text="@string/añadirCopa"
-                        android:textColor="#101010"
-                        android:textSize="20sp" />
+                        android:text="@string/editarCopa"
+                        android:textColor="#1B1A1A"
+                        android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/editarCopa"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="50"
+                        android:backgroundTint="#121111"
                         android:ems="10"
                         android:gravity="center"
                         android:inputType="text"
                         android:text="@string/nombreCopa"
-                        android:textColor="#090909" />
+                        android:textColor="#000000" />
 
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageView12"
+                    android:id="@+id/EditCupFoto"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_weight="50"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="35"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/modificar" />
 
             </LinearLayout>
