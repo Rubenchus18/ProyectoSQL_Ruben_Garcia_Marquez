@@ -1,6 +1,5 @@
 package com.example.proyectoandroid_luis_ruben;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,7 +7,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -20,7 +18,9 @@ import java.util.ArrayList;
 public class Informacion extends AppCompatActivity {
 
     Toolbar toolbar;
-    ArrayAdapter nombrecopa;
+    ListView listaCopas;
+    ArrayList<Copa>copas=new ArrayList<Copa>();
+    ArrayAdapter<Copa>adapartorCopas=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +30,14 @@ public class Informacion extends AppCompatActivity {
         //MENU TOOLBAR INTEGRACION
         toolbar=(Toolbar)findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
-
-        ListView listacopas=(ListView) findViewById(R.id.listacopas);<
-
-
+        //LIGAMOS LA LISTVIEW LISTA COPAS DE JAVA CON LA DEL LAYOUT
+        listaCopas=findViewById(R.id.listacopas);
+        //EN EL ARRAYLIST DE LAS COPAS AÑADIMOS ALGUNAS
+        insertarDatosLista(copas);
+        //EN EL ADAPTADOR INTRODUCIMOS EL LAYOUT Y LA LISTA
+        adapartorCopas=new ArrayAdapter<Copa>(this, R.layout.itemcopa, R.id.nombreCopa, copas);
+        //AHORA LIGAMOS LA LISTA CON EL ADAPTADOR RELLENO
+        listaCopas.setAdapter(adapartorCopas);
 
 
     }
@@ -57,6 +61,16 @@ public class Informacion extends AppCompatActivity {
         return false;
     }
 
+    public void insertarDatosLista(ArrayList<Copa>copas){
+        copas.add(new Copa("Copa caparazón"));
+        copas.add(new Copa("Copa Estrella"));
+        copas.add(new Copa("Copa Bala"));
+        copas.add(new Copa("Copa Platano"));
+        copas.add(new Copa("Copa Mario"));
+        //CAMBIAR ID
+        for(int i=1; i<copas.size(); i++){
+           copas.get(i).setId(i);
+        }//
+    }//insertarDatosLista
 
-
-}
+}//Informacion
