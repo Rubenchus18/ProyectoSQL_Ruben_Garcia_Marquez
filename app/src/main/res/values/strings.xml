@@ -20,4 +20,10 @@
     <string name="tituloElegirCircuito">Elegir circuito</string>
     <string name="textoElegirCircuito">¡Elija un circuito para simular una carrera!</string>
     <string name="textoFooter">¡Estamos calentando motores!</string>
+    <string name="tituloCompetidores">Competidores</string>
+    <string name="textoCompetidoresInfo">¡Crea los equiops (Piloto + Coche) que desees y commienza la carrera!</string>
+    <string name="carreraElegida">Circuito</string>
+    <string name="gestionCompetidores">Gestion</string>
+    <string name="Coche">Coche</string>
+    <string name="Piloto">Piloto</string>
 </resources>

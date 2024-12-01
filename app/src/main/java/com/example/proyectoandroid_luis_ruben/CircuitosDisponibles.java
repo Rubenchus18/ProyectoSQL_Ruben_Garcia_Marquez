@@ -3,6 +3,7 @@ package com.example.proyectoandroid_luis_ruben;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,6 +23,7 @@ public class CircuitosDisponibles extends AppCompatActivity {
     ListView lista;
     ImageView atras;
     ArrayList<String> circuitos=new ArrayList<String>();
+    String copaElegida;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,13 @@ public class CircuitosDisponibles extends AppCompatActivity {
             }//for
         //ASIGNACION DE LISTVIEW
         asignacionList();
+            //OBTENEMOS LOS VALOES DE LA COPA QUE SELECCIONEMOS
+        valoresCopa();
+        //SIGUIENTE ACTIVIDAD
+        if(copaElegida!=null){
+            siguienteActividad();
+        }
+
 
     }//onCreate
 
@@ -58,6 +67,12 @@ public class CircuitosDisponibles extends AppCompatActivity {
         startActivity(i);
     }//moverActividad
 
+    public void siguienteActividad(){
+        Intent j=new Intent(this, GestionCompetidores.class);
+        j.putExtra("circuito", copaElegida);
+        startActivity(j);
+    }//siguienteActividad
+
     public void asignacionList(){
         //LA LISTVIEW DE ESTA CLASE LA LIGAMOS A LA DEL LAYOUT
         lista=findViewById(R.id.listaOps);
@@ -65,6 +80,16 @@ public class CircuitosDisponibles extends AppCompatActivity {
         adaptadorListaCopa=new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, circuitos);
         //AHORA LA LISTVIEW DE LA CLASE SERA RELLENADO CON EL ADAPTADOR COMPLETADO
         lista.setAdapter(adaptadorListaCopa);
+    }
+
+    public void valoresCopa(){
+        //AHORA GESTIONAREMOS QUE AL DARLE A LA CARRERA QUE QUERAMOS IREMOS A UN LAYOUT PARA GESTIONAR SUS COMPETIDORES
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                copaElegida=(String)parent.getItemAtPosition(position).toString().trim();
+            }//ItemClick
+        });
     }
 
 

@@ -21,4 +21,10 @@
     <string name="tituloElegirCircuito">Choose race circuit</string>
     <string name="textoElegirCircuito">¡Choose a circuit to simulate a race!</string>
     <string name="textoFooter">¡We are warming up!</string>
+    <string name="tituloCompetidores">Adversarys</string>
+    <string name="textoCompetidoresInfo">Create the teams (Driver + Car) of your choice and start the race!</string>
+    <string name="carreraElegida">Chosen career</string>
+    <string name="gestionCompetidores">Management players</string>
+    <string name="Coche">Auto</string>
+    <string name="Piloto">Pilot</string>
 </resources>
