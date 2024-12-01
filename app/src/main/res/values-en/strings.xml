@@ -18,4 +18,7 @@
     <string name="eliminarCopa">Delete cup</string>
     <string name="editarCopa">Edit cup</string>
     <string name="agregar">Add</string>
+    <string name="tituloElegirCircuito">Choose race circuit</string>
+    <string name="textoElegirCircuito">¡Choose a circuit to simulate a race!</string>
+    <string name="textoFooter">¡We are warming up!</string>
 </resources>

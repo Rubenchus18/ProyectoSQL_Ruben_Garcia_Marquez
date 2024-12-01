@@ -18,4 +18,7 @@
     <string name="eliminarCopa">Eliminar copa</string>
     <string name="editarCopa">Editar copa</string>
     <string name="agregar">Agregar</string>
+    <string name="tituloElegirCircuito">Elegir circuito</string>
+    <string name="textoElegirCircuito">¡Elija un circuito para simular una carrera!</string>
+    <string name="textoFooter">¡Estamos calentando motores!</string>
 </resources>

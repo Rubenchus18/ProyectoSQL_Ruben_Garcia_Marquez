@@ -38,7 +38,7 @@ public class Informacion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_informacion); // Asegúrate de que este sea tu layout
+        setContentView(R.layout.activity_informacion);
 
         // MENU TOOLBAR INTEGRACION
         toolbar = findViewById(R.id.toolbarMenu);
@@ -120,6 +120,11 @@ public class Informacion extends AppCompatActivity {
         } else if (item.getItemId() == R.id.SobreNosotros1) {
             Intent j = new Intent(this, SobreNosotros.class);
             startActivity(j);
+        }else if(item.getItemId()== R.id.pilotos){
+            Intent k = new Intent(this, CircuitosDisponibles.class);
+            ArrayList<String>listaCopas=trasladarArrayList();
+            k.putStringArrayListExtra("lista", listaCopas);
+            startActivity(k);
         }//else if
         return false;
     }
@@ -213,6 +218,16 @@ public class Informacion extends AppCompatActivity {
         }//else
 
     }//editarCopa
+
+    public ArrayList<String> trasladarArrayList(){
+
+        ArrayList<String>lista=new ArrayList<String>();
+        //
+        for(int i=0; i<copas.size(); i++){
+            lista.add(copas.get(i).toString());
+        }//for
+        return lista;
+    }//trasladarArrayList
 
 }//Informacion
 
