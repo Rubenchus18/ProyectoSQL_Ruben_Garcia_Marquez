@@ -142,7 +142,7 @@
           android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/editTextnombrecoche"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50"
@@ -152,7 +152,7 @@
             android:text="@string/Coche" />
 
         <EditText
-            android:id="@+id/editTextText2"
+            android:id="@+id/editTextnombrepiloto"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50"
@@ -162,7 +162,7 @@
             android:text="@string/Piloto" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonAgregar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="50"
@@ -178,6 +178,7 @@
           android:orientation="vertical">
 
         <ListView
+            android:id="@+id/listviewpilotos"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
       </LinearLayout>
@@ -195,7 +196,7 @@
             android:orientation="horizontal">
 
           <EditText
-              android:id="@+id/editTextText3"
+              android:id="@+id/editTextnombreliminar"
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="30"
@@ -205,7 +206,7 @@
               android:text="Name" />
 
           <ImageView
-              android:id="@+id/imageView8"
+              android:id="@+id/imageVieweliminar"
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="20"
@@ -218,16 +219,17 @@
             android:layout_weight="50"
             android:orientation="horizontal">
 
-          <TextView
-              android:id="@+id/textView19"
-              android:layout_width="0dp"
-              android:layout_height="match_parent"
-              android:layout_weight="30"
-              android:gravity="center"
-              android:text="TextView" />
+          <EditText
+              android:id="@+id/editTexteditarnombre"
+              android:layout_width="94dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="20"
+              android:ems="10"
+              android:inputType="text"
+              android:text="Name" />
 
           <ImageView
-              android:id="@+id/imageView9"
+              android:id="@+id/imageVieweditar"
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="20"

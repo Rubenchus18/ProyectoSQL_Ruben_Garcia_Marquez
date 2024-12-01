@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 public class CircuitosDisponibles extends AppCompatActivity {
 
-
-    ArrayAdapter<String>adaptadorListaCopa=null;
+    ArrayAdapter<String> adaptadorListaCopa = null;
     ListView lista;
     ImageView atras;
-    ArrayList<String> circuitos=new ArrayList<String>();
+    ArrayList<String> circuitos = new ArrayList<String>();
     String copaElegida;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,63 +34,50 @@ public class CircuitosDisponibles extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        //RECUPERAMOS EL ARRAYLIST DE LA ANTERIOR ACTIVIDAD
-        circuitos =getIntent().getStringArrayListExtra("lista");
-        //IR A LA ACTIVIDAD ANTERIOR
-            //ID DE LA IMAGEN
-            atras=findViewById(R.id.actividadAnterior);
-            //LE DAMOS FUNCIONALIDAD CON SU CLICK LISTENER
-            atras.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    moverActividad();
-                }//onClick
-            });
-            for(int i=0; i<circuitos.size(); i++){
-                System.out.println(circuitos.get(i));
 
-            }//for
-        //ASIGNACION DE LISTVIEW
+        // RECUPERAMOS EL ARRAYLIST DE LA ANTERIOR ACTIVIDAD
+        circuitos = getIntent().getStringArrayListExtra("lista");
+
+        // IR A LA ACTIVIDAD ANTERIOR
+        atras = findViewById(R.id.actividadAnterior);
+        atras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moverActividad();
+            }
+        });
+
+        // ASIGNACION DE LISTVIEW
         asignacionList();
-            //OBTENEMOS LOS VALOES DE LA COPA QUE SELECCIONEMOS
+
+        // OBTENEMOS LOS VALORES DE LA COPA QUE SELECCIONEMOS
         valoresCopa();
-        //SIGUIENTE ACTIVIDAD
-        if(copaElegida!=null){
-            siguienteActividad();
-        }
+    }
 
-
-    }//onCreate
-
-    public void moverActividad(){
-        Intent i=new Intent(this, Informacion.class);
+    public void moverActividad() {
+        Intent i = new Intent(this, Informacion.class);
         startActivity(i);
-    }//moverActividad
+    }
 
-    public void siguienteActividad(){
-        Intent j=new Intent(this, GestionCompetidores.class);
-        j.putExtra("circuito", copaElegida);
-        startActivity(j);
-    }//siguienteActividad
-
-    public void asignacionList(){
-        //LA LISTVIEW DE ESTA CLASE LA LIGAMOS A LA DEL LAYOUT
-        lista=findViewById(R.id.listaOps);
-        //COMPLETAMOS EL ADAPTADOR CON EL LAYOUT Y SU ARRAYLIST
-        adaptadorListaCopa=new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, circuitos);
-        //AHORA LA LISTVIEW DE LA CLASE SERA RELLENADO CON EL ADAPTADOR COMPLETADO
+    public void asignacionList() {
+        lista = findViewById(R.id.listaOps);
+        adaptadorListaCopa = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, circuitos);
         lista.setAdapter(adaptadorListaCopa);
     }
 
-    public void valoresCopa(){
-        //AHORA GESTIONAREMOS QUE AL DARLE A LA CARRERA QUE QUERAMOS IREMOS A UN LAYOUT PARA GESTIONAR SUS COMPETIDORES
+    public void valoresCopa() {
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                copaElegida=(String)parent.getItemAtPosition(position).toString().trim();
-            }//ItemClick
+                copaElegida = (String) parent.getItemAtPosition(position).toString().trim();
+                siguienteActividad(); // Llamar a siguienteActividad aquí
+            }
         });
     }
 
-
-}//CircuitosDisponibles
+    public void siguienteActividad() {
+        Intent j = new Intent(this, GestionCompetidores.class);
+        j.putExtra("circuito", copaElegida);
+        startActivity(j);
+    }
+}
