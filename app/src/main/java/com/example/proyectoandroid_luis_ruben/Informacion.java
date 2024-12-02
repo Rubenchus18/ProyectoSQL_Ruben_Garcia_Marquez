@@ -26,8 +26,8 @@ public class Informacion extends AppCompatActivity {
 
     Toolbar toolbar;
     ListView listaCopas;
-    ArrayList<Copa> copas = new ArrayList<>();
-    ArrayAdapter<Copa> adapartorCopas = null;
+    ArrayList<Copa> copas = new ArrayList<Copa>();
+    ArrayAdapter<Copa> adapartorCopas;
     EditText añadircopa, eliminarCopaEditText, editarCopa;
     ImageView añadir, eliminar, editar;
     TextView edicion;
@@ -102,7 +102,6 @@ public class Informacion extends AppCompatActivity {
             }//oncClickEditar
         });//clickListenerEditar
         //
-
 
     }//onCreate
 

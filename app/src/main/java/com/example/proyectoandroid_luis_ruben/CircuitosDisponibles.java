@@ -53,7 +53,7 @@ public class CircuitosDisponibles extends AppCompatActivity {
         // OBTENEMOS LOS VALORES DE LA COPA QUE SELECCIONEMOS
         valoresCopa();
 
-    }
+    }//onCreate
 
     public void moverActividad() {
         Intent i = new Intent(this, Informacion.class);
@@ -64,7 +64,7 @@ public class CircuitosDisponibles extends AppCompatActivity {
         lista = findViewById(R.id.listaOps);
         adaptadorListaCopa = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, circuitos);
         lista.setAdapter(adaptadorListaCopa);
-    }
+    }//moverActividad
 
     public void valoresCopa() {
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,11 +74,11 @@ public class CircuitosDisponibles extends AppCompatActivity {
                 siguienteActividad();
             }
         });
-    }
+    }//valoresCopa
 
     public void siguienteActividad() {
         Intent j = new Intent(this, GestionCompetidores.class);
         j.putExtra("circuito", copaElegida);
         startActivity(j);
-    }
-}
+    }//siguienteActividad
+}//CircuitosDisponibles

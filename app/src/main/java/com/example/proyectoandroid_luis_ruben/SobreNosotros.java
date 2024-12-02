@@ -32,14 +32,10 @@ public class SobreNosotros extends AppCompatActivity implements View.OnClickList
         texto1=findViewById(R.id.textoNosotros);
         texto2=findViewById(R.id.textoNosotros2);
         //INSERTAR TEXTOO
-
         imagenRetroceder=findViewById(R.id.retroceder);
         //CLICK LISTENER RETROCESO PAGINA ANTERIOR
         imagenRetroceder.setOnClickListener(this);
-
-
-    }
-
+    }//onCreate
 
     @Override
     public void onClick(View view) {

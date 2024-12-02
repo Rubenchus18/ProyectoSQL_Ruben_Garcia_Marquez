@@ -28,5 +28,5 @@ public class Piloto {
     @Override
     public String toString() {
         return nombrepiloto + " - " + coche;
-    }
+    }//toString
 }

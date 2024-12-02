@@ -6,7 +6,7 @@
     <string name="Registrarse">Registrarse</string>
     <string name="AceptarPoliticas">Acepta las politicas de usuario</string>
     <string name="SobreNosotros">Sobre Nosotros </string>
-    <string name="PrimerParrafoSobreNosotros">En Drafter nuestra misión es llevar la emocion de las carreras al siguiente nivel. Somos una empresa apasaionada por la tecnologia y los deportes de motor, especializada en el desarrollo de simuladores de carreras</string>
+    <string name="PrimerParrafoSobreNosotros">En Drafter nuestra misión es llevar la emocion de las carreras al siguiente nivel. Somos una empresa apasionada por la tecnologia y los deportes de motor, especializada en el desarrollo de simuladores de carreras</string>
     <string name="SegundoParrafoSobreNosotros">Nuestro objetivo es ofrecer una experiencia de conduccion realiasta y accesible tanto para aficionados como para profesionales del automovilismo </string>
     <string name="PoliticayAcuerdo">POLITICA Y ACUERDOS DE USUARIO </string>
     <string name="Bienvenido">Bienvenido </string>
@@ -21,7 +21,7 @@
     <string name="textoElegirCircuito">¡Elija un circuito para simular una carrera!</string>
     <string name="textoFooter">¡Estamos calentando motores!</string>
     <string name="tituloCompetidores">Competidores</string>
-    <string name="textoCompetidoresInfo">¡Crea los equiops (Piloto + Coche) que desees y commienza la carrera!</string>
+    <string name="textoCompetidoresInfo">¡Crea los equipos (Piloto + Coche) que desees y comienza la carrera!</string>
     <string name="carreraElegida">Circuito</string>
     <string name="gestionCompetidores">Gestion</string>
     <string name="Coche">Coche</string>

@@ -111,7 +111,7 @@ public class GestionCompetidores extends AppCompatActivity {
             }
         });
 
-    }
+    }//onCreate
 
     //FUNCIONALIDAD AÑADIR PILOTO A LA CARRERA
     private void insertarpilotos() {
@@ -142,6 +142,7 @@ public class GestionCompetidores extends AppCompatActivity {
 
     }//insertarPilotos
 
+    //FUNCIONALIDAD ELIMINAR PILOTO DE LA CARRERA
     private void eliminarPiloto() {
 
         String nombrePilotoAEliminar = nombreeliminar.getText().toString();
@@ -166,6 +167,7 @@ public class GestionCompetidores extends AppCompatActivity {
 
     }//elimminarPiloto
 
+    //FUNCIONALIDAD OBTENER DATOS DEL PILOTO
     public void informmacionPiloto(){
 
         //OBTENEMOS LOS DATOS DEL ITEM SELECCIONADO
@@ -181,6 +183,7 @@ public class GestionCompetidores extends AppCompatActivity {
         });
     }//informacionPiloto
 
+    //FUNCIONALIDAD EDITAR PILOTO DE LA CARRERA
     public  void editarPiloto() {
 
         String coche=editarCoche.getText().toString().trim();
@@ -222,7 +225,6 @@ public class GestionCompetidores extends AppCompatActivity {
                 Toast.makeText(this, "Piloto ya existente", Toast.LENGTH_SHORT).show();
             }
         }//for
-
 
     }//editarPiloto
 

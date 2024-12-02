@@ -9,7 +9,7 @@ public class Copa {
         this.nombre=nombre;
         this.id=0;
         this.distancia=(int)(Math.random()*1000);
-    }//com.example.proyectoandroid_luis_ruben.Copa
+    }//Copa
 
     public String getNombre() {
         return nombre;
