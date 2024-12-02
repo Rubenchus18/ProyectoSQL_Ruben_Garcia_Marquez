@@ -151,7 +151,8 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
-            android:text="@string/Piloto" />
+            android:text="@string/Piloto"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/editTextnombrecoche"
@@ -163,7 +164,8 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
-            android:text="@string/Coche" />
+            android:text="@string/Coche"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/buttonAgregar"
@@ -213,7 +215,8 @@
               android:gravity="center"
               android:inputType="text"
               android:text="@string/Piloto"
-              android:textColor="#161515" />
+              android:textColor="#161515"
+              android:textSize="16sp" />
 
           <ImageView
               android:id="@+id/imageVieweliminar"

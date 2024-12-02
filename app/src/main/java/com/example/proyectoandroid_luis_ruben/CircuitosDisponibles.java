@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class CircuitosDisponibles extends AppCompatActivity {
 
-    ArrayAdapter<String> adaptadorListaCopa = null;
+    ArrayAdapter<String> adaptadorListaCopa;
     ListView lista;
     ImageView atras;
     ArrayList<String> circuitos = new ArrayList<String>();

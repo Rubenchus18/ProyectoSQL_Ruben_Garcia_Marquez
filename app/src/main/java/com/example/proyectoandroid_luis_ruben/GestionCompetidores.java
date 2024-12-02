@@ -60,7 +60,6 @@ public class GestionCompetidores extends AppCompatActivity {
         nombrecoche = findViewById(R.id.editTextnombrecoche);
         nombrepiloto = findViewById(R.id.editTextnombrepiloto);
         nombreeliminar = findViewById(R.id.editTextnombreliminar);
-        nombreeditar = findViewById(R.id.editTexteditarnombre);
         listViewPilotos = findViewById(R.id.listviewpilotos);
         imprimirInformacion=findViewById(R.id.infoPiloto);
         //LA VISIBILIDAD DE ESTOS 2 COMPONENTES ES INVISIBLE HASTA QUE SE CUMPLAN CIERTAS CONDICIOENS MAS ADELANTE
