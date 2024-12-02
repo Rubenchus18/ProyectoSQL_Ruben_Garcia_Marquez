@@ -52,6 +52,7 @@ public class CircuitosDisponibles extends AppCompatActivity {
 
         // OBTENEMOS LOS VALORES DE LA COPA QUE SELECCIONEMOS
         valoresCopa();
+
     }
 
     public void moverActividad() {
