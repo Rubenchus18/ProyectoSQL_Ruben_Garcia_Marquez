@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     Button inicioSesion, registro;
     String nombre, contraseña;
     CheckBox acuerdos;
-    boolean comprobar=false;
+    boolean comprobar=false;;
     //ARRAYLIST USUARIOS
     ArrayList<Usuario>listaUsuarios=new ArrayList<Usuario>();
     //USUARIOS POR DEFECTO
