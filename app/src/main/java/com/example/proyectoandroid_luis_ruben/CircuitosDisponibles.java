@@ -70,7 +70,7 @@ public class CircuitosDisponibles extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 copaElegida = (String) parent.getItemAtPosition(position).toString().trim();
-                siguienteActividad(); // Llamar a siguienteActividad aquí
+                siguienteActividad();
             }
         });
     }

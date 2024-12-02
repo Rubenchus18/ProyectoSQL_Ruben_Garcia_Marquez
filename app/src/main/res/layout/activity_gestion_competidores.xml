@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#000000"
     android:orientation="vertical"
     tools:context=".GestionCompetidores">
 
@@ -77,14 +78,14 @@
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="15"
+      android:layout_weight="10"
       android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="30"
+        android:layout_weight="40"
         android:fontFamily="@font/audiowide"
         android:gravity="center"
         android:text="@string/carreraElegida"
@@ -98,7 +99,7 @@
         android:layout_height="0dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_weight="70"
+        android:layout_weight="60"
         android:gravity="center"
         android:textColor="#000000"
         android:textSize="20sp" />
@@ -107,7 +108,7 @@
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="45"
+      android:layout_weight="60"
       android:orientation="vertical">
 
     <LinearLayout
@@ -138,33 +139,36 @@
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="0dp"
-          android:layout_weight="20"
+          android:layout_weight="10"
           android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/editTextnombrecoche"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:ems="10"
-            android:gravity="center"
-            android:inputType="text"
-            android:text="@string/Coche" />
 
         <EditText
             android:id="@+id/editTextnombrepiloto"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50"
+            android:backgroundTint="#101010"
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
             android:text="@string/Piloto" />
 
+        <EditText
+            android:id="@+id/editTextnombrecoche"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="50"
+            android:backgroundTint="#090909"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="@string/Coche" />
+
         <Button
             android:id="@+id/buttonAgregar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="50"
             android:backgroundTint="#E33F4D"
             android:text="@string/agregar"
@@ -180,30 +184,36 @@
         <ListView
             android:id="@+id/listviewpilotos"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:divider="@color/menu_background"
+            android:dividerHeight="3dp"
+            android:footerDividersEnabled="true"
+            android:headerDividersEnabled="true" />
       </LinearLayout>
 
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="0dp"
-          android:layout_weight="30"
+          android:layout_weight="40"
           android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="50"
+            android:layout_weight="30"
             android:orientation="horizontal">
 
           <EditText
               android:id="@+id/editTextnombreliminar"
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              android:layout_weight="30"
+              android:layout_weight="40"
+              android:backgroundTint="#000000"
               android:ems="10"
               android:gravity="center"
               android:inputType="text"
-              android:text="Name" />
+              android:text="@string/Piloto"
+              android:textColor="#161515" />
 
           <ImageView
               android:id="@+id/imageVieweliminar"
@@ -216,39 +226,89 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="50"
-            android:orientation="horizontal">
+            android:layout_weight="70"
+            android:orientation="horizontal" >
 
-          <EditText
-              android:id="@+id/editTexteditarnombre"
-              android:layout_width="94dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="20"
-              android:ems="10"
-              android:inputType="text"
-              android:text="Name" />
-
-          <ImageView
-              android:id="@+id/imageVieweditar"
-              android:layout_width="0dp"
+          <LinearLayout
+              android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_weight="20"
-              app:srcCompat="@drawable/modificar" />
+              android:layout_weight="65"
+              android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="30"
+                android:background="#E13F4C"
+                android:orientation="vertical">
+
+              <TextView
+                  android:id="@+id/textView15"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:fontFamily="@font/audiowide"
+                  android:gravity="center"
+                  android:text="@string/Editar"
+                  android:textColor="#E7E5E5"
+                  android:textSize="24sp"
+                  android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="70"
+                android:orientation="vertical">
+
+              <TextView
+                  android:id="@+id/infoPiloto"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="30"
+                  android:gravity="center"
+                  android:textColor="#0B0B0B"
+                  android:textSize="20sp"
+                  android:textStyle="bold" />
+
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="70"
+                  android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editarPiloto"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:gravity="center"
+                    android:text="@string/Piloto"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/editarCoche"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:gravity="center"
+                    android:text="@string/Coche"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/fotoEditar"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="20"
+                    app:srcCompat="@drawable/modificar" />
+              </LinearLayout>
+            </LinearLayout>
+
+          </LinearLayout>
         </LinearLayout>
       </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:orientation="vertical">
-
-      <ImageButton
-          android:id="@+id/imageButton"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          app:srcCompat="@drawable/comenzar" />
-    </LinearLayout>
   </LinearLayout>
 </LinearLayout>

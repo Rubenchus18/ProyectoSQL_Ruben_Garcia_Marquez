@@ -199,7 +199,7 @@ public class Informacion extends AppCompatActivity {
         boolean cambiar=false;
         //
         for(int i=0; i<copas.size(); i++){
-            if(copas.get(i).getNombre().equals(copa)){
+            if(copas.get(i).getNombre().equalsIgnoreCase(copa)){
                 encontrar=true;
             }//if
         }//for

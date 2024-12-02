@@ -1,11 +1,12 @@
 package com.example.proyectoandroid_luis_ruben;
 
-public class Pilotos {
+public class Piloto {
    private  String coche;
     private  String nombrepiloto;
 
-    public Pilotos(String nombrepiloto) {
+    public Piloto(String nombrepiloto, String coche) {
         this.nombrepiloto = nombrepiloto;
+        this.coche=coche;
     }
 
     public String getCoche() {
@@ -26,9 +27,6 @@ public class Pilotos {
 
     @Override
     public String toString() {
-        return "Pilotos{" +
-                "coche='" + coche + '\'' +
-                ", nombrepiloto='" + nombrepiloto + '\'' +
-                '}';
+        return nombrepiloto + " - " + coche;
     }
 }

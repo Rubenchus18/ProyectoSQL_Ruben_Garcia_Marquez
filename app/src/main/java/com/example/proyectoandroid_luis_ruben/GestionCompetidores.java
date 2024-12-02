@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,17 +23,21 @@ import java.util.ArrayList;
 
 public class GestionCompetidores extends AppCompatActivity {
     EditText nombrecoche;
+    EditText editarnombreCoche;
     EditText nombrepiloto;
     EditText nombreeliminar;
-    EditText nombreeditar;
+    TextView nombreeditar;
+    EditText editarPiloto, editarCoche;
     String datosCopa;
-    ArrayAdapter<String> pilotosArrayAdapter;
-    ArrayList<String> listaPilotos;
+    ArrayAdapter<Piloto> pilotosArrayAdapter;
+    ArrayList<Piloto> listaPilotos;
     TextView carreraElegida;
     ListView listViewPilotos;
-    ImageView retocedemos;
+    ImageView retrocedemos;
     ImageView eliminar;
     ImageView editar;
+    TextView imprimirInformacion;
+    String informacionPiloto;
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
@@ -46,20 +51,29 @@ public class GestionCompetidores extends AppCompatActivity {
             return insets;
         });
 
+        //RECUPERAMOS DE LA ACTIVIDAD ANTERIOR EL CIRCUTIO QUE ELEJIMOS
         datosCopa = getIntent().getStringExtra("circuito");
+        //LO IMPRIMIMMOS PARA HACERSELO SABER AL USUARIO
         carreraElegida = findViewById(R.id.imprimirCarrera);
         carreraElegida.setText(datosCopa);
-
+        //LIGAMOS NUESTRAS VARIABLES A LOS ID DEL LAYOUT
         nombrecoche = findViewById(R.id.editTextnombrecoche);
         nombrepiloto = findViewById(R.id.editTextnombrepiloto);
         nombreeliminar = findViewById(R.id.editTextnombreliminar);
-        nombreeditar = findViewById(R.id.editTexteditarnombre); // Asegúrate de tener este EditText en tu XML
+        nombreeditar = findViewById(R.id.editTexteditarnombre);
         listViewPilotos = findViewById(R.id.listviewpilotos);
-
-        listaPilotos = new ArrayList<>();
-        pilotosArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaPilotos);
+        imprimirInformacion=findViewById(R.id.infoPiloto);
+        //LA VISIBILIDAD DE ESTOS 2 COMPONENTES ES INVISIBLE HASTA QUE SE CUMPLAN CIERTAS CONDICIOENS MAS ADELANTE
+        editarPiloto=findViewById(R.id.editarPiloto);
+        editarCoche=findViewById(R.id.editarCoche);
+        editarPiloto.setVisibility(View.INVISIBLE);
+        editarCoche.setVisibility(View.INVISIBLE);
+        //
+        listaPilotos = new ArrayList<Piloto>();
+        //REUTILIZAMOS EL ITEM DE LA LISTA DE COPAS
+        pilotosArrayAdapter = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, listaPilotos);
         listViewPilotos.setAdapter(pilotosArrayAdapter);
-
+        //BOTON DE AÑADIR ACCION CLIC LISTENER
         Button buttonInsertar = findViewById(R.id.buttonAgregar);
         buttonInsertar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +81,7 @@ public class GestionCompetidores extends AppCompatActivity {
                 insertarpilotos();
             }
         });
-
+        //BOTON DE ELIMINAR ACCION CLIC LISTENER
         eliminar = findViewById(R.id.imageVieweliminar);
         eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,67 +90,141 @@ public class GestionCompetidores extends AppCompatActivity {
             }
         });
 
-        editar = findViewById(R.id.imageVieweditar);
+        //OBTENER LOS VALORES DEL ITEM QUE SELECCIONEMOS
+        informmacionPiloto();
+
+        //BOTON DE EDITAR ACCION CLIC LISTENER - ESTA IMAGEN SERA INVISIBLE HASTA QUE SE CUMPLA CIERTA CONDICION
+        editar = findViewById(R.id.fotoEditar);
+        editar.setVisibility(View.INVISIBLE);
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editarPiloto();
             }
         });
-
-        retocedemos = findViewById(R.id.imageView7);
-        retocedemos.setOnClickListener(new View.OnClickListener() {
+        //BOTON DE RETROCEDER IR A LA ACTIVIDAD ANTERIOR
+        retrocedemos = findViewById(R.id.imageView7);
+        retrocedemos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(GestionCompetidores.this, CircuitosDisponibles.class);
                 startActivity(i);
             }
         });
+
     }
 
+    //FUNCIONALIDAD AÑADIR PILOTO A LA CARRERA
     private void insertarpilotos() {
-        String nombrePiloto = nombrepiloto.getText().toString();
-        String nombreCoche = nombrecoche.getText().toString();
+        String nombrePiloto = nombrepiloto.getText().toString().trim();
+        String nombreCoche = nombrecoche.getText().toString().trim();
+        Piloto piloto= null;
+        boolean encontrar=true;
 
         if (!nombrePiloto.isEmpty() && !nombreCoche.isEmpty()) {
-            String pilotoCompleto = "Piloto: " + nombrePiloto + ", Coche: " + nombreCoche;
-            listaPilotos.add(pilotoCompleto);
-            pilotosArrayAdapter.notifyDataSetChanged();
-            nombrepiloto.setText("");
-            nombrecoche.setText("");
+            piloto=new Piloto(nombrePiloto, nombreCoche);
+           for(int i=0; i<listaPilotos.size(); i++){
+               if(listaPilotos.get(i).getNombrepiloto().equalsIgnoreCase(piloto.getNombrepiloto())){
+                   encontrar=false;
+               }//if
+           }//for
+            if(encontrar){
+                listaPilotos.add(piloto);
+                pilotosArrayAdapter.notifyDataSetChanged();
+                nombrepiloto.setText("Piloto");
+                nombrecoche.setText("Coche");
+                Toast.makeText(this, "Piloto añadido correctamente.", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "Piloto ya existente.", Toast.LENGTH_SHORT).show();
+            }//else
         } else {
             Toast.makeText(this, "Por favor, completa ambos campos.", Toast.LENGTH_SHORT).show();
-        }
-    }
+        }//else
+
+    }//insertarPilotos
 
     private void eliminarPiloto() {
+
         String nombrePilotoAEliminar = nombreeliminar.getText().toString();
+        boolean eliminado = false;
 
         if (!nombrePilotoAEliminar.isEmpty()) {
-            boolean eliminado = false;
             for (int i = 0; i < listaPilotos.size(); i++) {
-                if (listaPilotos.get(i).contains(nombrePilotoAEliminar)) {
+                if (listaPilotos.get(i).getNombrepiloto().equalsIgnoreCase(nombrePilotoAEliminar)) {
                     listaPilotos.remove(i);
                     eliminado = true;
-                    break;
-                }
-            }
-
-            if (eliminado) {
-                pilotosArrayAdapter.notifyDataSetChanged();
-                nombreeliminar.setText("");
-                Toast.makeText(this, "Piloto eliminado.", Toast.LENGTH_SHORT).show();
-            } else {
+                    pilotosArrayAdapter.notifyDataSetChanged();
+                    nombreeliminar.setText("Piloto");
+                    Toast.makeText(this, "Piloto eliminado.", Toast.LENGTH_SHORT).show();
+                }//if
+            }//for
+            if (!eliminado) {
                 Toast.makeText(this, "Piloto no encontrado.", Toast.LENGTH_SHORT).show();
-            }
+            }//if
         } else {
             Toast.makeText(this, "Por favor, ingresa el nombre del piloto a eliminar.", Toast.LENGTH_SHORT).show();
-        }
-    }
+        }//else
+
+    }//elimminarPiloto
+
+    public void informmacionPiloto(){
+
+        //OBTENEMOS LOS DATOS DEL ITEM SELECCIONADO
+        listViewPilotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                informacionPiloto=(String)parent.getItemAtPosition(position).toString().trim();
+                imprimirInformacion.setText(informacionPiloto);
+                editarCoche.setVisibility(View.VISIBLE);
+                editarPiloto.setVisibility(View.VISIBLE);
+                editar.setVisibility(View.VISIBLE);
+            }//onItemClick
+        });
+    }//informacionPiloto
 
     public  void editarPiloto() {
 
-    }
+        String coche=editarCoche.getText().toString().trim();
+        String piloto=editarPiloto.getText().toString().trim();
+        boolean cambios=false;
+        boolean encontrar=false;
+        int indice=0;
+        if(!coche.isEmpty() && !piloto.isEmpty()){
+            for(int i=0; i<listaPilotos.size(); i++){
+                if(listaPilotos.get(i).toString().equals(informacionPiloto)){
+                    if(!listaPilotos.get(i).getCoche().equalsIgnoreCase(coche) || !listaPilotos.get(i).getNombrepiloto().equalsIgnoreCase(piloto)){
+                       indice=i;
+                       cambios=true;
+                    }else{
+                        Toast.makeText(this, "cambios inexistentes", Toast.LENGTH_SHORT).show();
+                    }//else
+                }//if
+            }//for
+        }else{
+            Toast.makeText(this, "Piloto no encontrado", Toast.LENGTH_SHORT).show();
+        }//else
+        //
+        if(cambios){
+            for(int i=0; i<listaPilotos.size(); i++){
+                if(listaPilotos.get(i).getNombrepiloto().equals(piloto)){
+                    encontrar=true;
+                }//if
+            }//for
+            if(!encontrar){
+                listaPilotos.get(indice).setNombrepiloto(piloto);
+                listaPilotos.get(indice).setCoche(coche);
+                pilotosArrayAdapter.notifyDataSetChanged();
+                Toast.makeText(this, "Piloto editado", Toast.LENGTH_SHORT).show();
+                imprimirInformacion.setText("");
+                editarCoche.setVisibility(View.INVISIBLE);
+                editarPiloto.setVisibility(View.INVISIBLE);
+                editar.setVisibility(View.INVISIBLE);
+            }else{
+                Toast.makeText(this, "Piloto ya existente", Toast.LENGTH_SHORT).show();
+            }
+        }//for
 
 
-}
+    }//editarPiloto
+
+}//GestionCompetidores

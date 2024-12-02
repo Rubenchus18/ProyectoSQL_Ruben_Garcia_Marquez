@@ -27,4 +27,5 @@
     <string name="gestionCompetidores">Management players</string>
     <string name="Coche">Auto</string>
     <string name="Piloto">Pilot</string>
+    <string name="Editar">Edit</string>
 </resources>

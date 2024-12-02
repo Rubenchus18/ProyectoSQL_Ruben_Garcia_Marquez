@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GestionCompetidores">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="15"
+      android:background="#E5404E"
+      android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:fontFamily="@font/audiowide"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#FFFDFD"
+        android:textSize="48sp"
+        tools:text="@string/app_name" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        app:srcCompat="@android:drawable/ic_media_rew" />
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="20"
+      android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="60"
+        android:fontFamily="@font/audiowide"
+        android:gravity="bottom|center"
+        android:text="@string/tituloCompetidores"
+        android:textColor="#050505"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_weight="40"
+        android:gravity="center"
+        android:text="@string/textoCompetidoresInfo"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="15"
+      android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
+        android:fontFamily="@font/audiowide"
+        android:gravity="center"
+        android:text="@string/carreraElegida"
+        android:textColor="#050505"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/imprimirCarrera"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="45"
+      android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:background="#E33F4D"
+        android:orientation="vertical">
+
+      <TextView
+          android:id="@+id/textView16"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:fontFamily="@font/audiowide"
+          android:gravity="center"
+          android:text="@string/gestionCompetidores"
+          android:textColor="#E9E7E7"
+          android:textSize="24sp"
+          android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="85"
+        android:orientation="horizontal">
+
+      <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="50"
+          android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/listviewpilotos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/menu_background"
+            android:dividerHeight="3dp"
+            android:footerDividersEnabled="true"
+            android:headerDividersEnabled="true"
+            />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="50"
+          android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="40"
+            android:orientation="horizontal">
+
+          <EditText
+              android:id="@+id/editTextnombrecoche"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="50"
+              android:ems="10"
+              android:gravity="center"
+              android:inputType="text"
+              android:text="@string/Coche" />
+
+          <EditText
+              android:id="@+id/editTextnombrepiloto"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="50"
+              android:ems="10"
+              android:gravity="center"
+              android:inputType="text"
+              android:text="@string/Piloto" />
+
+          <Button
+              android:id="@+id/buttonAgregar"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="50"
+              android:backgroundTint="#E33F4D"
+              android:text="@string/agregar"
+              android:textColor="#FAF3F3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="60"
+            android:orientation="vertical">
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="50"
+              android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextnombreliminar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="text"
+                android:text="Name"
+                android:textColor="#161515" />
+
+            <ImageView
+                android:id="@+id/imageVieweliminar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                app:srcCompat="@drawable/eliminar" />
+          </LinearLayout>
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="50"
+              android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/editTexteditarnombre"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="#070707"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imageVieweditar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                app:srcCompat="@drawable/modificar" />
+          </LinearLayout>
+        </LinearLayout>
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </LinearLayout>
+</LinearLayout>
