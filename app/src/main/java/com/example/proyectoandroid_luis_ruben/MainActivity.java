@@ -1,13 +1,11 @@
 package com.example.proyectoandroid_luis_ruben;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,171 +18,128 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
 
-    //VARIABLES
+    // VARIABLES
     SQLiteDatabase db;
     EditText nombreUsuario, contrasenaUsuario;
     Button inicioSesion, registro;
     String nombre, contraseña;
     SQLiteHelper helper;
     CheckBox acuerdos;
-    boolean comprobar=false;;
-    //ARRAYLIST USUARIOS
-    ArrayList<Usuario>listaUsuarios=new ArrayList<Usuario>();
-    //USUARIOS POR DEFECTO
-    Usuario usuario1=new Usuario("Yolanda", "1234");
-    Usuario usuario2=new Usuario("Ruben", "abcd");
-    Usuario usuario3=new Usuario("Luis", "Luis");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        helper= new SQLiteHelper(this);
-        db=helper.getWritableDatabase();
-        inserta("Fernando","1234");
+        helper = new SQLiteHelper(this);
+        db = helper.getWritableDatabase();
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        //ANIDACION DE USUARIOS A LA LISTA DE USUARIOS
-        listaUsuarios.add(usuario1);
-        listaUsuarios.add(usuario2);
-        listaUsuarios.add(usuario3);
-        //ATRIBUTOS
-        nombreUsuario=findViewById(R.id.edittextusuario);
-        contrasenaUsuario=findViewById(R.id.editTextTextContraseña);
-        inicioSesion=findViewById(R.id.buttonInciarSesion);
-        registro=findViewById(R.id.buttonRegistarse);
-        acuerdos=findViewById(R.id.checkBox);
-        //CLICK LISTENERS DE LOS BOTONES
-        //INICIO DE SESION
-        inicioSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                obtenerValores();
-                comprobar=comprobarNulos(view);
-                if(comprobar){
-                    registrarUsuario(view, nombre, contraseña);
-                }//if
-            }//onClickInicioSesion
+
+        // ATRIBUTOS
+        nombreUsuario = findViewById(R.id.edittextusuario);
+        contrasenaUsuario = findViewById(R.id.editTextTextContraseña);
+        inicioSesion = findViewById(R.id.buttonInciarSesion);
+        registro = findViewById(R.id.buttonRegistarse);
+        acuerdos = findViewById(R.id.checkBox);
+
+        // CLICK LISTENERS DE LOS BOTONES
+        // INICIO DE SESION
+        inicioSesion.setOnClickListener(view -> {
+            obtenerValores();
+            if (comprobarNulos()) {
+                registrarUsuario(view, nombre, contraseña);
+            }
         });
-        //REGISTRO
-        registro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                obtenerValores();
-                comprobar=comprobarNulos(view);
-               if(comprobar){
-                   crearUsuario(view);
-               }//if
-            }//onClickInicioSesion.
 
-        });;;
+        // REGISTRO
+        registro.setOnClickListener(view -> {
+            obtenerValores();
+            if (comprobarNulos()) {
+                crearUsuario(view);
+            }
+        });
+    }
 
-    }//onCreate
     public void inserta(String nombre, String contraseña) {
-        ContentValues values= new ContentValues();
-        values.put("nombre", nombre);
-        values.put("contraseña", contraseña);
-        db.insert("Usuario",null, values);
+        ContentValues values = new ContentValues();
+        values.put("Nombre", nombre);
+        values.put("Contraseña", contraseña);
+        db.insert("Usuario", null, values);
     }
-    public void inserta(String titulo, String grupo, String album,int foto) {
-        ContentValues values= new ContentValues();
-        values.put("titulo", titulo);
-        values.put("grupo", grupo);
-        values.put("album", album);
-        values.put("foto",foto);
-        db.insert("playlist",null, values);
-    }
-    public boolean comprobarNulos(View view){
 
-        boolean entrar=false;
-        if(nombre.isEmpty() && contraseña.isEmpty()){
-            entrar=false;
+    public boolean comprobarNulos() {
+        if (nombre.isEmpty() && contraseña.isEmpty()) {
             Toast.makeText(getApplicationContext(), "INTRODUZCA UN INICIO DE SESIÓN", Toast.LENGTH_LONG).show();
-        }else if(nombre.isEmpty() || contraseña.isEmpty()){
-            entrar=false;
-            if(nombre.isEmpty()){
+            return false;
+        } else if (nombre.isEmpty() || contraseña.isEmpty()) {
+            if (nombre.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "CAMPO DE USUARIO OBLIGATORIO", Toast.LENGTH_LONG).show();
-            }else if(contraseña.isEmpty()){
+            } else {
                 Toast.makeText(getApplicationContext(), "CAMPO DE CONTRASEÑA OBLIGATORIO", Toast.LENGTH_LONG).show();
-            }//else if
-        }else{
-            entrar=true;
-        }//else
-        return entrar;
-    }//comprobarNulos
+            }
+            return false;
+        }
+        return true;
+    }
 
-    public void crearUsuario(View view){
-        Usuario usuario=new Usuario();
-        boolean existe=false;
+    public void crearUsuario(View view) {
+        try {
+            if (nombre.isEmpty() || contraseña.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Por favor, complete todos los campos.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            Cursor cursor = db.rawQuery("SELECT * FROM Usuario WHERE contraseña = ?", new String[]{contraseña});
+            if (cursor.getCount() > 0) {
+                Toast.makeText(getApplicationContext(), "ESTE USUARIO YA EXISTE", Toast.LENGTH_LONG).show();
+            } else {
+                inserta(nombre, contraseña);
+                nombreUsuario.setText("");
+                contrasenaUsuario.setText("");
+                Toast.makeText(getApplicationContext(), "USUARIO CREADO CORRECTAMENTE", Toast.LENGTH_LONG).show();
+            }
+            cursor.close();
+        } catch (SQLiteException e) {
+            Toast.makeText(getApplicationContext(), "Error de base de datos: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
 
-        for(int i=0; i<listaUsuarios.size(); i++) {
-            if (nombre.equals(listaUsuarios.get(i).getNombre()) && contraseña.equals(listaUsuarios.get(i).getContraseña())) {
-                existe = true;
-            }//if
-        }//for
-        if(existe){
-                    Toast.makeText(getApplicationContext(), "ESTE USUARIO YA EXISTE", Toast.LENGTH_LONG).show();
-        }else if(existe==false){
-                    //CREAMOS EL USUARIO SI PASO TODO EL RECONOMIENTO PREVIO
-                    String nombre=String.valueOf(nombreUsuario.getText());
-                    String contraseña=String.valueOf(contrasenaUsuario.getText());
-                    usuario=new Usuario(nombre, contraseña);
-                    listaUsuarios.add(usuario);
-                    nombreUsuario.setText("");
-                    contrasenaUsuario.setText("");
-                        //SE LO DECIMOS AL USUARIO TAMBIEN
-                    Toast.makeText(getApplicationContext(), "USUARIO CREADO CORRECTAMENTE", Toast.LENGTH_LONG).show();
-                }//else
+    public void registrarUsuario(View view, String nombre, String contraseña) {
+        try {
+            Cursor cursor = db.rawQuery("SELECT * FROM Usuario WHERE nombre = ? AND contraseña = ?", new String[]{nombre, contraseña});
+            if ( cursor.getCount() > 0) {
+                if (!acuerdos.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "ACEPTE LOS ACUERDOS DE USUARIO", Toast.LENGTH_LONG).show();
+                } else {
+                    siguienteActividad(view);
+                    Toast.makeText(getApplicationContext(), "INICIANDO SESIÓN", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "INICIO DE SESION INCORRECTO", Toast.LENGTH_LONG).show();
+            }
+            cursor.close();
+        } catch (SQLiteException e) {
+            Toast.makeText(getApplicationContext(), "Error de base de datos: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
 
-    }//crearUsuario
+    public void obtenerValores() {
+        nombre = nombreUsuario.getText().toString().trim();
+        contraseña = contrasenaUsuario.getText().toString().trim();
+    }
 
-    public void registrarUsuario(View view, String nombre, String contraseña){
-
-        boolean registro=false;
-        String texto=null;
-        for(int i=0; i<listaUsuarios.size(); i++){
-            if(listaUsuarios.get(i).getNombre().equals(nombre) && listaUsuarios.get(i).getContraseña().equals(contraseña)){
-                registro=true;
-            }else{
-                if(!listaUsuarios.get(i).getNombre().equals(nombre) && !listaUsuarios.get(i).getContraseña().equals(contraseña)){
-                   texto="INICIO DE SESION INCORRECTO";
-                }else if(!listaUsuarios.get(i).getNombre().equals(nombre)){
-                    texto="USUARIO INCORRECTO";
-                }else if(!listaUsuarios.get(i).getContraseña().equals(contraseña)){
-                    texto="CONTRASEÑA INCORRECTA";;
-                }//else if
-            }//else
-        }//for
-        if(registro){
-            if(!acuerdos.isChecked()) {
-                Toast.makeText(getApplicationContext(), "ACEPTE LOS ACUERDOS DE USUARIO", Toast.LENGTH_LONG).show();
-            }else{
-                siguienteActividad(view);
-                Toast.makeText(getApplicationContext(), "INICIANDO SESIÓN", Toast.LENGTH_LONG).show();
-            }//else
-        }else{
-            Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_LONG).show();
-        }//else
-
-    }//registrarUsuario
-
-    public void obtenerValores(){
-        nombre=nombreUsuario.getText().toString().trim();
-        contraseña=contrasenaUsuario.getText().toString().trim();
-        //Sin este metodo la app da error, puesto que al intetar recuperar los valores antes de los metodos on click por ende antes de inicializarlos puede provocar nulos
-    }//obtener valores
-
-    public void siguienteActividad(View view){
+    public void siguienteActividad(View view) {
         Intent siguienteActividad = new Intent(this, Informacion.class);
         startActivity(siguienteActividad);
-    }//siguiente actividad
-
-
-}//MainActivity
+    }
+}

@@ -3,45 +3,65 @@ package com.example.proyectoandroid_luis_ruben;
 import android.provider.BaseColumns;
 
 public final class EstructuraBBDD {
-    public static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE IF NOT EXISTS "+
+    // SQL para crear la tabla Piloto
+    public static final String SQL_CREATE_ENTRIES_PILOTO =
+            "CREATE TABLE IF NOT EXISTS " +
                     Piloto.TABLE_NAME_PLAYLIST +
-                    "(" + Piloto._ID + " integer PRIMARYKEY, " + Piloto.COLUMN_NAME_NOMBRE + " text," + Piloto.COLUMN_NAME_COCHE + " text);";
-    public static final String SQL_DELETE_ENTRIES =
+                    " (" + Piloto._ID + " INTEGER PRIMARY KEY, " +
+                    Piloto.COLUMN_NAME_NOMBRE + " TEXT, " +
+                    Piloto.COLUMN_NAME_COCHE + " TEXT);";
+
+    // SQL para eliminar la tabla Piloto
+    public static final String SQL_DELETE_ENTRIES_PILOTO =
             "DROP TABLE IF EXISTS " +
                     Piloto.TABLE_NAME_PLAYLIST;
 
-    public static final String SQL_CREATE_ENTRIE =
-            "CREATE TABLE IF NOT EXISTS "+
+    // SQL para crear la tabla Usuario
+    public static final String SQL_CREATE_ENTRIES_USUARIO =
+            "CREATE TABLE IF NOT EXISTS " +
                     Usuario.TABLE_NAME_PLAYLIST +
-                    "(" + Usuario._ID + " integer PRIMARYKEY, " + Usuario.COLUMN_NAME_NOMBRE + " text," + Usuario.COLUMN_NAME_GRUPO + " text);";
-    public static final String SQL_DELETE_ENTRI =
+                    " (" + Usuario._ID + " INTEGER PRIMARY KEY, " +
+                    Usuario.COLUMN_NAME_NOMBRE + " TEXT, " +
+                    Usuario.COLUMN_NAME_CONTRASENA + " TEXT);";
+
+    // SQL para eliminar la tabla Usuario
+    public static final String SQL_DELETE_ENTRIES_USUARIO =
             "DROP TABLE IF EXISTS " +
                     Usuario.TABLE_NAME_PLAYLIST;
 
-    public static final String SQL_CREATE_ENTRI =
-            "CREATE TABLE IF NOT EXISTS "+
+    // SQL para crear la tabla Copa
+    public static final String SQL_CREATE_ENTRIES_COPA =
+            "CREATE TABLE IF NOT EXISTS " +
                     Copa.TABLE_NAME_PLAYLIST +
-                    "(" + Copa._ID + " integer PRIMARYKEY, " + Copa.COLUMN_NAME_NOMBRE + " text," + Copa.COLUMN_NAME_GRUPO + " text);";
-    public static final String SQL_DELETE_ENTR =
+                    " (" + Copa._ID + " INTEGER PRIMARY KEY, " +
+                    Copa.COLUMN_NAME_NOMBRE + " TEXT, " +
+                    Copa.COLUMN_NAME_DISTANCIA + " TEXT);";
+
+    // SQL para eliminar la tabla Copa
+    public static final String SQL_DELETE_ENTRIES_COPA =
             "DROP TABLE IF EXISTS " +
                     Copa.TABLE_NAME_PLAYLIST;
+
     private EstructuraBBDD() {}
-    /* Clase interna que define la estructura de la tabla de playlist
-     */
+
+    /* Clase interna que define la estructura de la tabla de Piloto */
     public static class Piloto implements BaseColumns {
         public static final String TABLE_NAME_PLAYLIST = "Piloto";
-        public static final String COLUMN_NAME_NOMBRE= "Nombre";
+        public static final String COLUMN_NAME_NOMBRE = "Nombre";
         public static final String COLUMN_NAME_COCHE = "Coche";
     }
+
+    /* Clase interna que define la estructura de la tabla de Usuario */
     public static class Usuario implements BaseColumns {
-        public static final String TABLE_NAME_PLAYLIST = "Usuarios";
+        public static final String TABLE_NAME_PLAYLIST = "Usuario";
         public static final String COLUMN_NAME_NOMBRE = "Nombre";
-        public static final String COLUMN_NAME_GRUPO = "Contraseña";
+        public static final String COLUMN_NAME_CONTRASENA = "Contraseña";
     }
+
+    /* Clase interna que define la estructura de la tabla de Copa */
     public static class Copa implements BaseColumns {
         public static final String TABLE_NAME_PLAYLIST = "Copa";
         public static final String COLUMN_NAME_NOMBRE = "Nombre";
-        public static final String COLUMN_NAME_GRUPO = "Distancia";
+        public static final String COLUMN_NAME_DISTANCIA = "Distancia"; // Cambiado a DISTANCIA
     }
 }
