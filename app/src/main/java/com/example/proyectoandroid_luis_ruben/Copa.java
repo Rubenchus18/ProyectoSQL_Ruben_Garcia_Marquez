@@ -1,25 +1,19 @@
 package com.example.proyectoandroid_luis_ruben;
 
 public class Copa {
-
     private String nombre;
-    private int id, distancia;
+    private String distancia;
 
-    public Copa(String nombre){
-        this.nombre=nombre;
-        this.id=0;
-        this.distancia=(int)(Math.random()*1000);
-    }//Copa
+    public Copa(String nombre, String distancia) {
+        this.nombre = nombre;
+        this.distancia = distancia;
+    }
 
     public String getNombre() {
         return nombre;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public int getDistancia() {
+    public String getDistancia() {
         return distancia;
     }
 
@@ -27,16 +21,12 @@ public class Copa {
         this.nombre = nombre;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setDistancia(int distancia) {
+    public void setDistancia(String distancia) {
         this.distancia = distancia;
     }
 
     @Override
     public String toString() {
-        return id + "  - " + nombre + " | " + distancia + " M";
+        return nombre + " - Distancia: " + distancia + " m"; // Esto es lo que se mostrará en la ListView
     }
 }

@@ -1,5 +1,7 @@
 package com.example.proyectoandroid_luis_ruben;
 
+import static android.app.ProgressDialog.show;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,17 +23,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Informacion extends AppCompatActivity {
 
     Toolbar toolbar;
     ListView listaCopas;
-    ArrayList<Copa> copas = new ArrayList<Copa>();
+    ArrayList<Copa> copas = new ArrayList<>();
     ArrayAdapter<Copa> adapartorCopas;
     EditText añadircopa, eliminarCopaEditText, editarCopa;
     ImageView añadir, eliminar, editar;
     TextView edicion;
-    String auxiliar;
+    SQLiteHelper dbHelper;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -47,25 +50,25 @@ public class Informacion extends AppCompatActivity {
         // LIGAMOS LA LISTVIEW LISTA COPAS DE JAVA CON LA DEL LAYOUT
         listaCopas = findViewById(R.id.listacopas);
 
-        // EN EL ARRAYLIST DE LAS COPAS AÑADIMOS ALGUNAS
-        insertarDatosLista(copas);
+        // Inicializamos la base de datos
+        dbHelper = new SQLiteHelper(this);
 
         // EN EL ADAPTADOR INTRODUCIMOS EL LAYOUT Y LA LISTA
         adapartorCopas = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, copas);
-
-        //AHORA LIGAMOS LA LISTA CON EL ADAPTADOR RELLENO
         listaCopas.setAdapter(adapartorCopas);
 
-        //LAS OPERACIONES SOBRE LAS COPAS SERAN AÑADIR, ELIMINAR Y EDITAR
-        //AÑADIR
+        // Cargar copas desde la base de datos
+        cargarCopas();
+
+        // AÑADIR
         añadircopa = findViewById(R.id.nuevaCopa);
         añadir = findViewById(R.id.newCupFoto);
-        //ELIMINAR
+        // ELIMINAR
         eliminarCopaEditText = findViewById(R.id.eliminarCopa);
         eliminar = findViewById(R.id.deleteCupFoto);
-        //EDITAR
-        editarCopa=findViewById(R.id.editarCopa);
-        editar=findViewById(R.id.EditCupFoto);
+        // EDITAR
+        editarCopa = findViewById(R.id.editarCopa);
+        editar = findViewById(R.id.EditCupFoto);
 
         // Configuramos el listener para el ImageView de añadir
         añadir.setOnClickListener(new View.OnClickListener() {
@@ -82,28 +85,26 @@ public class Informacion extends AppCompatActivity {
                 eliminarCopa();
             }
         });
-       //OBTENEMOS LOS DATOS DEL ITEM SELECCIONADO
+
+        // OBTENEMOS LOS DATOS DEL ITEM SELECCIONADO
         listaCopas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String nombreCopaEditar=(String)parent.getItemAtPosition(position).toString().trim();
-                edicion=findViewById(R.id.textoEditarCopa);
-                auxiliar=edicion.getText().toString().trim();
-                edicion.setText(nombreCopaEditar);
-                if(edicion!=null){
-                    editar.setVisibility(View.VISIBLE);
-                }
-            }//onItemClick
+                Copa copaSeleccionada = copas.get(position);
+                edicion = findViewById(R.id.textoEditarCopa);
+                edicion.setText(copaSeleccionada.getNombre());
+                editar.setVisibility(View.VISIBLE);
+            }
         });
-        //Configuramos el listener para el ImageView de editar
-        editar.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {editarCopa();
-            }//oncClickEditar
-        });//clickListenerEditar
-        //
 
-    }//onCreate
+        // Configuramos el listener para el ImageView de editar
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editarCopa();
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,117 +120,89 @@ public class Informacion extends AppCompatActivity {
         } else if (item.getItemId() == R.id.SobreNosotros1) {
             Intent j = new Intent(this, SobreNosotros.class);
             startActivity(j);
-        }else if(item.getItemId()== R.id.pilotos){
+        } else if (item.getItemId() == R.id.pilotos) {
             Intent k = new Intent(this, CircuitosDisponibles.class);
-            ArrayList<String>listaCopas=trasladarArrayList();
-            k.putStringArrayListExtra("lista", listaCopas);
+            ArrayList<String> listaCopas = trasladarArrayList();
+            k.putStringArrayListExtra("lista Copas", listaCopas);
             startActivity(k);
-        }//else if
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void añadirCopa() {
+        String nombreCopa = añadircopa.getText().toString().trim();
+        if (!nombreCopa.isEmpty() && !copaExiste(nombreCopa)) {
+            Random random = new Random();
+            int distanciaAleatoria = random.nextInt(901) + 100; // Genera un número aleatorio entre 100 y 1000
+            Copa nuevaCopa = new Copa(nombreCopa, String.valueOf(distanciaAleatoria)); // Cambia "0" por la distancia aleatoria
+            dbHelper.insertarCopa(nuevaCopa); // Insertar en la base de datos
+            copas.add(nuevaCopa);
+            adapartorCopas.notifyDataSetChanged();
+            añadircopa.setText("");
+            Toast.makeText(this, "Copa añadida", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "La copa ya existe o el nombre está vacío", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean copaExiste(String nombre) {
+        for (Copa copa : copas) {
+            if (copa.getNombre().equalsIgnoreCase(nombre)) {
+                return true;
+            }
+        }
         return false;
     }
 
-    public void insertarDatosLista(ArrayList<Copa> copas) {
-        copas.add(new Copa("Copa caparazon"));
-        copas.add(new Copa("Copa Estrella"));
-        copas.add(new Copa("Copa Bala"));
-        copas.add(new Copa("Copa Platano"));
-        copas.add(new Copa("Copa Mario"));
-        // CAMBIAR ID
-        for (int i = 1; i < copas.size(); i++) {
-            copas.get(i).setId(i);
-        }//for
-    }//insertarDatosLista
-
-    // Método para añadir una nueva copa
-    public void añadirCopa() {
-
-        boolean encontrar=false;
-        String nombreCopa = añadircopa.getText().toString().trim();
-
-        if (!nombreCopa.isEmpty()) {
-            for (Copa copa : copas) {
-                if (copa.getNombre().equalsIgnoreCase(nombreCopa)) {
-                    Toast.makeText(this, "La copa ya existe: " + nombreCopa, Toast.LENGTH_SHORT).show();
-                    encontrar=true;
-                }//if
-            }//for
-
-            if(!encontrar){
-                Copa nuevaCopa = new Copa(nombreCopa);
-                copas.add(nuevaCopa);
-                for (int i = 1; i < copas.size(); i++) {
-                    copas.get(i).setId(i);
-                }
-                adapartorCopas.notifyDataSetChanged();
-                Toast.makeText(this, "Copa añadida: " + nombreCopa, Toast.LENGTH_SHORT).show();
-            }//if
-        } else {
-            Toast.makeText(this, "Por favor, introduce un nombre para la copa", Toast.LENGTH_SHORT).show();
-        }//else
-    }//añadirCopa
-
-    // Método para eliminar una copa
-    public void eliminarCopa() {
-
+    private void eliminarCopa() {
         String nombreCopa = eliminarCopaEditText.getText().toString().trim();
-        boolean removed = false;
-
-        if (!nombreCopa.isEmpty()) {
-            for (int i = 0; i < copas.size(); i++) {
-                if (copas.get(i).getNombre().equalsIgnoreCase(nombreCopa)) {
-                    copas.remove(i);
-                    removed = true;
-                }//if
-            }//for
-            if (removed) {
-                adapartorCopas.notifyDataSetChanged();
-                Toast.makeText(this, "Copa eliminada: " + nombreCopa, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Copa no encontrada", Toast.LENGTH_SHORT).show();
-            }//else
+        if (copaExiste(nombreCopa)) {
+            dbHelper.eliminarCopa(nombreCopa); // Eliminar de la base de datos
+            copas.removeIf(copa -> copa.getNombre().equalsIgnoreCase(nombreCopa));
+            adapartorCopas.notifyDataSetChanged();
+            eliminarCopaEditText.setText("");
+            Toast.makeText(this, "Copa eliminada", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Por favor, introduce un nombre para la copa", Toast.LENGTH_SHORT).show();
-        }//else
-    }//eliminarCopa
+            Toast.makeText(this, "La copa no existe", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-    public void editarCopa(){
-        String copa=editarCopa.getText().toString().trim();
-        boolean encontrar=false;
-        boolean cambiar=false;
-        //
-        for(int i=0; i<copas.size(); i++){
-            if(copas.get(i).getNombre().equalsIgnoreCase(copa)){
-                encontrar=true;
-            }//if
-        }//for
-        if(!encontrar){
-            for(int i=0; i<copas.size(); i++){
-                if(copas.get(i).toString().equals(edicion.getText().toString())){
-                    copas.get(i).setNombre(copa);
-                    adapartorCopas.notifyDataSetChanged();
-                    edicion.setText("");
-                    editar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(this, "COPA EDITADA CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                }//if
-            }//for
-        }else{
-            Toast.makeText(this, "EDICION FALLIDA, COPA YA EXISTENTE", Toast.LENGTH_SHORT).show();
-        }//else
+    private void editarCopa() {
+        String nuevoNombre = editarCopa.getText().toString().trim();
+        String nombreAntiguo = edicion.getText().toString().trim();
+        if (!nuevoNombre.isEmpty() && copaExiste(nombreAntiguo)) {
+            dbHelper.editarCopa(nombreAntiguo, nuevoNombre); // Editar en la base de datos
+            for (Copa copa : copas) {
+                if (copa.getNombre().equalsIgnoreCase(nombreAntiguo)) {
+                    copa.setNombre(nuevoNombre);
+                    break;
+                }
+            }
+            adapartorCopas.notifyDataSetChanged();
+            editarCopa.setText("");
+            edicion.setText("");
+            Toast.makeText(this, "Copa editada", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "El nombre nuevo está vacío o la copa no existe", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-    }//editarCopa
+    public void cargarCopas() {
+        copas.clear(); // Limpiar la lista antes de cargar
+        ArrayList<Copa> copasDesdeDB = dbHelper.obtenerCopas(); // Obtener copas de la base de datos
+        if (copasDesdeDB != null && !copasDesdeDB.isEmpty()) {
+            copas.addAll(copasDesdeDB); // Agregar las copas a la lista
+            adapartorCopas.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+        } else {
+            Toast.makeText(this, "No se encontraron copas en la base de datos", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-    public ArrayList<String> trasladarArrayList(){
-
-        ArrayList<String>lista=new ArrayList<String>();
-        //
-        for(int i=0; i<copas.size(); i++){
-            lista.add(copas.get(i).toString());
-        }//for
-        return lista;
-    }//trasladarArrayList
-
-}//Informacion
-
-
-
-
+    private ArrayList<String> trasladarArrayList() {
+        ArrayList<String> listaNombres = new ArrayList<>();
+        for (Copa copa : copas) {
+            listaNombres.add(copa.getNombre());
+        }
+        return listaNombres;
+    }
+}
