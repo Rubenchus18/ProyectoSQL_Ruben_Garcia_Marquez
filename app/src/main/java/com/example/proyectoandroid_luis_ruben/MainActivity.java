@@ -1,8 +1,10 @@
 package com.example.proyectoandroid_luis_ruben;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,9 +25,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     //VARIABLES
+    SQLiteDatabase db;
     EditText nombreUsuario, contrasenaUsuario;
     Button inicioSesion, registro;
     String nombre, contraseña;
+    SQLiteHelper helper;
     CheckBox acuerdos;
     boolean comprobar=false;;
     //ARRAYLIST USUARIOS
@@ -39,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        helper= new SQLiteHelper(this);
+        db=helper.getWritableDatabase();
+        inserta("Fernando","1234");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -80,7 +87,20 @@ public class MainActivity extends AppCompatActivity {
         });;;
 
     }//onCreate
-
+    public void inserta(String nombre, String contraseña) {
+        ContentValues values= new ContentValues();
+        values.put("nombre", nombre);
+        values.put("contraseña", contraseña);
+        db.insert("Usuario",null, values);
+    }
+    public void inserta(String titulo, String grupo, String album,int foto) {
+        ContentValues values= new ContentValues();
+        values.put("titulo", titulo);
+        values.put("grupo", grupo);
+        values.put("album", album);
+        values.put("foto",foto);
+        db.insert("playlist",null, values);
+    }
     public boolean comprobarNulos(View view){
 
         boolean entrar=false;
