@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +19,12 @@ import java.util.ArrayList;
 
 public class CircuitosDisponibles extends AppCompatActivity {
 
-    ArrayAdapter<String> adaptadorListaCopa;
+    ArrayAdapter<Copa> adaptadorListaCopa;
     ListView lista;
     ImageView atras;
-    ArrayList<String> circuitos = new ArrayList<String>();
+    ArrayList<Copa> circuitos = new ArrayList<>();
     String copaElegida;
+    SQLiteHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,14 @@ public class CircuitosDisponibles extends AppCompatActivity {
             return insets;
         });
 
-        // RECUPERAMOS EL ARRAYLIST DE LA ANTERIOR ACTIVIDAD
-        circuitos = getIntent().getStringArrayListExtra("lista");
+        // Inicializamos la base de datos
+        dbHelper = new SQLiteHelper(this);
+
+        // ASIGNACION DE LISTVIEW
+        asignacionList();
+
+        // Cargar copas desde la base de datos
+        cargarCopas();
 
         // IR A LA ACTIVIDAD ANTERIOR
         atras = findViewById(R.id.actividadAnterior);
@@ -47,13 +55,9 @@ public class CircuitosDisponibles extends AppCompatActivity {
             }
         });
 
-        // ASIGNACION DE LISTVIEW
-        asignacionList();
-
         // OBTENEMOS LOS VALORES DE LA COPA QUE SELECCIONEMOS
         valoresCopa();
-
-    }//onCreate
+    }
 
     public void moverActividad() {
         Intent i = new Intent(this, Informacion.class);
@@ -64,21 +68,33 @@ public class CircuitosDisponibles extends AppCompatActivity {
         lista = findViewById(R.id.listaOps);
         adaptadorListaCopa = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, circuitos);
         lista.setAdapter(adaptadorListaCopa);
-    }//moverActividad
+    }
 
     public void valoresCopa() {
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                copaElegida = (String) parent.getItemAtPosition(position).toString().trim();
+                Copa copaSeleccionada = circuitos.get(position);
+                copaElegida = copaSeleccionada.getNombre();
                 siguienteActividad();
             }
         });
-    }//valoresCopa
+    }
 
     public void siguienteActividad() {
         Intent j = new Intent(this, GestionCompetidores.class);
         j.putExtra("circuito", copaElegida);
         startActivity(j);
-    }//siguienteActividad
-}//CircuitosDisponibles
+    }
+
+    private void cargarCopas() {
+        circuitos.clear(); // Limpiar la lista antes de cargar
+        ArrayList<Copa> copasDesdeDB = dbHelper.obtenerCopas(); // Obtener copas de la base de datos
+        if (copasDesdeDB != null && !copasDesdeDB.isEmpty()) {
+            circuitos.addAll(copasDesdeDB); // Agregar las copas a la lista
+            adaptadorListaCopa.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+        } else {
+            Toast.makeText(this, "No se encontraron copas en la base de datos", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
