@@ -77,4 +77,51 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
         return copas;
     }
+    public boolean eliminarPiloto(String nombrePiloto) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsAffected = db.delete(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE + "=?", new String[]{nombrePiloto});
+        db.close();
+        return rowsAffected > 0;
+    }
+    public boolean editarPiloto(String nombreAntiguo, String nuevoNombre, String nuevoCoche) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE, nuevoNombre);
+        values.put(EstructuraBBDD.Piloto.COLUMN_NAME_COCHE, nuevoCoche);
+        int rowsAffected = db.update(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, values, EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE + "=?", new String[]{nombreAntiguo});
+        db.close();
+        return rowsAffected > 0;
+    }
+    public ArrayList<Piloto> obtenerPilotos() {
+        ArrayList<Piloto> pilotos = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, null, null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String nombre = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE));
+                @SuppressLint("Range") String coche = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Piloto.COLUMN_NAME_COCHE));
+                pilotos.add(new Piloto(nombre, coche));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return pilotos;
+    }
+    public boolean pilotoExiste(String nombrePiloto) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, null, EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE + "=?", new String[]{nombrePiloto}, null, null, null);
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        db.close();
+        return exists;
+    }
+    public void insertarPiloto(Piloto piloto) {
+        SQLiteDatabase db = this.getWritableDatabase(); // Abrir la base de datos en modo escritura
+        ContentValues values = new ContentValues(); // Crear un objeto ContentValues para almacenar los valores a insertar
+        values.put(EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE, piloto.getNombrepiloto()); // Agregar el nombre del piloto
+        values.put(EstructuraBBDD.Piloto.COLUMN_NAME_COCHE, piloto.getCoche()); // Agregar el nombre del coche
+        db.insert(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, null, values); // Insertar los valores en la tabla
+        db.close(); // Cerrar la base de datos
+    }
 }

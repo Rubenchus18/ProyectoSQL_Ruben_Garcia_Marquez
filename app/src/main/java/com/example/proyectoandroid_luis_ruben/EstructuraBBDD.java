@@ -50,6 +50,7 @@ public final class EstructuraBBDD {
         public static final String TABLE_NAME_PLAYLIST = "Piloto";
         public static final String COLUMN_NAME_NOMBRE = "Nombre";
         public static final String COLUMN_NAME_COCHE = "Coche";
+
     }
 
     /* Clase interna que define la estructura de la tabla de Usuario */
