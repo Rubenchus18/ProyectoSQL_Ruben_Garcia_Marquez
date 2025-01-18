@@ -19,7 +19,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
+
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GestionCompetidores extends AppCompatActivity {
     EditText nombrecoche;
@@ -37,7 +40,10 @@ public class GestionCompetidores extends AppCompatActivity {
     ImageView editar;
     TextView imprimirInformacion;
     String informacionPiloto;
-    SQLiteHelper dbHelper; // Añadido para manejar la base de datos
+    SQLiteHelper dbHelper;
+    Button buttonSimular;
+    Button buttonVerResultados;
+
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
@@ -54,16 +60,16 @@ public class GestionCompetidores extends AppCompatActivity {
         // Inicializar SQLiteHelper
         dbHelper = new SQLiteHelper(this);
 
-        // Recuperamos de la actividad anterior el circuito que elegimos
+
         datosCopa = getIntent().getStringExtra("circuito");
         carreraElegida = findViewById(R.id.imprimirCarrera);
         carreraElegida.setText(datosCopa);
 
-        // Ligamos nuestras variables a los ID del layout
+
         nombrecoche = findViewById(R.id.editTextnombrecoche);
         nombrepiloto = findViewById(R.id.editTextnombrepiloto);
         nombreeliminar = findViewById(R.id.editTextnombreliminar);
-        listViewPilotos = findViewById(R.id.listviewpilotos);
+        listViewPilotos = findViewById(R.id.listviewmostrarresultado);
         imprimirInformacion = findViewById(R.id.infoPiloto);
         editarPiloto = findViewById(R.id.editarPiloto);
         editarCoche = findViewById(R.id.editarCoche);
@@ -95,10 +101,17 @@ public class GestionCompetidores extends AppCompatActivity {
         editar.setOnClickListener(view -> editarPiloto());
 
         // Botón de retroceder ir a la actividad anterior
-        retrocedemos = findViewById(R.id.imageView7);
+        retrocedemos = findViewById(R.id .imageView7);
         retrocedemos.setOnClickListener(v -> {
             Intent i = new Intent(GestionCompetidores.this, CircuitosDisponibles.class);
             startActivity(i);
+        });
+
+        // Botón para ver resultados
+        buttonVerResultados = findViewById(R.id.buttonverresultado);
+        buttonVerResultados.setOnClickListener(v -> {
+            Intent intent = new Intent(GestionCompetidores.this, Mostrar_resultado_carrera.class);
+            startActivity(intent);
         });
     }
 
@@ -192,7 +205,7 @@ public class GestionCompetidores extends AppCompatActivity {
         if (pilotosDesdeDB != null && !pilotosDesdeDB.isEmpty()) {
             listaPilotos.addAll(pilotosDesdeDB); // Agregar los pilotos a la lista
         } else {
-            Toast.makeText(this, "No se encontraron pilotos en la base de datos.", Toast.LENGTH_SHORT).show();
+            Toast.makeText (this, "No se encontraron pilotos en la base de datos.", Toast.LENGTH_SHORT).show();
         }
         pilotosArrayAdapter.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
     }

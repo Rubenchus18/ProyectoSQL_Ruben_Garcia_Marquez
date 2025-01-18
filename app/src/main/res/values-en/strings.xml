@@ -28,4 +28,8 @@
     <string name="Coche">Auto</string>
     <string name="Piloto">Pilot</string>
     <string name="Editar">Edit</string>
+    <string name="Resultado">Result</string>
+    <string name="Posiciones_Resultado">Positions result</string>
+    <string name="ver_resultado">See result</string>
+
 </resources>

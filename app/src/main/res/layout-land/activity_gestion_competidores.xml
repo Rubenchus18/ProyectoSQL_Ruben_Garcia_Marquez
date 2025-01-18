@@ -29,7 +29,7 @@
         android:layout_weight="8"
         android:fontFamily="@font/audiowide"
         android:gravity="center"
-        android:text="TextView"
+        android:text="@string/app_name"
         android:textColor="#FFFDFD"
         android:textSize="48sp"
         tools:text="@string/app_name" />
@@ -132,26 +132,20 @@
         android:layout_weight="45"
         android:orientation="horizontal">
 
+      <ListView
+          android:id="@+id/listviewmostrarresultado"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="65"
+          android:divider="@color/menu_background"
+          android:dividerHeight="3dp"
+          android:footerDividersEnabled="true"
+          android:headerDividersEnabled="true" />
+
       <LinearLayout
           android:layout_width="0dp"
           android:layout_height="match_parent"
           android:layout_weight="35"
-          android:orientation="horizontal">
-
-        <ListView
-            android:id="@+id/listviewpilotos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/menu_background"
-            android:dividerHeight="3dp"
-            android:footerDividersEnabled="true"
-            android:headerDividersEnabled="true" />
-      </LinearLayout>
-
-      <LinearLayout
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_weight="65"
           android:orientation="vertical">
 
         <LinearLayout
@@ -302,14 +296,10 @@
                       app:srcCompat="@drawable/modificar" />
                 </LinearLayout>
               </LinearLayout>
-
             </LinearLayout>
-
           </LinearLayout>
         </LinearLayout>
       </LinearLayout>
-
     </LinearLayout>
-
   </LinearLayout>
 </LinearLayout>

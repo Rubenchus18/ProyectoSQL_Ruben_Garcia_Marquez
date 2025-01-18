@@ -139,7 +139,7 @@
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="0dp"
-          android:layout_weight="10"
+          android:layout_weight="15"
           android:orientation="horizontal">
 
         <EditText
@@ -184,7 +184,7 @@
           android:orientation="vertical">
 
         <ListView
-            android:id="@+id/listviewpilotos"
+            android:id="@+id/listviewmostrarresultado"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@color/menu_background"
@@ -230,7 +230,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="70"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
           <LinearLayout
               android:layout_width="match_parent"
@@ -267,7 +267,7 @@
                   android:id="@+id/infoPiloto"
                   android:layout_width="match_parent"
                   android:layout_height="0dp"
-                  android:layout_weight="30"
+                  android:layout_weight="35"
                   android:gravity="center"
                   android:textColor="#0B0B0B"
                   android:textSize="20sp"
@@ -307,11 +307,41 @@
                     app:srcCompat="@drawable/modificar" />
               </LinearLayout>
             </LinearLayout>
-
           </LinearLayout>
         </LinearLayout>
       </LinearLayout>
     </LinearLayout>
 
+    <!-- Agregar GraphView para mostrar posiciones -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="23"
+        android:orientation="vertical">
+
+      <TextView
+          android:id="@+id/buttonverre"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="#E23F4D"
+          android:gravity="center"
+          android:text="@string/Posiciones_Resultado"
+          android:textColor="#E8E6E6"
+          android:textColorHint="#FFFFFF"
+          android:textSize="24sp"
+          android:textStyle="bold" />
+
+      <Button
+          android:id="@+id/buttonverresultado"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="10dp"
+          android:layout_weight="50"
+          android:backgroundTint="#E33F4D"
+          android:text="@string/ver_resultado"
+          android:textColor="#FAF3F3" />
+
+
+    </LinearLayout>
   </LinearLayout>
 </LinearLayout>

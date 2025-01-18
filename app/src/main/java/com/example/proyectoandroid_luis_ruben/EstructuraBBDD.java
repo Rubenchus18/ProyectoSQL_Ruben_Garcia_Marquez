@@ -45,7 +45,7 @@ public final class EstructuraBBDD {
 
     private EstructuraBBDD() {}
 
-    /* Clase interna que define la estructura de la tabla de Piloto */
+
     public static class Piloto implements BaseColumns {
         public static final String TABLE_NAME_PLAYLIST = "Piloto";
         public static final String COLUMN_NAME_NOMBRE = "Nombre";
@@ -53,14 +53,13 @@ public final class EstructuraBBDD {
 
     }
 
-    /* Clase interna que define la estructura de la tabla de Usuario */
     public static class Usuario implements BaseColumns {
         public static final String TABLE_NAME_PLAYLIST = "Usuario";
         public static final String COLUMN_NAME_NOMBRE = "Nombre";
         public static final String COLUMN_NAME_CONTRASENA = "Contraseña";
     }
 
-    /* Clase interna que define la estructura de la tabla de Copa */
+
     public static class Copa implements BaseColumns {
         public static final String TABLE_NAME_PLAYLIST = "Copa";
         public static final String COLUMN_NAME_NOMBRE = "Nombre";

@@ -60,7 +60,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Método para obtener todas las copas
+
     public ArrayList<Copa> obtenerCopas() {
         ArrayList<Copa> copas = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
