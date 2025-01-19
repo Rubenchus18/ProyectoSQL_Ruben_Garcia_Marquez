@@ -39,7 +39,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(EstructuraBBDD.Copa.COLUMN_NAME_NOMBRE, copa.getNombre());
-        values.put(EstructuraBBDD.Copa.COLUMN_NAME_DISTANCIA, copa.getDistancia()); // Asegúrate de que la distancia se esté guardando
+        values.put(EstructuraBBDD.Copa.COLUMN_NAME_DISTANCIA, copa.getDistancia());
         db.insert(EstructuraBBDD.Copa.TABLE_NAME_PLAYLIST, null, values);
         db.close();
     }
@@ -60,7 +60,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
+    // Método para obtener todas las copas
     public ArrayList<Copa> obtenerCopas() {
         ArrayList<Copa> copas = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -77,12 +77,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
         return copas;
     }
+
+    // Método para eliminar un piloto
     public boolean eliminarPiloto(String nombrePiloto) {
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsAffected = db.delete(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE + "=?", new String[]{nombrePiloto});
         db.close();
         return rowsAffected > 0;
     }
+
+    // Método para editar un piloto
     public boolean editarPiloto(String nombreAntiguo, String nuevoNombre, String nuevoCoche) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -92,6 +96,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
         return rowsAffected > 0;
     }
+
+    // Método para obtener todos los pilotos
     public ArrayList<Piloto> obtenerPilotos() {
         ArrayList<Piloto> pilotos = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -108,6 +114,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
         return pilotos;
     }
+
+    // Método para verificar si un piloto existe
     public boolean pilotoExiste(String nombrePiloto) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, null, EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE + "=?", new String[]{nombrePiloto}, null, null, null);
@@ -116,12 +124,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
         return exists;
     }
+
+    // Método para insertar un piloto
     public void insertarPiloto(Piloto piloto) {
-        SQLiteDatabase db = this.getWritableDatabase(); // Abrir la base de datos en modo escritura
-        ContentValues values = new ContentValues(); // Crear un objeto ContentValues para almacenar los valores a insertar
-        values.put(EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE, piloto.getNombrepiloto()); // Agregar el nombre del piloto
-        values.put(EstructuraBBDD.Piloto.COLUMN_NAME_COCHE, piloto.getCoche()); // Agregar el nombre del coche
-        db.insert(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, null, values); // Insertar los valores en la tabla
-        db.close(); // Cerrar la base de datos
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE, piloto.getNombrepiloto());
+        values.put(EstructuraBBDD.Piloto.COLUMN_NAME_COCHE, piloto.getCoche());
+        db.insert(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, null, values);
+        db.close();
     }
 }

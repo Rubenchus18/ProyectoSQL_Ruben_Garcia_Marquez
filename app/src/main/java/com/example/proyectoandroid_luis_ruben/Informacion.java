@@ -47,13 +47,13 @@ public class Informacion extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
 
-
+        // LIGAMOS LA LISTVIEW LISTA COPAS DE JAVA CON LA DEL LAYOUT
         listaCopas = findViewById(R.id.listacopas);
 
         // Inicializamos la base de datos
         dbHelper = new SQLiteHelper(this);
 
-
+        // EN EL ADAPTADOR INTRODUCIMOS EL LAYOUT Y LA LISTA
         adapartorCopas = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, copas);
         listaCopas.setAdapter(adapartorCopas);
 
@@ -70,7 +70,7 @@ public class Informacion extends AppCompatActivity {
         editarCopa = findViewById(R.id.editarCopa);
         editar = findViewById(R.id.EditCupFoto);
 
-
+        // Configuramos el listener para el ImageView de añadir
         añadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +86,7 @@ public class Informacion extends AppCompatActivity {
             }
         });
 
-
+        // OBTENEMOS LOS DATOS DEL ITEM SELECCIONADO
         listaCopas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -97,7 +97,7 @@ public class Informacion extends AppCompatActivity {
             }
         });
 
-
+        // Configuramos el listener para el ImageView de editar
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

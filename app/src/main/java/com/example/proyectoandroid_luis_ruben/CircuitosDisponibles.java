@@ -55,7 +55,7 @@ public class CircuitosDisponibles extends AppCompatActivity {
             }
         });
 
-
+        // OBTENEMOS LOS VALORES DE LA COPA QUE SELECCIONEMOS
         valoresCopa();
     }
 
@@ -88,11 +88,11 @@ public class CircuitosDisponibles extends AppCompatActivity {
     }
 
     private void cargarCopas() {
-        circuitos.clear();
-        ArrayList<Copa> copasDesdeDB = dbHelper.obtenerCopas();
+        circuitos.clear(); // Limpiar la lista antes de cargar
+        ArrayList<Copa> copasDesdeDB = dbHelper.obtenerCopas(); // Obtener copas de la base de datos
         if (copasDesdeDB != null && !copasDesdeDB.isEmpty()) {
-            circuitos.addAll(copasDesdeDB);
-            adaptadorListaCopa.notifyDataSetChanged();
+            circuitos.addAll(copasDesdeDB); // Agregar las copas a la lista
+            adaptadorListaCopa.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
         } else {
             Toast.makeText(this, "No se encontraron copas en la base de datos", Toast.LENGTH_SHORT).show();
         }

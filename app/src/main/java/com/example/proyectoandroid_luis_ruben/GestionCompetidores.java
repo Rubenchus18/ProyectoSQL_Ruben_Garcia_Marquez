@@ -3,8 +3,8 @@ package com.example.proyectoandroid_luis_ruben;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,10 +19,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-
-
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GestionCompetidores extends AppCompatActivity {
     EditText nombrecoche;
@@ -44,7 +41,6 @@ public class GestionCompetidores extends AppCompatActivity {
     Button buttonSimular;
     Button buttonVerResultados;
 
-
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +56,9 @@ public class GestionCompetidores extends AppCompatActivity {
         // Inicializar SQLiteHelper
         dbHelper = new SQLiteHelper(this);
 
-
         datosCopa = getIntent().getStringExtra("circuito");
         carreraElegida = findViewById(R.id.imprimirCarrera);
         carreraElegida.setText(datosCopa);
-
 
         nombrecoche = findViewById(R.id.editTextnombrecoche);
         nombrepiloto = findViewById(R.id.editTextnombrepiloto);
@@ -101,7 +95,7 @@ public class GestionCompetidores extends AppCompatActivity {
         editar.setOnClickListener(view -> editarPiloto());
 
         // Botón de retroceder ir a la actividad anterior
-        retrocedemos = findViewById(R.id .imageView7);
+        retrocedemos = findViewById(R.id.imageView7);
         retrocedemos.setOnClickListener(v -> {
             Intent i = new Intent(GestionCompetidores.this, CircuitosDisponibles.class);
             startActivity(i);
@@ -164,37 +158,45 @@ public class GestionCompetidores extends AppCompatActivity {
         });
     }
 
-    // Funcionalidad editar piloto de la carrera
+
     public void editarPiloto() {
         String coche = editarCoche.getText().toString().trim();
         String piloto = editarPiloto.getText().toString().trim();
-        if (!coche.isEmpty() || !piloto.isEmpty()) {
-            boolean encontrado = false;
-            for (Piloto p : listaPilotos) {
-                if (p.getNombrepiloto().equalsIgnoreCase(informacionPiloto) || p.getCoche().equalsIgnoreCase(informacionPiloto)) {
-                    if (!piloto.isEmpty()) {
-                        p.setNombrepiloto(piloto);
-                    }
-                    if (!coche.isEmpty()) {
-                        p.setCoche(coche);
-                    }
+        boolean encontrado = false;
+
+        String cocheOriginal = "";
+        String pilotoOriginal = "";
+
+
+        for (Piloto p : listaPilotos) {
+            if (p.getNombrepiloto().equalsIgnoreCase(informacionPiloto)) {
+                cocheOriginal = p.getCoche();
+                pilotoOriginal = p.getNombrepiloto();
+
+                Log.d("EditarPiloto", "Piloto encontrado: " + pilotoOriginal + ", Coche: " + cocheOriginal);
+                Log.d("EditarPiloto", "Nuevo piloto: " + piloto + ", Nuevo coche: " + coche);
+
+
+                if (!piloto.trim().isEmpty() && !piloto.trim().equalsIgnoreCase(pilotoOriginal.trim())) {
+                    p.setNombrepiloto(piloto);
                     encontrado = true;
-                    break;
+                    dbHelper.editarPiloto(informacionPiloto, piloto, coche.isEmpty() ? cocheOriginal : coche);
+                    Toast.makeText(this, "Piloto editado", Toast.LENGTH_SHORT).show();
                 }
+
+
+                if (!coche.trim().isEmpty() && !coche.trim().equalsIgnoreCase(cocheOriginal.trim())) {
+                    p.setCoche(coche);
+                    encontrado = true;
+                    dbHelper.editarPiloto(informacionPiloto, piloto.isEmpty() ? pilotoOriginal : piloto, coche);
+                    Toast.makeText(this, "Piloto editado", Toast.LENGTH_SHORT).show();
+                }
+                break;
             }
-            if (encontrado) {
-                dbHelper.editarPiloto(informacionPiloto, piloto, coche); // Actualizar en la base de datos
-                pilotosArrayAdapter.notifyDataSetChanged();
-                Toast.makeText(this, "Piloto editado", Toast.LENGTH_SHORT).show();
-                imprimirInformacion.setText("");
-                editarCoche.setVisibility(View.INVISIBLE);
-                editarPiloto.setVisibility(View.INVISIBLE);
-                editar.setVisibility(View.INVISIBLE);
-            } else {
-                Toast.makeText(this, "Piloto no encontrado", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(this, "Por favor, completa al menos un campo.", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!encontrado) {
+            Toast.makeText(this, "No se realizaron cambios.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -205,7 +207,7 @@ public class GestionCompetidores extends AppCompatActivity {
         if (pilotosDesdeDB != null && !pilotosDesdeDB.isEmpty()) {
             listaPilotos.addAll(pilotosDesdeDB); // Agregar los pilotos a la lista
         } else {
-            Toast.makeText (this, "No se encontraron pilotos en la base de datos.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se encontraron pilotos en la base de datos.", Toast.LENGTH_SHORT).show();
         }
         pilotosArrayAdapter.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
     }
