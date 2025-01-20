@@ -294,6 +294,38 @@
                       android:layout_height="match_parent"
                       android:layout_weight="20"
                       app:srcCompat="@drawable/modificar" />
+
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:layout_weight="23"
+                      android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/buttonverre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="-20dp"
+                        android:background="#E23F4D"
+                        android:gravity="center"
+                        android:text="@string/Posiciones_Resultado"
+                        android:textColor="#E8E6E6"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/buttonverresultado"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="50"
+                        android:backgroundTint="#E33F4D"
+                        android:text="@string/ver_resultado"
+                        android:textColor="#FAF3F3" />
+
+
+                  </LinearLayout>
                 </LinearLayout>
               </LinearLayout>
             </LinearLayout>
@@ -302,4 +334,5 @@
       </LinearLayout>
     </LinearLayout>
   </LinearLayout>
+
 </LinearLayout>

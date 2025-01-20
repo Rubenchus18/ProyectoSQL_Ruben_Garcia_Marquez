@@ -55,7 +55,7 @@
             android:background="#E4404E"
             android:fontFamily="@font/audiowide"
             android:gravity="center"
-            android:text="Resultado"
+            android:text="@string/Resultado"
             android:textColor="#FFFDFD"
             android:textSize="48sp"
             tools:text="@string/Resultado" />

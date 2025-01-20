@@ -29,11 +29,7 @@ public class Mostrar_resultado_carrera extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_mostrar_resultado_carrera);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
 
         // Inicializar el ListView y la base de datos
         listViewResultados = findViewById(R.id.listviewmostrarresultado);
