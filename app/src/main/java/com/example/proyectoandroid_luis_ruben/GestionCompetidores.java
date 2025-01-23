@@ -169,7 +169,7 @@ public class GestionCompetidores extends AppCompatActivity {
 
 
         for (Piloto p : listaPilotos) {
-            if (p.getNombrepiloto().equalsIgnoreCase(informacionPiloto)) {
+            if (!p.getNombrepiloto().equalsIgnoreCase(informacionPiloto)) {
                 cocheOriginal = p.getCoche();
                 pilotoOriginal = p.getNombrepiloto();
 
@@ -189,7 +189,7 @@ public class GestionCompetidores extends AppCompatActivity {
                     p.setCoche(coche);
                     encontrado = true;
                     dbHelper.editarPiloto(informacionPiloto, piloto.isEmpty() ? pilotoOriginal : piloto, coche);
-                    Toast.makeText(this, "Piloto editado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Coche editado", Toast.LENGTH_SHORT).show();
                 }
                 break;
             }
@@ -203,12 +203,12 @@ public class GestionCompetidores extends AppCompatActivity {
     // Cargar pilotos desde la base de datos
     private void cargarPilotos() {
         listaPilotos.clear();
-        ArrayList<Piloto> pilotosDesdeDB = dbHelper.obtenerPilotos(); // Obtener pilotos de la base de datos
+        ArrayList<Piloto> pilotosDesdeDB = dbHelper.obtenerPilotos();
         if (pilotosDesdeDB != null && !pilotosDesdeDB.isEmpty()) {
-            listaPilotos.addAll(pilotosDesdeDB); // Agregar los pilotos a la lista
+            listaPilotos.addAll(pilotosDesdeDB);
         } else {
             Toast.makeText(this, "No se encontraron pilotos en la base de datos.", Toast.LENGTH_SHORT).show();
         }
-        pilotosArrayAdapter.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+        pilotosArrayAdapter.notifyDataSetChanged();
     }
 }
