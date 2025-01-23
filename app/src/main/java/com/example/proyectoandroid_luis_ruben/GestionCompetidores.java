@@ -197,6 +197,8 @@ public class GestionCompetidores extends AppCompatActivity {
 
         if (!encontrado) {
             Toast.makeText(this, "No se realizaron cambios.", Toast.LENGTH_SHORT).show();
+        }else{
+            listaPilotos = dbHelper.obtenerPilotos();
         }
     }
 
