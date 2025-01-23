@@ -36,7 +36,7 @@ public class GestionCompetidores extends AppCompatActivity {
     ImageView eliminar;
     ImageView editar;
     TextView imprimirInformacion;
-    String informacionPiloto;
+    Piloto pilotoSeleccionado; // Cambiado a objeto Piloto
     SQLiteHelper dbHelper;
     Button buttonSimular;
     Button buttonVerResultados;
@@ -52,8 +52,6 @@ public class GestionCompetidores extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        // Inicializar SQLiteHelper
         dbHelper = new SQLiteHelper(this);
 
         datosCopa = getIntent().getStringExtra("circuito");
@@ -71,29 +69,22 @@ public class GestionCompetidores extends AppCompatActivity {
         editarCoche.setVisibility(View.INVISIBLE);
 
         listaPilotos = new ArrayList<>();
-        // Inicializar el adaptador antes de cargar los pilotos
         pilotosArrayAdapter = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, listaPilotos);
         listViewPilotos.setAdapter(pilotosArrayAdapter);
 
-
         cargarPilotos();
-
 
         Button buttonInsertar = findViewById(R.id.buttonAgregar);
         buttonInsertar.setOnClickListener(v -> insertarpilotos());
 
-
         eliminar = findViewById(R.id.imageVieweliminar);
         eliminar.setOnClickListener(view -> eliminarPiloto());
 
-
         informmacionPiloto();
-
 
         editar = findViewById(R.id.fotoEditar);
         editar.setVisibility(View.INVISIBLE);
         editar.setOnClickListener(view -> editarPiloto());
-
 
         retrocedemos = findViewById(R.id.imageView7);
         retrocedemos.setOnClickListener(v -> {
@@ -101,14 +92,12 @@ public class GestionCompetidores extends AppCompatActivity {
             startActivity(i);
         });
 
-
         buttonVerResultados = findViewById(R.id.buttonverresultado);
         buttonVerResultados.setOnClickListener(v -> {
             Intent intent = new Intent(GestionCompetidores.this, Mostrar_resultado_carrera.class);
             startActivity(intent);
         });
     }
-
 
     private void insertarpilotos() {
         String nombrePiloto = nombrepiloto.getText().toString().trim();
@@ -130,7 +119,6 @@ public class GestionCompetidores extends AppCompatActivity {
         }
     }
 
-
     private void eliminarPiloto() {
         String nombrePilotoAEliminar = nombreeliminar.getText().toString().trim();
         if (!nombrePilotoAEliminar.isEmpty()) {
@@ -147,63 +135,50 @@ public class GestionCompetidores extends AppCompatActivity {
         }
     }
 
-
     public void informmacionPiloto() {
         listViewPilotos.setOnItemClickListener((parent, view, position, id) -> {
-            informacionPiloto = (String) parent.getItemAtPosition(position).toString().trim();
-            imprimirInformacion.setText(informacionPiloto);
+            pilotoSeleccionado = (Piloto) parent.getItemAtPosition(position); // Guardar el objeto Piloto seleccionado
+            imprimirInformacion.setText(pilotoSeleccionado.getNombrepiloto());
             editarCoche.setVisibility(View.VISIBLE);
             editarPiloto.setVisibility(View.VISIBLE);
             editar.setVisibility(View.VISIBLE);
-
         });
     }
-
 
     public void editarPiloto() {
         String coche = editarCoche.getText().toString().trim();
         String piloto = editarPiloto.getText().toString().trim();
         boolean encontrado = false;
 
-        String cocheOriginal = "";
-        String pilotoOriginal = "";
+        if (pilotoSeleccionado != null) { // Asegurarse de que hay un piloto seleccionado
+            String cocheOriginal = pilotoSeleccionado.getCoche();
+            String pilotoOriginal = pilotoSeleccionado.getNombrepiloto();
 
+            Log.d("EditarPiloto", "Piloto encontrado: " + pilotoOriginal + ", Coche: " + cocheOriginal);
+            Log.d("EditarPiloto", "Nuevo piloto: " + piloto + ", Nuevo coche: " + coche);
 
-        for (Piloto p : listaPilotos) {
-            if (!p.getNombrepiloto().equalsIgnoreCase(informacionPiloto)) {
-                cocheOriginal = p.getCoche();
-                pilotoOriginal = p.getNombrepiloto();
-
-                Log.d("EditarPiloto", "Piloto encontrado: " + pilotoOriginal + ", Coche: " + cocheOriginal);
-                Log.d("EditarPiloto", "Nuevo piloto: " + piloto + ", Nuevo coche: " + coche);
-
-
-                if (!piloto.trim().isEmpty() && !piloto.trim().equalsIgnoreCase(pilotoOriginal.trim())) {
-                    p.setNombrepiloto(piloto);
-                    encontrado = true;
-                    dbHelper.editarPiloto(informacionPiloto, piloto, coche.isEmpty() ? cocheOriginal : coche);
-                    Toast.makeText(this, "Piloto editado", Toast.LENGTH_SHORT).show();
-                }
-
-
-                if (!coche.trim().isEmpty() && !coche.trim().equalsIgnoreCase(cocheOriginal.trim())) {
-                    p.setCoche(coche);
-                    encontrado = true;
-                    dbHelper.editarPiloto(informacionPiloto, piloto.isEmpty() ? pilotoOriginal : piloto, coche);
-                    Toast.makeText(this, "Coche editado", Toast.LENGTH_SHORT).show();
-                }
-                break;
+            if (!piloto.trim().isEmpty() && !piloto.trim().equalsIgnoreCase(pilotoOriginal.trim())) {
+                pilotoSeleccionado.setNombrepiloto(piloto);
+                encontrado = true;
+                dbHelper.editarPiloto(pilotoOriginal, piloto, coche.isEmpty() ? cocheOriginal : coche);
+                Toast.makeText(this, "Piloto editado", Toast.LENGTH_SHORT).show();
             }
-        }
 
-        if (!encontrado) {
-            Toast.makeText(this, "No se realizaron cambios.", Toast.LENGTH_SHORT).show();
-        }else{
-            listaPilotos = dbHelper.obtenerPilotos();
+            if (!coche.trim().isEmpty() && !coche.trim().equalsIgnoreCase(cocheOriginal.trim())) {
+                pilotoSeleccionado.setCoche(coche);
+                encontrado = true;
+                dbHelper.editarPiloto(pilotoOriginal, piloto.isEmpty() ? pilotoOriginal : piloto, coche);
+                Toast.makeText(this, "Coche editado", Toast.LENGTH_SHORT).show();
+            }
+
+            if (encontrado) {
+                cargarPilotos();
+            }
+        } else {
+            Toast.makeText(this, "No se ha seleccionado ningún piloto.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // Cargar pilotos desde la base de datos
     private void cargarPilotos() {
         listaPilotos.clear();
         ArrayList<Piloto> pilotosDesdeDB = dbHelper.obtenerPilotos();
