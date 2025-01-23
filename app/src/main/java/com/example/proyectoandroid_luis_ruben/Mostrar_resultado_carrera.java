@@ -31,15 +31,15 @@ public class Mostrar_resultado_carrera extends AppCompatActivity {
         setContentView(R.layout.activity_mostrar_resultado_carrera);
 
 
-        // Inicializar el ListView y la base de datos
+
         listViewResultados = findViewById(R.id.listviewmostrarresultado);
         dbHelper = new SQLiteHelper(this);
         listaPilotos = new ArrayList<>();
 
-        // Cargar pilotos desde la base de datos
+
         cargarPilotos();
 
-        // Mostrar los resultados en el ListView
+
         mostrarResultados();
 
 

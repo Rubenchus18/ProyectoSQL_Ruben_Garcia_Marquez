@@ -75,33 +75,33 @@ public class GestionCompetidores extends AppCompatActivity {
         pilotosArrayAdapter = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, listaPilotos);
         listViewPilotos.setAdapter(pilotosArrayAdapter);
 
-        // Cargar pilotos desde la base de datos
+
         cargarPilotos();
 
-        // Botón de añadir acción clic listener
+
         Button buttonInsertar = findViewById(R.id.buttonAgregar);
         buttonInsertar.setOnClickListener(v -> insertarpilotos());
 
-        // Botón de eliminar acción clic listener
+
         eliminar = findViewById(R.id.imageVieweliminar);
         eliminar.setOnClickListener(view -> eliminarPiloto());
 
-        // Obtener los valores del item que seleccionemos
+
         informmacionPiloto();
 
-        // Botón de editar acción clic listener
+
         editar = findViewById(R.id.fotoEditar);
         editar.setVisibility(View.INVISIBLE);
         editar.setOnClickListener(view -> editarPiloto());
 
-        // Botón de retroceder ir a la actividad anterior
+
         retrocedemos = findViewById(R.id.imageView7);
         retrocedemos.setOnClickListener(v -> {
             Intent i = new Intent(GestionCompetidores.this, CircuitosDisponibles.class);
             startActivity(i);
         });
 
-        // Botón para ver resultados
+
         buttonVerResultados = findViewById(R.id.buttonverresultado);
         buttonVerResultados.setOnClickListener(v -> {
             Intent intent = new Intent(GestionCompetidores.this, Mostrar_resultado_carrera.class);
@@ -109,7 +109,7 @@ public class GestionCompetidores extends AppCompatActivity {
         });
     }
 
-    // Funcionalidad añadir piloto a la carrera
+
     private void insertarpilotos() {
         String nombrePiloto = nombrepiloto.getText().toString().trim();
         String nombreCoche = nombrecoche.getText().toString().trim();
@@ -130,7 +130,7 @@ public class GestionCompetidores extends AppCompatActivity {
         }
     }
 
-    // Funcionalidad eliminar piloto de la carrera
+
     private void eliminarPiloto() {
         String nombrePilotoAEliminar = nombreeliminar.getText().toString().trim();
         if (!nombrePilotoAEliminar.isEmpty()) {
@@ -147,7 +147,7 @@ public class GestionCompetidores extends AppCompatActivity {
         }
     }
 
-    // Funcionalidad obtener datos del piloto
+
     public void informmacionPiloto() {
         listViewPilotos.setOnItemClickListener((parent, view, position, id) -> {
             informacionPiloto = (String) parent.getItemAtPosition(position).toString().trim();

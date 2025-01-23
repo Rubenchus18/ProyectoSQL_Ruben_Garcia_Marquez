@@ -49,8 +49,7 @@ public class MainActivity extends AppCompatActivity {
         registro = findViewById(R.id.buttonRegistarse);
         acuerdos = findViewById(R.id.checkBox);
 
-        // CLICK LISTENERS DE LOS BOTONES
-        // INICIO DE SESION
+
         inicioSesion.setOnClickListener(view -> {
             obtenerValores();
             if (comprobarNulos()) {

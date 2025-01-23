@@ -37,16 +37,16 @@ public class CircuitosDisponibles extends AppCompatActivity {
             return insets;
         });
 
-        // Inicializamos la base de datos
+
         dbHelper = new SQLiteHelper(this);
 
-        // ASIGNACION DE LISTVIEW
+
         asignacionList();
 
-        // Cargar copas desde la base de datos
+
         cargarCopas();
 
-        // IR A LA ACTIVIDAD ANTERIOR
+
         atras = findViewById(R.id.actividadAnterior);
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
