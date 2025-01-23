@@ -20,9 +20,9 @@ import java.util.Collections;
 public class Mostrar_resultado_carrera extends AppCompatActivity {
 
     private ListView listViewResultados;
-    private SQLiteHelper dbHelper; // Para manejar la base de datos
+    private SQLiteHelper dbHelper;
     private ArrayList<Piloto> listaPilotos;
-    private ImageView retrocedemos; // ImageView para volver a la actividad anterior
+    private ImageView retrocedemos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

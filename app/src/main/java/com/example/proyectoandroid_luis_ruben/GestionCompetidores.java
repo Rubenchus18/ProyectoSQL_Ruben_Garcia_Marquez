@@ -105,7 +105,7 @@ public class GestionCompetidores extends AppCompatActivity {
         if (!nombrePiloto.isEmpty() && !nombreCoche.isEmpty()) {
             Piloto piloto = new Piloto(nombrePiloto, nombreCoche);
             if (!dbHelper.pilotoExiste(nombrePiloto)) {
-                dbHelper.insertarPiloto(piloto); // Insertar en la base de datos
+                dbHelper.insertarPiloto(piloto);
                 listaPilotos.add(piloto);
                 pilotosArrayAdapter.notifyDataSetChanged();
                 nombrepiloto.setText("");
@@ -138,7 +138,7 @@ public class GestionCompetidores extends AppCompatActivity {
     public void informmacionPiloto() {
         listViewPilotos.setOnItemClickListener((parent, view, position, id) -> {
             pilotoSeleccionado = (Piloto) parent.getItemAtPosition(position); // Guardar el objeto Piloto seleccionado
-            imprimirInformacion.setText(pilotoSeleccionado.getNombrepiloto());
+            imprimirInformacion.setText(pilotoSeleccionado.getNombrepiloto() + " - " + pilotoSeleccionado.getCoche()); // Mostrar nombre y coche
             editarCoche.setVisibility(View.VISIBLE);
             editarPiloto.setVisibility(View.VISIBLE);
             editar.setVisibility(View.VISIBLE);
@@ -150,7 +150,7 @@ public class GestionCompetidores extends AppCompatActivity {
         String piloto = editarPiloto.getText().toString().trim();
         boolean encontrado = false;
 
-        if (pilotoSeleccionado != null) { // Asegurarse de que hay un piloto seleccionado
+        if (pilotoSeleccionado != null) {
             String cocheOriginal = pilotoSeleccionado.getCoche();
             String pilotoOriginal = pilotoSeleccionado.getNombrepiloto();
 
