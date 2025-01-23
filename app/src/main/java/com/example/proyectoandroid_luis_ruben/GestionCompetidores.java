@@ -155,6 +155,7 @@ public class GestionCompetidores extends AppCompatActivity {
             editarCoche.setVisibility(View.VISIBLE);
             editarPiloto.setVisibility(View.VISIBLE);
             editar.setVisibility(View.VISIBLE);
+
         });
     }
 
