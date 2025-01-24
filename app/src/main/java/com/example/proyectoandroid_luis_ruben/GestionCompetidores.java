@@ -36,7 +36,7 @@ public class GestionCompetidores extends AppCompatActivity {
     ImageView eliminar;
     ImageView editar;
     TextView imprimirInformacion;
-    Piloto pilotoSeleccionado; // Cambiado a objeto Piloto
+    Piloto pilotoSeleccionado;
     SQLiteHelper dbHelper;
     Button buttonSimular;
     Button buttonVerResultados;
@@ -137,7 +137,7 @@ public class GestionCompetidores extends AppCompatActivity {
 
     public void informmacionPiloto() {
         listViewPilotos.setOnItemClickListener((parent, view, position, id) -> {
-            pilotoSeleccionado = (Piloto) parent.getItemAtPosition(position); // Guardar el objeto Piloto seleccionado
+            pilotoSeleccionado = (Piloto) parent.getItemAtPosition(position);
             imprimirInformacion.setText(pilotoSeleccionado.getNombrepiloto() + " - " + pilotoSeleccionado.getCoche()); // Mostrar nombre y coche
             editarCoche.setVisibility(View.VISIBLE);
             editarPiloto.setVisibility(View.VISIBLE);
