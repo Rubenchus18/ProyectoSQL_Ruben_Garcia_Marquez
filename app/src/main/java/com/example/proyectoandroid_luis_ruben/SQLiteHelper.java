@@ -24,6 +24,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(EstructuraBBDD.SQL_CREATE_ENTRIES_PILOTO);
         db.execSQL(EstructuraBBDD.SQL_CREATE_ENTRIES_COPA);
 
+
+
     }
 
     @Override
