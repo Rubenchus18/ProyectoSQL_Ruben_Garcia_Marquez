@@ -1,7 +1,5 @@
 package com.example.proyectoandroid_luis_ruben;
 
-import static android.app.ProgressDialog.show;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,19 +41,14 @@ public class Informacion extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_informacion);
 
-
         toolbar = findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
 
-
         listaCopas = findViewById(R.id.listacopas);
-
-
         dbHelper = new SQLiteHelper(this);
 
         adapartorCopas = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, copas);
         listaCopas.setAdapter(adapartorCopas);
-
 
         cargarCopas();
 
@@ -93,7 +86,6 @@ public class Informacion extends AppCompatActivity {
             }
         });
 
-
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +113,9 @@ public class Informacion extends AppCompatActivity {
             ArrayList<String> listaCopas = trasladarArrayList();
             k.putStringArrayListExtra("lista Copas", listaCopas);
             startActivity(k);
+        } else if (item.getItemId() == R.id.Mostrar_Resultado) { // Asegúrate de que este ID está en tu menú
+            Intent l = new Intent(this, Puntos_Totales.class); // Cambia MostrarResultado por el nombre correcto de tu clase
+            startActivity(l);
         }
         return super.onOptionsItemSelected(item);
     }

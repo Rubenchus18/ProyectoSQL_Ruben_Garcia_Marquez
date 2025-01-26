@@ -9,6 +9,8 @@ public class Copa {
         this.distancia = distancia;
     }
 
+
+
     public String getNombre() {
         return nombre;
     }

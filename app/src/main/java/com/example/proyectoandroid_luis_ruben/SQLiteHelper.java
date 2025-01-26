@@ -6,6 +6,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,23 +19,24 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Crear las tablas
         db.execSQL(EstructuraBBDD.SQL_CREATE_ENTRIES_USUARIO);
         db.execSQL(EstructuraBBDD.SQL_CREATE_ENTRIES_PILOTO);
         db.execSQL(EstructuraBBDD.SQL_CREATE_ENTRIES_COPA);
+        db.execSQL(EstructuraBBDD.SQL_CREATE_ENTRIES_PUNTOS_TOTALES); // Crear tabla Puntos Totales
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Eliminar las tablas si existen
         db.execSQL(EstructuraBBDD.SQL_DELETE_ENTRIES_USUARIO);
         db.execSQL(EstructuraBBDD.SQL_DELETE_ENTRIES_PILOTO);
         db.execSQL(EstructuraBBDD.SQL_DELETE_ENTRIES_COPA);
+        db.execSQL(EstructuraBBDD.SQL_DELETE_ENTRIES_PUNTOS_TOTALES); // Eliminar tabla Puntos Totales
         onCreate(db);
     }
+
 
     // Método para agregar una copa
     public void insertarCopa(Copa copa) {
@@ -133,5 +137,53 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put(EstructuraBBDD.Piloto.COLUMN_NAME_COCHE, piloto.getCoche());
         db.insert(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, null, values);
         db.close();
+    }
+
+    // Métodos para manejar la tabla Puntos Totales
+    public void insertarPuntosTotales(String nombrePiloto, String coche, int puntos) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(EstructuraBBDD.PuntosTotales.COLUMN_NAME_PILOTO, nombrePiloto);
+        values.put(EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE, coche);
+        values.put(EstructuraBBDD.PuntosTotales.COLUMN_NAME_PUNTOS, puntos);
+
+
+        long newRowId = db.insert(EstructuraBBDD.PuntosTotales.TABLE_NAME, null, values);
+
+        if (newRowId == -1) {
+
+            Log.e("SQLiteHelper", "Error al insertar en PuntosTotales");
+        } else {
+            Log.d("SQLiteHelper", "Registro insertado con ID: " + newRowId);
+        }
+
+        db.close();
+    }
+
+    public ArrayList<PuntosTotales> obtenerPuntosTotales() {
+        ArrayList<PuntosTotales> puntosTotalesList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " +
+                EstructuraBBDD.PuntosTotales.COLUMN_NAME_PILOTO + ", " +
+                EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE + ", " +
+                "SUM(" + EstructuraBBDD.PuntosTotales.COLUMN_NAME_PUNTOS + ") AS total_puntos " +
+                "FROM " + EstructuraBBDD.PuntosTotales.TABLE_NAME + " " +
+                "GROUP BY " + EstructuraBBDD.PuntosTotales.COLUMN_NAME_PILOTO + ", " + EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String nombrePiloto = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.PuntosTotales.COLUMN_NAME_PILOTO));
+                @SuppressLint("Range") String coche = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE));
+                @SuppressLint("Range") int totalPuntos = cursor.getInt(cursor.getColumnIndex("total_puntos"));
+
+                puntosTotalesList.add(new PuntosTotales(nombrePiloto, coche, totalPuntos));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return puntosTotalesList;
     }
 }

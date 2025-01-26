@@ -43,14 +43,26 @@ public final class EstructuraBBDD {
             "DROP TABLE IF EXISTS " +
                     Copa.TABLE_NAME_PLAYLIST;
 
-    private EstructuraBBDD() {}
+    // SQL para crear la tabla Puntos Totales
+    public static final String SQL_CREATE_ENTRIES_PUNTOS_TOTALES =
+            "CREATE TABLE IF NOT EXISTS " +
+                    PuntosTotales.TABLE_NAME +
+                    " (" + PuntosTotales._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    PuntosTotales.COLUMN_NAME_PILOTO + " TEXT NOT NULL, " +
+                    PuntosTotales.COLUMN_NAME_COCHE + " TEXT NOT NULL, " +
+                    PuntosTotales.COLUMN_NAME_PUNTOS + " INTEGER NOT NULL);";
 
+    // SQL para eliminar la tabla Puntos Totales
+    public static final String SQL_DELETE_ENTRIES_PUNTOS_TOTALES =
+            "DROP TABLE IF EXISTS " +
+                    PuntosTotales.TABLE_NAME;
+
+    private EstructuraBBDD() {}
 
     public static class Piloto implements BaseColumns {
         public static final String TABLE_NAME_PLAYLIST = "Piloto";
         public static final String COLUMN_NAME_NOMBRE = "Nombre";
         public static final String COLUMN_NAME_COCHE = "Coche";
-
     }
 
     public static class Usuario implements BaseColumns {
@@ -59,10 +71,17 @@ public final class EstructuraBBDD {
         public static final String COLUMN_NAME_CONTRASENA = "Contraseña";
     }
 
-
     public static class Copa implements BaseColumns {
         public static final String TABLE_NAME_PLAYLIST = "Copa";
         public static final String COLUMN_NAME_NOMBRE = "Nombre";
         public static final String COLUMN_NAME_DISTANCIA = "Distancia";
     }
+
+    public static class PuntosTotales implements BaseColumns {
+        public static final String TABLE_NAME = "PuntosTotales";
+        public static final String COLUMN_NAME_PILOTO = "Piloto";
+        public static final String COLUMN_NAME_COCHE = "Coche";
+        public static final String COLUMN_NAME_PUNTOS = "Puntos";
+    }
+
 }

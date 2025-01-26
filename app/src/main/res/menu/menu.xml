@@ -11,6 +11,9 @@
         android:id="@+id/SobreNosotros1"
         android:title="Sobre nosotros" />
     <item
+        android:id="@+id/Mostrar_Resultado"
+        android:title="Mostrar Resultado" />
+    <item
         android:id="@+id/Desconectarse"
         android:title="Desconectarse"
         app:showAsAction="never" />

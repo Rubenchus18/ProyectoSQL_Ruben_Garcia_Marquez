@@ -10,9 +10,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,18 +27,12 @@ public class Mostrar_resultado_carrera extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_mostrar_resultado_carrera);
 
-
-
         listViewResultados = findViewById(R.id.listviewmostrarresultado);
         dbHelper = new SQLiteHelper(this);
         listaPilotos = new ArrayList<>();
 
-
         cargarPilotos();
-
-
         mostrarResultados();
-
 
         retrocedemos = findViewById(R.id.imageView7);
         retrocedemos.setOnClickListener(v -> {
@@ -51,7 +42,6 @@ public class Mostrar_resultado_carrera extends AppCompatActivity {
     }
 
     private void cargarPilotos() {
-
         ArrayList<Piloto> pilotosDesdeDB = dbHelper.obtenerPilotos();
         if (pilotosDesdeDB != null && !pilotosDesdeDB.isEmpty()) {
             listaPilotos.addAll(pilotosDesdeDB);
@@ -61,17 +51,27 @@ public class Mostrar_resultado_carrera extends AppCompatActivity {
     }
 
     private void mostrarResultados() {
-
         Collections.shuffle(listaPilotos);
-
 
         ArrayList<String> resultados = new ArrayList<>();
         for (int i = 0; i < listaPilotos.size(); i++) {
             Piloto piloto = listaPilotos.get(i);
             String resultado = "Posición: " + (i + 1) + " - Nombre: " + piloto.getNombrepiloto() + " - Coche: " + piloto.getCoche();
             resultados.add(resultado);
-        }
 
+            // Sumar puntos según la posición
+            int puntos = 0;
+            if (i == 0) {
+                puntos = 3; // 1er lugar
+            } else if (i == 1) {
+                puntos = 2; // 2do lugar
+            } else if (i == 2) {
+                puntos = 1; // 3er lugar
+            }
+
+            // Guardar puntos en la tabla PuntosTotales
+            dbHelper.insertarPuntosTotales(piloto.getNombrepiloto(), piloto.getCoche(), puntos);
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, resultados);
         listViewResultados.setAdapter(adapter);
