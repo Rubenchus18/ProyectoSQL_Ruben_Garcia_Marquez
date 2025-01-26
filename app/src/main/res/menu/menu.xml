@@ -9,13 +9,13 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/SobreNosotros1"
-        android:title="Sobre nosotros" />
+        android:title="@string/Sobre_Nosotros" />
     <item
         android:id="@+id/Mostrar_Resultado"
-        android:title="Mostrar Resultado" />
+        android:title="@string/Mostrar_Resultado" />
     <item
         android:id="@+id/Desconectarse"
-        android:title="Desconectarse"
+        android:title="@string/Desconectarte"
         app:showAsAction="never" />
 
 

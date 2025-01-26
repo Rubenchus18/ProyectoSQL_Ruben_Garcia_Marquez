@@ -31,5 +31,9 @@
     <string name="Resultado">Result</string>
     <string name="Posiciones_Resultado">Positions result</string>
     <string name="ver_resultado">See result</string>
+    <string name="Puntuacion">Punctuation</string>
+    <string name="Mostrar_Resultado">Show Result</string>
+    <string name="Sobre_Nosotros">About us</string>
+    <string name="Desconectarte">Disconnect</string>
 
 </resources>

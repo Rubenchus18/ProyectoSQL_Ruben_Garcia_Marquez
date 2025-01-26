@@ -30,4 +30,8 @@
     <string name="Resultado">Resultado</string>
     <string name="Posiciones_Resultado">Posiciones resultado</string>
     <string name="ver_resultado">Ver Resultado</string>
+    <string name="Puntuacion" />
+    <string name="Mostrar_Resultado" />
+    <string name="Sobre_Nosotros" />
+    <string name="Desconectarte" />
 </resources>

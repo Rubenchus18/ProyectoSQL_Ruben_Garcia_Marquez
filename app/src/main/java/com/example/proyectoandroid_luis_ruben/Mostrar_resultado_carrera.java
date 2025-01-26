@@ -41,7 +41,7 @@ public class Mostrar_resultado_carrera extends AppCompatActivity {
         });
     }
 
-    private void cargarPilotos() {
+    public void cargarPilotos() {
         ArrayList<Piloto> pilotosDesdeDB = dbHelper.obtenerPilotos();
         if (pilotosDesdeDB != null && !pilotosDesdeDB.isEmpty()) {
             listaPilotos.addAll(pilotosDesdeDB);
@@ -50,7 +50,7 @@ public class Mostrar_resultado_carrera extends AppCompatActivity {
         }
     }
 
-    private void mostrarResultados() {
+    public void mostrarResultados() {
         Collections.shuffle(listaPilotos);
 
         ArrayList<String> resultados = new ArrayList<>();
@@ -59,14 +59,13 @@ public class Mostrar_resultado_carrera extends AppCompatActivity {
             String resultado = "Posición: " + (i + 1) + " - Nombre: " + piloto.getNombrepiloto() + " - Coche: " + piloto.getCoche();
             resultados.add(resultado);
 
-            // Sumar puntos según la posición
             int puntos = 0;
             if (i == 0) {
-                puntos = 3; // 1er lugar
+                puntos = 3;
             } else if (i == 1) {
-                puntos = 2; // 2do lugar
+                puntos = 2;
             } else if (i == 2) {
-                puntos = 1; // 3er lugar
+                puntos = 1;
             }
 
             // Guardar puntos en la tabla PuntosTotales
