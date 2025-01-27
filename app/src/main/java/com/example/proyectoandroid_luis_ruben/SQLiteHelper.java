@@ -139,7 +139,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Métodos para manejar la tabla Puntos Totales
+
     public void insertarPuntosTotales(String nombrePiloto, String coche, int puntos) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -147,11 +147,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put(EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE, coche);
         values.put(EstructuraBBDD.PuntosTotales.COLUMN_NAME_PUNTOS, puntos);
 
-
         long newRowId = db.insert(EstructuraBBDD.PuntosTotales.TABLE_NAME, null, values);
 
         if (newRowId == -1) {
-
             Log.e("SQLiteHelper", "Error al insertar en PuntosTotales");
         } else {
             Log.d("SQLiteHelper", "Registro insertado con ID: " + newRowId);

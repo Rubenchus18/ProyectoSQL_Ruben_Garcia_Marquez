@@ -68,7 +68,6 @@ public class Mostrar_resultado_carrera extends AppCompatActivity {
                 puntos = 1;
             }
 
-            // Guardar puntos en la tabla PuntosTotales
             dbHelper.insertarPuntosTotales(piloto.getNombrepiloto(), piloto.getCoche(), puntos);
         }
 

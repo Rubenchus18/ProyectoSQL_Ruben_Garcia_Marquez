@@ -38,7 +38,7 @@ public class Puntos_Totales extends AppCompatActivity {
     }
 
     public void mostrarPuntosTotales() {
-        ArrayList<PuntosTotales> puntosTotalesList = dbHelper.obtenerPuntosTotales(); // Obtiene los datos de la base de datos
+        ArrayList<PuntosTotales> puntosTotalesList = dbHelper.obtenerPuntosTotales();
         ArrayList<String> resultados = new ArrayList<>();
 
         if (puntosTotalesList.isEmpty()) {
