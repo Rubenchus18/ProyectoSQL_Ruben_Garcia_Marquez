@@ -1,4 +1,4 @@
-<!-- itemcopa.xml -->
+<!-- item_puntos_totales.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -6,7 +6,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/nombreCopa"
+        android:id="@+id/textViewPiloto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
@@ -16,7 +16,16 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/cocheCopa"
+        android:id="@+id/textViewCoche"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#000000"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textViewPuntos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"

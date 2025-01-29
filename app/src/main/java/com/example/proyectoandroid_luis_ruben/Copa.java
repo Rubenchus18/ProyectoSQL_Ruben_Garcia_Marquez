@@ -4,31 +4,35 @@ public class Copa {
     private String nombre;
     private String distancia;
 
+
     public Copa(String nombre, String distancia) {
         this.nombre = nombre;
         this.distancia = distancia;
     }
 
 
-
     public String getNombre() {
         return nombre;
     }
+
 
     public String getDistancia() {
         return distancia;
     }
 
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
 
     public void setDistancia(String distancia) {
         this.distancia = distancia;
     }
 
+
     @Override
     public String toString() {
-        return nombre + " - Distancia: " + distancia + " m"; // Esto es lo que se mostrará en la ListView
+        return nombre + " - Distancia: " + distancia + " m";
     }
 }

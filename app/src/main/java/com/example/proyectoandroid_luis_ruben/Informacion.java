@@ -2,6 +2,7 @@ package com.example.proyectoandroid_luis_ruben;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +52,7 @@ public class Informacion extends AppCompatActivity {
         adapartorCopas = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, copas);
         listaCopas.setAdapter(adapartorCopas);
 
-        cargarCopas();
+        mostrarCopas();
 
         // AÑADIR
         añadircopa = findViewById(R.id.nuevaCopa);
@@ -62,36 +64,18 @@ public class Informacion extends AppCompatActivity {
         editarCopa = findViewById(R.id.editarCopa);
         editar = findViewById(R.id.EditCupFoto);
 
-        añadir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                añadirCopa();
-            }
+        añadir.setOnClickListener(v -> añadirCopa());
+
+        eliminar.setOnClickListener(v -> eliminarCopa());
+
+        listaCopas.setOnItemClickListener((parent, view, position, id) -> {
+            Copa copaSeleccionada = copas.get(position);
+            edicion = findViewById(R.id.textoEditarCopa);
+            edicion.setText(copaSeleccionada.getNombre());
+            editar.setVisibility(View.VISIBLE);
         });
 
-        eliminar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                eliminarCopa();
-            }
-        });
-
-        listaCopas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Copa copaSeleccionada = copas.get(position);
-                edicion = findViewById(R.id.textoEditarCopa);
-                edicion.setText(copaSeleccionada.getNombre());
-                editar.setVisibility(View.VISIBLE);
-            }
-        });
-
-        editar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editarCopa();
-            }
-        });
+        editar.setOnClickListener(v -> editarCopa());
     }
 
     @Override
@@ -101,6 +85,7 @@ public class Informacion extends AppCompatActivity {
         return true;
     }
 
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.Desconectarse) {
             Intent i = new Intent(this, MainActivity.class);
@@ -113,19 +98,19 @@ public class Informacion extends AppCompatActivity {
             ArrayList<String> listaCopas = trasladarArrayList();
             k.putStringArrayListExtra("lista Copas", listaCopas);
             startActivity(k);
-        } else if (item.getItemId() == R.id.Mostrar_Resultado) { // Asegúrate de que este ID está en tu menú
-            Intent l = new Intent(this, Puntos_Totales.class); // Cambia MostrarResultado por el nombre correcto de tu clase
+        } else if (item.getItemId() == R.id.Mostrar_Resultado) {
+            Intent l = new Intent(this, Puntos_Totales.class);
             startActivity(l);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void añadirCopa() {
+    public void añadirCopa() {
         String nombreCopa = añadircopa.getText().toString().trim();
         if (!nombreCopa.isEmpty() && !copaExiste(nombreCopa)) {
             Random random = new Random();
             int distanciaAleatoria = random.nextInt(901) + 100; // Genera un número aleatorio entre 100 y 1000
-            Copa nuevaCopa = new Copa(nombreCopa, String.valueOf(distanciaAleatoria)); // Cambia "0" por la distancia aleatoria
+            Copa nuevaCopa = new Copa(nombreCopa, String.valueOf(distanciaAleatoria));
             dbHelper.insertarCopa(nuevaCopa); // Insertar en la base de datos
             copas.add(nuevaCopa);
             adapartorCopas.notifyDataSetChanged();
@@ -136,7 +121,7 @@ public class Informacion extends AppCompatActivity {
         }
     }
 
-    private boolean copaExiste(String nombre) {
+    public boolean copaExiste(String nombre) {
         for (Copa copa : copas) {
             if (copa.getNombre().equalsIgnoreCase(nombre)) {
                 return true;
@@ -145,10 +130,10 @@ public class Informacion extends AppCompatActivity {
         return false;
     }
 
-    private void eliminarCopa() {
+    public void eliminarCopa() {
         String nombreCopa = eliminarCopaEditText.getText().toString().trim();
         if (copaExiste(nombreCopa)) {
-            dbHelper.eliminarCopa(nombreCopa); // Eliminar de la base de datos
+            dbHelper.eliminarCopa(nombreCopa);
             copas.removeIf(copa -> copa.getNombre().equalsIgnoreCase(nombreCopa));
             adapartorCopas.notifyDataSetChanged();
             eliminarCopaEditText.setText("");
@@ -158,7 +143,7 @@ public class Informacion extends AppCompatActivity {
         }
     }
 
-    private void editarCopa() {
+    public void editarCopa() {
         String nuevoNombre = editarCopa.getText().toString().trim();
         String nombreAntiguo = edicion.getText().toString().trim();
         if (!nuevoNombre.isEmpty() && copaExiste(nombreAntiguo)) {
@@ -178,18 +163,22 @@ public class Informacion extends AppCompatActivity {
         }
     }
 
-    public void cargarCopas() {
-        copas.clear();
-        ArrayList<Copa> copasDesdeDB = dbHelper.obtenerCopas();
-        if (copasDesdeDB != null && !copasDesdeDB.isEmpty()) {
-            copas.addAll(copasDesdeDB);
+    public void mostrarCopas() {
+        Cursor cursor = dbHelper.obtenerCopas();
+        if (cursor != null && cursor.getCount() > 0) {
+            copas.clear();
+            while (cursor.moveToNext()) {
+                @SuppressLint("Range") String nombre = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Copa.COLUMN_NAME_NOMBRE));
+                @SuppressLint("Range") String distancia = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Copa.COLUMN_NAME_DISTANCIA));
+                Copa copa = new Copa(nombre, distancia);
+                copas.add(copa);
+            }
             adapartorCopas.notifyDataSetChanged();
         } else {
-            Toast.makeText(this, "No se encontraron copas en la base de datos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se encontraron copas en la base de datos.", Toast.LENGTH_SHORT).show();
         }
     }
-
-    private ArrayList<String> trasladarArrayList() {
+    public ArrayList<String> trasladarArrayList() {
         ArrayList<String> listaNombres = new ArrayList<>();
         for (Copa copa : copas) {
             listaNombres.add(copa.getNombre());

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="textViewPiloto" type="id" />
+    <item name="textViewCoche" type="id" />
+    <item name="textViewPuntos" type="id" />
+</resources>

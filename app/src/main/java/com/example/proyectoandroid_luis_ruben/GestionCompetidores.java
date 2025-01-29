@@ -2,10 +2,10 @@ package com.example.proyectoandroid_luis_ruben;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,12 +25,10 @@ public class GestionCompetidores extends AppCompatActivity {
     EditText nombrecoche;
     EditText nombrepiloto;
     EditText nombreeliminar;
-    TextView nombreeditar;
     EditText editarPiloto, editarCoche;
-    String datosCopa;
-    ArrayAdapter<Piloto> pilotosArrayAdapter;
-    ArrayList<Piloto> listaPilotos;
     TextView carreraElegida;
+    PilotoAdapter pilotosArrayAdapter;
+    ArrayList<Piloto> listaPilotos;
     ListView listViewPilotos;
     ImageView retrocedemos;
     ImageView eliminar;
@@ -38,7 +36,6 @@ public class GestionCompetidores extends AppCompatActivity {
     TextView imprimirInformacion;
     Piloto pilotoSeleccionado;
     SQLiteHelper dbHelper;
-    Button buttonSimular;
     Button buttonVerResultados;
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
@@ -54,7 +51,7 @@ public class GestionCompetidores extends AppCompatActivity {
         });
         dbHelper = new SQLiteHelper(this);
 
-        datosCopa = getIntent().getStringExtra("circuito");
+        String datosCopa = getIntent().getStringExtra("circuito");
         carreraElegida = findViewById(R.id.imprimirCarrera);
         carreraElegida.setText(datosCopa);
 
@@ -62,14 +59,14 @@ public class GestionCompetidores extends AppCompatActivity {
         nombrepiloto = findViewById(R.id.editTextnombrepiloto);
         nombreeliminar = findViewById(R.id.editTextnombreliminar);
         listViewPilotos = findViewById(R.id.listviewmostrarresultado);
-        imprimirInformacion = findViewById(R.id.infoPiloto);
         editarPiloto = findViewById(R.id.editarPiloto);
         editarCoche = findViewById(R.id.editarCoche);
         editarPiloto.setVisibility(View.INVISIBLE);
         editarCoche.setVisibility(View.INVISIBLE);
+        imprimirInformacion = findViewById(R.id.infoPiloto);
 
         listaPilotos = new ArrayList<>();
-        pilotosArrayAdapter = new ArrayAdapter<>(this, R.layout.itemcopa, R.id.nombreCopa, listaPilotos);
+        pilotosArrayAdapter = new PilotoAdapter(this, listaPilotos);
         listViewPilotos.setAdapter(pilotosArrayAdapter);
 
         cargarPilotos();
@@ -91,7 +88,6 @@ public class GestionCompetidores extends AppCompatActivity {
             Intent i = new Intent(GestionCompetidores.this, CircuitosDisponibles.class);
             startActivity(i);
         });
-
         buttonVerResultados = findViewById(R.id.buttonverresultado);
         buttonVerResultados.setOnClickListener(v -> {
             Intent intent = new Intent(GestionCompetidores.this, Mostrar_resultado_carrera.class);
@@ -99,7 +95,7 @@ public class GestionCompetidores extends AppCompatActivity {
         });
     }
 
-    private void insertarpilotos() {
+    public void insertarpilotos() {
         String nombrePiloto = nombrepiloto.getText().toString().trim();
         String nombreCoche = nombrecoche.getText().toString().trim();
         if (!nombrePiloto.isEmpty() && !nombreCoche.isEmpty()) {
@@ -119,7 +115,7 @@ public class GestionCompetidores extends AppCompatActivity {
         }
     }
 
-    private void eliminarPiloto() {
+    public void eliminarPiloto() {
         String nombrePilotoAEliminar = nombreeliminar.getText().toString().trim();
         if (!nombrePilotoAEliminar.isEmpty()) {
             if (dbHelper.eliminarPiloto(nombrePilotoAEliminar)) {
@@ -138,9 +134,9 @@ public class GestionCompetidores extends AppCompatActivity {
     public void informmacionPiloto() {
         listViewPilotos.setOnItemClickListener((parent, view, position, id) -> {
             pilotoSeleccionado = (Piloto) parent.getItemAtPosition(position);
-            imprimirInformacion.setText(pilotoSeleccionado.getNombrepiloto() + " - " + pilotoSeleccionado.getCoche()); // Mostrar nombre y coche
-            editarCoche.setVisibility(View.VISIBLE);
+            imprimirInformacion.setText(pilotoSeleccionado.getNombrepiloto() + " - " + pilotoSeleccionado.getCoche());
             editarPiloto.setVisibility(View.VISIBLE);
+            editarCoche.setVisibility(View.VISIBLE);
             editar.setVisibility(View.VISIBLE);
         });
     }
@@ -179,14 +175,19 @@ public class GestionCompetidores extends AppCompatActivity {
         }
     }
 
-    private void cargarPilotos() {
+    public void cargarPilotos() {
         listaPilotos.clear();
-        ArrayList<Piloto> pilotosDesdeDB = dbHelper.obtenerPilotos();
-        if (pilotosDesdeDB != null && !pilotosDesdeDB.isEmpty()) {
-            listaPilotos.addAll(pilotosDesdeDB);
+        Cursor cursor = dbHelper.obtenerPilotos();
+
+        if (cursor != null && cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                @SuppressLint("Range") String nombrePiloto = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE));
+                @SuppressLint("Range") String coche = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Piloto.COLUMN_NAME_COCHE));
+                listaPilotos.add(new Piloto(nombrePiloto, coche));
+            }
+            pilotosArrayAdapter.notifyDataSetChanged();
         } else {
             Toast.makeText(this, "No se encontraron pilotos en la base de datos.", Toast.LENGTH_SHORT).show();
         }
-        pilotosArrayAdapter.notifyDataSetChanged();
     }
 }

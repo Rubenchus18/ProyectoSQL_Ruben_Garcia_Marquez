@@ -65,21 +65,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
     // Método para obtener todas las copas
-    public ArrayList<Copa> obtenerCopas() {
-        ArrayList<Copa> copas = new ArrayList<>();
+    public Cursor obtenerCopas() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(EstructuraBBDD.Copa.TABLE_NAME_PLAYLIST, null, null, null, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") String nombre = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Copa.COLUMN_NAME_NOMBRE));
-                @SuppressLint("Range") String distancia = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Copa.COLUMN_NAME_DISTANCIA));
-                copas.add(new Copa(nombre, distancia));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-        return copas;
+        return db.query(EstructuraBBDD.Copa.TABLE_NAME_PLAYLIST, null, null, null, null, null, null);
     }
 
     // Método para eliminar un piloto
@@ -102,21 +90,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
     // Método para obtener todos los pilotos
-    public ArrayList<Piloto> obtenerPilotos() {
-        ArrayList<Piloto> pilotos = new ArrayList<>();
+    public Cursor obtenerPilotos() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, null, null, null, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") String nombre = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE));
-                @SuppressLint("Range") String coche = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Piloto.COLUMN_NAME_COCHE));
-                pilotos.add(new Piloto(nombre, coche));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-        return pilotos;
+        return db.query(EstructuraBBDD.Piloto.TABLE_NAME_PLAYLIST, null, null, null, null, null, null);
     }
 
     // Método para verificar si un piloto existe
@@ -158,30 +134,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<PuntosTotales> obtenerPuntosTotales() {
-        ArrayList<PuntosTotales> puntosTotalesList = new ArrayList<>();
+    public Cursor obtenerPuntosTotales() {
         SQLiteDatabase db = this.getReadableDatabase();
-
         String query = "SELECT " +
+                "ROWID AS _id, " +
                 EstructuraBBDD.PuntosTotales.COLUMN_NAME_PILOTO + ", " +
                 EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE + ", " +
                 "SUM(" + EstructuraBBDD.PuntosTotales.COLUMN_NAME_PUNTOS + ") AS total_puntos " +
                 "FROM " + EstructuraBBDD.PuntosTotales.TABLE_NAME + " " +
                 "GROUP BY " + EstructuraBBDD.PuntosTotales.COLUMN_NAME_PILOTO + ", " + EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE;
 
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") String nombrePiloto = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.PuntosTotales.COLUMN_NAME_PILOTO));
-                @SuppressLint("Range") String coche = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE));
-                @SuppressLint("Range") int totalPuntos = cursor.getInt(cursor.getColumnIndex("total_puntos"));
-
-                puntosTotalesList.add(new PuntosTotales(nombrePiloto, coche, totalPuntos));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-        return puntosTotalesList;
+        return db.rawQuery(query, null);
     }
 }
