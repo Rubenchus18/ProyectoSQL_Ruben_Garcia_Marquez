@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     String nombre, contraseña;
     SQLiteHelper helper;
     CheckBox acuerdos;
+    MediaPlayer mediaPlayer; // Variable para el MediaPlayer
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         helper = new SQLiteHelper(this);
         db = helper.getWritableDatabase();
+
+        // Inicializar el MediaPlayer y reproducir la música
+        mediaPlayer = MediaPlayer.create(this, R.raw.musicafondo);
+        mediaPlayer.setLooping(true); // Repetir la música
+        mediaPlayer.start();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -48,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         inicioSesion = findViewById(R.id.buttonInciarSesion);
         registro = findViewById(R.id.buttonRegistarse);
         acuerdos = findViewById(R.id.checkBox);
-
 
         inicioSesion.setOnClickListener(view -> {
             obtenerValores();
@@ -64,6 +70,17 @@ public class MainActivity extends AppCompatActivity {
                 crearUsuario(view);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Detener y liberar el MediaPlayer al destruir la actividad
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     public void inserta(String nombre, String contraseña) {
@@ -114,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     public void registrarUsuario(View view, String nombre, String contraseña) {
         try {
             Cursor cursor = db.rawQuery("SELECT * FROM Usuario WHERE nombre = ? AND contraseña = ?", new String[]{nombre, contraseña});
-            if ( cursor.getCount() > 0) {
+            if (cursor.getCount() > 0) {
                 if (!acuerdos.isChecked()) {
                     Toast.makeText(getApplicationContext(), "ACEPTE LOS ACUERDOS DE USUARIO", Toast.LENGTH_LONG).show();
                 } else {

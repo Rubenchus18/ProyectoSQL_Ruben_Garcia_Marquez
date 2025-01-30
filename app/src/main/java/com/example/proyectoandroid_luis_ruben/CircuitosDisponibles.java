@@ -2,6 +2,7 @@ package com.example.proyectoandroid_luis_ruben;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,12 +19,14 @@ public class CircuitosDisponibles extends AppCompatActivity {
     public SQLiteHelper dbHelper;
     public String copaElegida;
     public ImageView atras;
-
+    MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circuitos_disponibles);
-
+        mediaPlayer = MediaPlayer.create(this, R.raw.musicafondo);
+        mediaPlayer.setLooping(true); // Repetir la música
+        mediaPlayer.start();
         lista = findViewById(R.id.listaOps);
         dbHelper = new SQLiteHelper(this);
 
@@ -85,7 +88,7 @@ public class CircuitosDisponibles extends AppCompatActivity {
 
     private void siguienteActividad() {
         Intent intent = new Intent(CircuitosDisponibles.this, GestionCompetidores.class);
-        intent.putExtra("copaElegida", copaElegida); // Pasar el nombre de la copa
+        intent.putExtra("copaElegida", copaElegida);
         startActivity(intent);
     }
 }

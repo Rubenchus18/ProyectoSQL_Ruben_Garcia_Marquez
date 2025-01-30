@@ -3,6 +3,7 @@ package com.example.proyectoandroid_luis_ruben;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,13 +36,17 @@ public class Informacion extends AppCompatActivity {
     ImageView añadir, eliminar, editar;
     TextView edicion;
     SQLiteHelper dbHelper;
-
+    MediaPlayer mediaPlayer;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_informacion);
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.musicafondo);
+        mediaPlayer.setLooping(true); // Repetir la música
+        mediaPlayer.start();
 
         toolbar = findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);

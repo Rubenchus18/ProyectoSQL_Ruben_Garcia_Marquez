@@ -3,6 +3,7 @@ package com.example.proyectoandroid_luis_ruben;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,11 +38,14 @@ public class GestionCompetidores extends AppCompatActivity {
     Piloto pilotoSeleccionado;
     SQLiteHelper dbHelper;
     Button buttonVerResultados;
-
+    MediaPlayer mediaPlayer;
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mediaPlayer = MediaPlayer.create(this, R.raw.musicafondo);
+        mediaPlayer.setLooping(true); // Repetir la música
+        mediaPlayer.start();
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_gestion_competidores);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

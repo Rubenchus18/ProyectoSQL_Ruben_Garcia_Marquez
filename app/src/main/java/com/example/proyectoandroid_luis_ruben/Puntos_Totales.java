@@ -1,5 +1,6 @@
 package com.example.proyectoandroid_luis_ruben;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,13 +17,15 @@ public class Puntos_Totales extends AppCompatActivity {
 
     public ListView listViewPuntos;
     public SQLiteHelper dbHelper;
-
+    MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_puntos_totales);
-
+        mediaPlayer = MediaPlayer.create(this, R.raw.musicafondo);
+        mediaPlayer.setLooping(true); // Repetir la música
+        mediaPlayer.start();
         listViewPuntos = findViewById(R.id.listviewmostrarfinal);
         dbHelper = new SQLiteHelper(this);
 
