@@ -47,12 +47,11 @@ public class CircuitosDisponibles extends AppCompatActivity {
         Cursor cursor = dbHelper.obtenerCopas();
         if (cursor != null && cursor.getCount() > 0) {
             String[] fromColumns = {
-                    EstructuraBBDD.Copa.COLUMN_NAME_NOMBRE, // Nombre de la copa
-                    EstructuraBBDD.Copa.COLUMN_NAME_DISTANCIA // Distancia de la copa
+                    EstructuraBBDD.Copa.COLUMN_NAME_NOMBRE,
+                    EstructuraBBDD.Copa.COLUMN_NAME_DISTANCIA
             };
             int[] toViews = {
                     R.id.textViewNombreCopa,
-
             };
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                     this,
