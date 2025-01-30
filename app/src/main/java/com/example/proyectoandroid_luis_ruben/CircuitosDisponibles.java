@@ -18,15 +18,14 @@ public class CircuitosDisponibles extends AppCompatActivity {
     public SQLiteHelper dbHelper;
     public String copaElegida;
     public ImageView atras;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circuitos_disponibles);
 
-
         lista = findViewById(R.id.listaOps);
         dbHelper = new SQLiteHelper(this);
-
 
         cargarCopas();
         valoresCopa();
@@ -38,10 +37,12 @@ public class CircuitosDisponibles extends AppCompatActivity {
             }
         });
     }
+
     public void moverActividad() {
         Intent i = new Intent(this, Informacion.class);
         startActivity(i);
     }
+
     public void cargarCopas() {
         Cursor cursor = dbHelper.obtenerCopas();
         if (cursor != null && cursor.getCount() > 0) {
@@ -85,7 +86,7 @@ public class CircuitosDisponibles extends AppCompatActivity {
 
     private void siguienteActividad() {
         Intent intent = new Intent(CircuitosDisponibles.this, GestionCompetidores.class);
-        intent.putExtra("copaElegida", copaElegida);
+        intent.putExtra("copaElegida", copaElegida); // Pasar el nombre de la copa
         startActivity(intent);
     }
 }

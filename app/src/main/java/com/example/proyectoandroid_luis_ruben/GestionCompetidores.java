@@ -51,9 +51,10 @@ public class GestionCompetidores extends AppCompatActivity {
         });
         dbHelper = new SQLiteHelper(this);
 
-        String datosCopa = getIntent().getStringExtra("circuito");
+        // Obtener el nombre de la copa del Intent
+        String datosCopa = getIntent().getStringExtra("copaElegida");
         carreraElegida = findViewById(R.id.imprimirCarrera);
-        carreraElegida.setText(datosCopa);
+        carreraElegida.setText(datosCopa); // Mostrar el nombre de la copa
 
         nombrecoche = findViewById(R.id.editTextnombrecoche);
         nombrepiloto = findViewById(R.id.editTextnombrepiloto);
@@ -91,6 +92,7 @@ public class GestionCompetidores extends AppCompatActivity {
         buttonVerResultados = findViewById(R.id.buttonverresultado);
         buttonVerResultados.setOnClickListener(v -> {
             Intent intent = new Intent(GestionCompetidores.this, Mostrar_resultado_carrera.class);
+            intent.putExtra("copaElegida", carreraElegida.getText().toString()); // Pasar el nombre de la copa
             startActivity(intent);
         });
     }
