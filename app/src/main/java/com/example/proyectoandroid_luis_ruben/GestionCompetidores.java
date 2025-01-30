@@ -169,6 +169,7 @@ public class GestionCompetidores extends AppCompatActivity {
                 encontrado = true;
                 dbHelper.editarPiloto(pilotoOriginal, piloto.isEmpty() ? pilotoOriginal : piloto, coche);
                 Toast.makeText(this, "Coche editado", Toast.LENGTH_SHORT).show();
+
             }
 
             if (encontrado) {
