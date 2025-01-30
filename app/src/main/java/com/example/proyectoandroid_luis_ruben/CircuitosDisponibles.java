@@ -85,7 +85,7 @@ public class CircuitosDisponibles extends AppCompatActivity {
 
     private void siguienteActividad() {
         Intent intent = new Intent(CircuitosDisponibles.this, GestionCompetidores.class);
-        intent.putExtra("copaElegida", copaElegida); // Pasar el nombre de la copa
+        intent.putExtra("copaElegida", copaElegida);
         startActivity(intent);
     }
 }
