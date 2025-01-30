@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,7 +28,6 @@ public class GestionCompetidores extends AppCompatActivity {
     EditText nombreeliminar;
     EditText editarPiloto, editarCoche;
     TextView carreraElegida;
-    PilotoAdapter pilotosArrayAdapter;
     ArrayList<Piloto> listaPilotos;
     ListView listViewPilotos;
     ImageView retrocedemos;
@@ -67,7 +67,8 @@ public class GestionCompetidores extends AppCompatActivity {
         imprimirInformacion = findViewById(R.id.infoPiloto);
 
         listaPilotos = new ArrayList<>();
-        pilotosArrayAdapter = new PilotoAdapter(this, listaPilotos);
+        // Crear el adaptador directamente aquí
+        ArrayAdapter<Piloto> pilotosArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaPilotos);
         listViewPilotos.setAdapter(pilotosArrayAdapter);
 
         cargarPilotos();
@@ -105,7 +106,8 @@ public class GestionCompetidores extends AppCompatActivity {
             if (!dbHelper.pilotoExiste(nombrePiloto)) {
                 dbHelper.insertarPiloto(piloto);
                 listaPilotos.add(piloto);
-                pilotosArrayAdapter.notifyDataSetChanged();
+                // Notificar al adaptador que los datos han cambiado
+                ((ArrayAdapter<Piloto>) listViewPilotos.getAdapter()).notifyDataSetChanged();
                 nombrepiloto.setText("");
                 nombrecoche.setText("");
                 Toast.makeText(this, "Piloto añadido correctamente.", Toast.LENGTH_SHORT).show();
@@ -122,7 +124,7 @@ public class GestionCompetidores extends AppCompatActivity {
         if (!nombrePilotoAEliminar.isEmpty()) {
             if (dbHelper.eliminarPiloto(nombrePilotoAEliminar)) {
                 listaPilotos.removeIf(piloto -> piloto.getNombrepiloto().equalsIgnoreCase(nombrePilotoAEliminar));
-                pilotosArrayAdapter.notifyDataSetChanged();
+                ((ArrayAdapter<Piloto>) listViewPilotos.getAdapter()).notifyDataSetChanged();
                 nombreeliminar.setText("");
                 Toast.makeText(this, "Piloto eliminado.", Toast.LENGTH_SHORT).show();
             } else {
@@ -139,7 +141,7 @@ public class GestionCompetidores extends AppCompatActivity {
             imprimirInformacion.setText(pilotoSeleccionado.getNombrepiloto() + " - " + pilotoSeleccionado.getCoche());
             editarPiloto.setVisibility(View.VISIBLE);
             editarCoche.setVisibility(View.VISIBLE);
-            editar.setVisibility(View.VISIBLE);
+            editar.setVisibility(View .VISIBLE);
         });
     }
 
@@ -183,13 +185,19 @@ public class GestionCompetidores extends AppCompatActivity {
 
         if (cursor != null && cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
-                @SuppressLint("Range") String nombrePiloto = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE));
-                @SuppressLint("Range") String coche = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Piloto.COLUMN_NAME_COCHE));
+                @SuppressLint("Range")
+                String nombrePiloto = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Piloto.COLUMN_NAME_NOMBRE));
+
+                @SuppressLint("Range")
+                String coche = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.Piloto.COLUMN_NAME_COCHE));
                 listaPilotos.add(new Piloto(nombrePiloto, coche));
             }
-            pilotosArrayAdapter.notifyDataSetChanged();
+            ((ArrayAdapter<Piloto>) listViewPilotos.getAdapter()).notifyDataSetChanged();
         } else {
             Toast.makeText(this, "No se encontraron pilotos en la base de datos.", Toast.LENGTH_SHORT).show();
+        }
+        if (cursor != null) {
+            cursor.close();
         }
     }
 }

@@ -135,16 +135,32 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Cursor obtenerPuntosTotales() {
+    public ArrayList<PuntosTotales> obtenerPuntosTotales() {
+        ArrayList<PuntosTotales> puntosTotalesList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
+
         String query = "SELECT " +
-                "ROWID AS _id, " +
                 EstructuraBBDD.PuntosTotales.COLUMN_NAME_PILOTO + ", " +
                 EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE + ", " +
                 "SUM(" + EstructuraBBDD.PuntosTotales.COLUMN_NAME_PUNTOS + ") AS total_puntos " +
                 "FROM " + EstructuraBBDD.PuntosTotales.TABLE_NAME + " " +
                 "GROUP BY " + EstructuraBBDD.PuntosTotales.COLUMN_NAME_PILOTO + ", " + EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE;
 
-        return db.rawQuery(query, null);
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String nombrePiloto = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.PuntosTotales.COLUMN_NAME_PILOTO));
+                @SuppressLint("Range") String coche = cursor.getString(cursor.getColumnIndex(EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE));
+                @SuppressLint("Range") int totalPuntos = cursor.getInt(cursor.getColumnIndex("total_puntos"));
+                puntosTotalesList.add(new PuntosTotales(nombrePiloto, coche, totalPuntos));
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+        return puntosTotalesList;
     }
 }

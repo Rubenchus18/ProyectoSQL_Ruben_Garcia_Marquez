@@ -57,8 +57,6 @@ public final class EstructuraBBDD {
             "DROP TABLE IF EXISTS " +
                     PuntosTotales.TABLE_NAME;
 
-    private EstructuraBBDD() {}
-
     public static class Piloto implements BaseColumns {
         public static final String TABLE_NAME_PLAYLIST = "Piloto";
         public static final String COLUMN_NAME_NOMBRE = "Nombre";

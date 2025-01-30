@@ -1,19 +1,19 @@
 package com.example.proyectoandroid_luis_ruben;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-
+import java.util.ArrayList;
 
 public class Puntos_Totales extends AppCompatActivity {
+
     public ListView listViewPuntos;
     public SQLiteHelper dbHelper;
 
@@ -33,34 +33,23 @@ public class Puntos_Totales extends AppCompatActivity {
                 finish();
             }
         });
-
         mostrarPuntosTotales();
     }
 
     public void mostrarPuntosTotales() {
-        Cursor cursor = dbHelper.obtenerPuntosTotales();
-        if (cursor != null && cursor.getCount() > 0) {
-            String[] fromColumns = {
-                    EstructuraBBDD.PuntosTotales.COLUMN_NAME_PILOTO,
-                    EstructuraBBDD.PuntosTotales.COLUMN_NAME_COCHE,
-                    "total_puntos"
-            };
-            int[] toViews = {
-                    R.id.textViewPiloto,
-                    R.id.textViewCoche,
-                    R.id.textViewPuntos
-            };
-            SimpleCursorAdapter adapter = new SimpleCursorAdapter(
-                    this,
-                    R.layout.item_puntos_totales,
-                    cursor,
-                    fromColumns,
-                    toViews,
-                    0
-            );
-            listViewPuntos.setAdapter(adapter);
-        } else {
+        ArrayList<PuntosTotales> puntosTotalesList = dbHelper.obtenerPuntosTotales();
+        ArrayList<String> resultados = new ArrayList<>();
+
+        if (puntosTotalesList.isEmpty()) {
             Toast.makeText(this, "No hay todavía resultados", Toast.LENGTH_SHORT).show();
+        } else {
+            for (PuntosTotales puntos : puntosTotalesList) {
+                String resultado = "Piloto: " + puntos.getNombrePiloto() + " - Coche: " + puntos.getCoche() + " - Puntos: " + puntos.getPuntos();
+                resultados.add(resultado);
+            }
         }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, resultados);
+        listViewPuntos.setAdapter(adapter);
     }
 }

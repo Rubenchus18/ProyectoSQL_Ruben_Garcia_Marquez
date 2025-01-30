@@ -52,7 +52,7 @@ public class CircuitosDisponibles extends AppCompatActivity {
             };
             int[] toViews = {
                     R.id.textViewNombreCopa,
-                    R.id.textViewDistanciaCopa
+
             };
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                     this,

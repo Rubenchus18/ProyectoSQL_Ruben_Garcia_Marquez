@@ -1,8 +1,8 @@
 package com.example.proyectoandroid_luis_ruben;
 
 public class Copa {
-    private String nombre;
-    private String distancia;
+    public String nombre;
+    public String distancia;
 
 
     public Copa(String nombre, String distancia) {
