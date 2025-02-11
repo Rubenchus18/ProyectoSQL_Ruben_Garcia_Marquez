@@ -36,7 +36,7 @@ public class Informacion extends AppCompatActivity {
     ImageView añadir, eliminar, editar;
     TextView edicion;
     SQLiteHelper dbHelper;
-    MediaPlayer mediaPlayer;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +44,7 @@ public class Informacion extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_informacion);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.musicafondo);
-        mediaPlayer.setLooping(true); // Repetir la música
-        mediaPlayer.start();
+
 
         toolbar = findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
@@ -106,6 +104,12 @@ public class Informacion extends AppCompatActivity {
         } else if (item.getItemId() == R.id.Mostrar_Resultado) {
             Intent l = new Intent(this, Puntos_Totales.class);
             startActivity(l);
+        }else if (item.getItemId() == R.id.Fotos) {
+            Intent m = new Intent(this, Fotos.class);
+            startActivity(m);
+        }else if (item.getItemId() == R.id.Videos) {
+            Intent m = new Intent(this, Videos.class);
+            startActivity(m);
         }
         return super.onOptionsItemSelected(item);
     }

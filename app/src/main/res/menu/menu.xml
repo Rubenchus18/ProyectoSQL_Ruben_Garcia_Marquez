@@ -14,6 +14,12 @@
         android:id="@+id/Mostrar_Resultado"
         android:title="@string/Mostrar_Resultado" />
     <item
+        android:id="@+id/Fotos"
+        android:title="Fotos" />
+    <item
+        android:id="@+id/Videos"
+        android:title="Videos" />
+    <item
         android:id="@+id/Desconectarse"
         android:title="@string/Desconectarte"
         app:showAsAction="never" />

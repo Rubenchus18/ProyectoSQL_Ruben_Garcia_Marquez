@@ -19,14 +19,11 @@ public class CircuitosDisponibles extends AppCompatActivity {
     public SQLiteHelper dbHelper;
     public String copaElegida;
     public ImageView atras;
-    MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circuitos_disponibles);
-        mediaPlayer = MediaPlayer.create(this, R.raw.musicafondo);
-        mediaPlayer.setLooping(true); // Repetir la música
-        mediaPlayer.start();;;
+
         lista = findViewById(R.id.listaOps);
         dbHelper = new SQLiteHelper(this);
 

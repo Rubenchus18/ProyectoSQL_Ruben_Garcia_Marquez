@@ -29,9 +29,7 @@ public class Mostrar_resultado_carrera extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_mostrar_resultado_carrera);
-        mediaPlayer = MediaPlayer.create(this, R.raw.musicafondo);
-        mediaPlayer.setLooping(true); // Repetir la música
-        mediaPlayer.start();
+
         listViewResultados = findViewById(R.id.listviewmostrarresultado);
         dbHelper = new SQLiteHelper(this);
 

@@ -19,13 +19,10 @@ import androidx.core.view.WindowInsetsCompat;
 public class SobreNosotros extends AppCompatActivity implements View.OnClickListener {
     ImageView imagenRetroceder;
     TextView texto1, texto2;
-    MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mediaPlayer = MediaPlayer.create(this, R.raw.musicafondo);
-        mediaPlayer.setLooping(true); // Repetir la música
-        mediaPlayer.start();
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sobre_nosotros);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
