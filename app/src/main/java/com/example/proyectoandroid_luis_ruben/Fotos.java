@@ -27,6 +27,7 @@ public class Fotos extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_CAMERA_PERMISSION = 100;
     private ImageView imagenCamara;
+    private ImageView imagenVolver;
     private ListView listView;
     private ArrayList<Bitmap> imageList;
     private ImageAdapter imageAdapter;
@@ -45,6 +46,7 @@ public class Fotos extends AppCompatActivity {
         });
 
         imagenCamara = findViewById(R.id.imagenCamara);
+        imagenVolver = findViewById(R.id.actividadAnterior);
         listView = findViewById(R.id.ListaFotos);
         imageList = new ArrayList<>();
         imageAdapter = new ImageAdapter(this, imageList);
@@ -56,6 +58,12 @@ public class Fotos extends AppCompatActivity {
             } else {
                 dispatchTakePictureIntent();
             }
+        });
+
+        imagenVolver.setOnClickListener(v -> {
+            Intent intent = new Intent(Fotos.this, Informacion.class);
+            startActivity(intent);
+            finish();
         });
     }
 

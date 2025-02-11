@@ -1,7 +1,9 @@
 package com.example.proyectoandroid_luis_ruben;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -12,13 +14,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Videos extends AppCompatActivity {
-
+    private ImageView imagenVolver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_videos);
-
+        imagenVolver = findViewById(R.id.actividadAnterior);
         VideoView video1 = findViewById(R.id.videoView5);
         VideoView video2 = findViewById(R.id.videoView13);
         VideoView video3 = findViewById(R.id.videoView12);
@@ -56,6 +58,12 @@ public class Videos extends AppCompatActivity {
         video1.start();
         video2.start();
         video3.start();
+
+        imagenVolver.setOnClickListener(v -> {
+            Intent intent = new Intent(Videos.this, Informacion.class);
+            startActivity(intent);
+            finish();
+        });
 
     }
 }
