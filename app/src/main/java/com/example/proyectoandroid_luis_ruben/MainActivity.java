@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     SQLiteHelper helper;
     CheckBox acuerdos;
     MediaPlayer mediaPlayer; // Variable para el MediaPlayer
+    ImageView playButton, pauseButton; // Variables para los ImageView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +40,9 @@ public class MainActivity extends AppCompatActivity {
         helper = new SQLiteHelper(this);
         db = helper.getWritableDatabase();
 
-        // Inicializar el MediaPlayer y reproducir la música
+        // Inicializar el MediaPlayer
         mediaPlayer = MediaPlayer.create(this, R.raw.musicafondo);
         mediaPlayer.setLooping(true); // Repetir la música
-        mediaPlayer.start();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -55,6 +56,23 @@ public class MainActivity extends AppCompatActivity {
         inicioSesion = findViewById(R.id.buttonInciarSesion);
         registro = findViewById(R.id.buttonRegistarse);
         acuerdos = findViewById(R.id.checkBox);
+        playButton = findViewById(R.id.imageView12); // Inicializar el ImageView de play
+        pauseButton = findViewById(R.id.imageView10); // Inicializar el ImageView de pause
+
+        // Configurar los listeners para los botones de música
+        playButton.setOnClickListener(view -> {
+            if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+                mediaPlayer.start();
+                Toast.makeText(getApplicationContext(), "Música Reproducida", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        pauseButton.setOnClickListener(view -> {
+            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+                Toast.makeText(getApplicationContext(), "Música Pausada", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         inicioSesion.setOnClickListener(view -> {
             obtenerValores();
