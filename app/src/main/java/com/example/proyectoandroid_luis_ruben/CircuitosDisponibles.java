@@ -26,7 +26,7 @@ public class CircuitosDisponibles extends AppCompatActivity {
         setContentView(R.layout.activity_circuitos_disponibles);
         mediaPlayer = MediaPlayer.create(this, R.raw.musicafondo);
         mediaPlayer.setLooping(true); // Repetir la música
-        mediaPlayer.start();;
+        mediaPlayer.start();;;
         lista = findViewById(R.id.listaOps);
         dbHelper = new SQLiteHelper(this);
 
