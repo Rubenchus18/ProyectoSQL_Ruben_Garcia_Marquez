@@ -37,5 +37,5 @@
     <string name="Desconectarte">Disconnect</string>
     <string name="Fotos">Photos</string>
     <string name="Videos">Videos </string>
-
+    <string name="Grabacion_de_voz">Voice recording</string>
 </resources>

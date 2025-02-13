@@ -17,8 +17,8 @@
         android:id="@+id/Fotos"
         android:title="@string/Fotos" />
     <item
-        android:id="@+id/Videos"
-        android:title="@string/Videos" />
+        android:id="@+id/Grabar_Voz"
+        android:title="@string/Grabacion_de_voz" />
     <item
         android:id="@+id/Desconectarse"
         android:title="@string/Desconectarte"

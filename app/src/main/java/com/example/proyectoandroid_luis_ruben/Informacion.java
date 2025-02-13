@@ -3,18 +3,15 @@ package com.example.proyectoandroid_luis_ruben;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -107,8 +104,8 @@ public class Informacion extends AppCompatActivity {
         }else if (item.getItemId() == R.id.Fotos) {
             Intent m = new Intent(this, Fotos.class);
             startActivity(m);
-        }else if (item.getItemId() == R.id.Videos) {
-            Intent m = new Intent(this, Videos.class);
+        }else if (item.getItemId() == R.id.Grabar_Voz) {
+            Intent m = new Intent(this, GrabacionVoz.class);
             startActivity(m);
         }
         return super.onOptionsItemSelected(item);
