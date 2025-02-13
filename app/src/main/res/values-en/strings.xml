@@ -35,5 +35,7 @@
     <string name="Mostrar_Resultado">Show Result</string>
     <string name="Sobre_Nosotros">About us</string>
     <string name="Desconectarte">Disconnect</string>
+    <string name="Fotos">Photos</string>
+    <string name="Videos">Videos </string>
 
 </resources>

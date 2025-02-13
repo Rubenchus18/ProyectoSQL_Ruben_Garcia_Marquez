@@ -21,19 +21,12 @@ public class Videos extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_videos);
         imagenVolver = findViewById(R.id.actividadAnterior);
-        VideoView video1 = findViewById(R.id.videoView5);
+
         VideoView video2 = findViewById(R.id.videoView13);
         VideoView video3 = findViewById(R.id.videoView12);
 
 
-        String videoPath1 = "android.resource://" + getPackageName() + "/" + R.raw.carrera1;
-        Uri uri1 = Uri.parse(videoPath1);
-        video1.setVideoURI(uri1);
 
-        MediaController mediaController1 = new MediaController(this);
-        video1.setMediaController(mediaController1);
-        mediaController1.setAnchorView(video1);
-        video1.requestFocus();;
 
 
         String videoPath2 = "android.resource://" + getPackageName() + "/" + R.raw.carrera2;
@@ -55,7 +48,6 @@ public class Videos extends AppCompatActivity {
         video3.requestFocus();
 
 
-        video1.start();
         video2.start();
         video3.start();
 
