@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     String nombre, contraseña;
     SQLiteHelper helper;
     CheckBox acuerdos;
-    MediaPlayer mediaPlayer; // Variable para el MediaPlayer
-    ImageView playButton, pauseButton; // Variables para los ImageView
+    MediaPlayer mediaPlayer;
+    ImageView botonstart, pausar; // Variables para los ImageView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +56,18 @@ public class MainActivity extends AppCompatActivity {
         inicioSesion = findViewById(R.id.buttonInciarSesion);
         registro = findViewById(R.id.buttonRegistarse);
         acuerdos = findViewById(R.id.checkBox);
-        playButton = findViewById(R.id.imageView12); // Inicializar el ImageView de play
-        pauseButton = findViewById(R.id.imageView10); // Inicializar el ImageView de pause
+        botonstart = findViewById(R.id.imageView12); // Inicializar el ImageView de play
+        pausar = findViewById(R.id.imageView10); // Inicializar el ImageView de pause
 
         // Configurar los listeners para los botones de música
-        playButton.setOnClickListener(view -> {
+        botonstart.setOnClickListener(view -> {
             if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
                 mediaPlayer.start();
                 Toast.makeText(getApplicationContext(), "Música Reproducida", Toast.LENGTH_SHORT).show();
             }
         });
 
-        pauseButton.setOnClickListener(view -> {
+        pausar.setOnClickListener(view -> {
             if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
                 Toast.makeText(getApplicationContext(), "Música Pausada", Toast.LENGTH_SHORT).show();

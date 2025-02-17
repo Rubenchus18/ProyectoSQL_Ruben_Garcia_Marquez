@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -28,12 +28,11 @@ public class GrabacionVoz extends AppCompatActivity {
     private Button buttonDetenerGrabacion;
     private Button buttonEscucharGrabacion;
     private ImageView actividadAnterior;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_grabacion_voz);
-
 
         fileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/grabacion.3gp";
 
@@ -42,10 +41,13 @@ public class GrabacionVoz extends AppCompatActivity {
         buttonEscucharGrabacion = findViewById(R.id.buttonEscucharGrabacion);
         actividadAnterior = findViewById(R.id.actividadAnterior);
 
-
+        // Verificar permisos
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.READ_MEDIA_AUDIO
+            }, 0);
         }
 
         buttonIniciarGrabacion.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +70,7 @@ public class GrabacionVoz extends AppCompatActivity {
                 escucharGrabacion();
             }
         });
+
         actividadAnterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,40 +79,81 @@ public class GrabacionVoz extends AppCompatActivity {
         });
     }
 
-    private void iniciarGrabacion() {
-        mediaRecorder = new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        mediaRecorder.setOutputFile(fileName);
+    public void iniciarGrabacion() {
+        if (mediaRecorder == null) {
+            mediaRecorder = new MediaRecorder();
+            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            mediaRecorder.setOutputFile(fileName);
 
-        try {
-            mediaRecorder.prepare();
-            mediaRecorder.start();
-            Toast.makeText(this, "Grabación iniciada", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                mediaRecorder.prepare();
+                mediaRecorder.start();
+                Toast.makeText(this, "Grabación iniciada", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error al iniciar la grabación", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Ya se está grabando", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void detenerGrabacion() {
+    public void detenerGrabacion() {
         if (mediaRecorder != null) {
             mediaRecorder.stop();
             mediaRecorder.release();
             mediaRecorder = null;
             Toast.makeText(this, "Grabación detenida", Toast.LENGTH_SHORT).show();
+
+            escucharGrabacion();
+        } else {
+            Toast.makeText(this, "No hay grabación en curso", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void escucharGrabacion() {
-        mediaPlayer = new MediaPlayer();
-        try {
-            mediaPlayer.setDataSource(fileName);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-            Toast.makeText(this, "Reproduciendo grabación", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void escucharGrabacion() {
+        if (mediaPlayer == null) {
+            mediaPlayer = new MediaPlayer();
+            try {
+                mediaPlayer.setDataSource(fileName);
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+                Toast.makeText(this, "Reproduciendo grabación", Toast.LENGTH_SHORT).show();
+
+
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                        mediaPlayer = null;
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error al reproducir la grabación", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Ya se está reproduciendo", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 0) {
+            if (grantResults.length > 0) {
+                boolean audioPermissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                boolean writePermissionGranted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+                if (audioPermissionGranted && writePermissionGranted) {
+                    Toast.makeText(this, "Permisos concedidos", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Permisos denegados. La aplicación no funcionará correctamente.", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 

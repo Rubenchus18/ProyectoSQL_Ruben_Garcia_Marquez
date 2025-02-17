@@ -107,6 +107,9 @@ public class Informacion extends AppCompatActivity {
         }else if (item.getItemId() == R.id.Grabar_Voz) {
             Intent m = new Intent(this, GrabacionVoz.class);
             startActivity(m);
+        }else if (item.getItemId() == R.id.Videos) {
+            Intent m = new Intent(this, Videos.class);
+            startActivity(m);
         }
         return super.onOptionsItemSelected(item);
     }
